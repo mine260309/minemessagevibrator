@@ -158,21 +158,12 @@ public class MineVibrationSetting extends Activity {
     }
     
     private void EnableMessageChecker() {
-		PackageManager pm = mineContext.getPackageManager();
-		ComponentName cn = new ComponentName(mineContext, MineMessageReceiver.class);
 		MineLog.v("Enable Message Checker");
-		pm.setComponentEnabledSetting(cn, 
-				PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-				PackageManager.DONT_KILL_APP);
+		MineVibrationToggler.EnableMessageVibration(mineContext, true);
     }
     private void DisableMessageChecker() {
-		PackageManager pm = mineContext.getPackageManager();
-		ComponentName cn = new ComponentName(mineContext, MineMessageReceiver.class);
 		MineLog.v("Disable Message Checker");
-		
-        pm.setComponentEnabledSetting(cn,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
+		MineVibrationToggler.EnableMessageVibration(mineContext, false);
     }
     
     private void ToogleMessageChecker() {
