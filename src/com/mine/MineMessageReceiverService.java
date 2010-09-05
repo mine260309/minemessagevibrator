@@ -20,7 +20,6 @@ public class MineMessageReceiverService extends Service {
 	private Context context;
 	private MineMessageServiceHandler mServiceHandler;
 	private Looper mServiceLooper;
-	private int mResultCode;
 	  
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -42,7 +41,6 @@ public class MineMessageReceiverService extends Service {
 	public void onStart(Intent intent, int startId) {
 	  MineLog.v("MineMessageReceiverService.onStart()");
 
-	  mResultCode = intent != null ? intent.getIntExtra("result", 0) : 0;
 	  Message msg = mServiceHandler.obtainMessage();
 	  msg.arg1 = startId;
 	  msg.obj = intent;

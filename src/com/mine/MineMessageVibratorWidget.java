@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.RemoteViews;
@@ -16,10 +15,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 	private static final int BUTTON_TOGGLE_VIBRATE = 0;
 	private static final ComponentName THIS_WIDGET = new ComponentName("com.mine",
 	"com.mine.MineMessageVibratorWidget");
-	
-	private static boolean vibrate_enabled = false;
-//	private Context context;
-	private SharedPreferences sp;
+
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -29,7 +25,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 			appWidgetManager.updateAppWidget(appWidgetIds[i], view);
 		}
 	}
-	
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
@@ -66,12 +62,15 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 	
 	private void toggleVibration(Context context) {
 		MineLog.v("Toggle vibration");
-		// TODO
+
+		// Get setting from preference
+		boolean vibrate_enabled = MineVibrationToggler.GetVibrationMode(context);
 		vibrate_enabled = vibrate_enabled?false:true;
 	    MineVibrationToggler.EnableMessageVibration(context, vibrate_enabled);
 	}
 	
 	public static void updateWidget(Context context) {
+		MineLog.v("updateWidget...");
 		RemoteViews views = makeVibrateView(context, -1);
 		final AppWidgetManager gm = AppWidgetManager.getInstance(context);
 		gm.updateAppWidget(THIS_WIDGET, views);
@@ -88,6 +87,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 	}
 	
 	private static void updateButtons(RemoteViews views, Context context) {
+		boolean vibrate_enabled = MineVibrationToggler.GetVibrationMode(context);
 		if (vibrate_enabled) {
 			views.setImageViewResource(R.id.btn_toggle_vibrate, R.drawable.mes_button_vibrate);
 		}

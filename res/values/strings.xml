@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, MineVibrationSetting!</string>
     <string name="app_name">MineVibrationSetting</string>
+<string name="widget_name">MineSMSVibrator</string>
 </resources>
