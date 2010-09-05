@@ -14,7 +14,8 @@ public class MineVibrationSetting extends Activity {
 	private ArrayAdapter<String> mainListAdapter;
 	private Context mineContext;
 	
-	private String ToogleVibrationSetting = "Toogle Vibration";
+	private String ToggleVibrationSetting;
+	private String VibrationInfoString;
 	
 	private boolean messageCheckerEnabled = false;
 	
@@ -24,17 +25,19 @@ public class MineVibrationSetting extends Activity {
         super.onCreate(savedInstanceState);
         
         mineContext = this;
+        ToggleVibrationSetting = getString(R.string.toggle_vibration_menu);
+        VibrationInfoString = getString(R.string.vibration_info);
         mainSettingListView = new ListView(this);
         
         mainListAdapter = new ArrayAdapter<String>(this, R.layout.textview);
         mainSettingListView.setAdapter(mainListAdapter);
-    	mainListAdapter.add(ToogleVibrationSetting);
+    	mainListAdapter.add(ToggleVibrationSetting);
     	
     	mainSettingListView.setOnItemClickListener(new OnItemClickListener() {
 			    public void onItemClick(AdapterView<?> parent, View view,
 			        int position, long id) {
 			        String menuItem = ((TextView) view).getText().toString();
-			    	if (menuItem == ToogleVibrationSetting) {
+			    	if (menuItem == ToggleVibrationSetting) {
 			    		ToogleMessageChecker();
 			    	}
 			    }
@@ -51,8 +54,8 @@ public class MineVibrationSetting extends Activity {
     	else {
     		DisableMessageChecker();
     	}
-		mainListAdapter.add("Message Vibration: " + 
-				(messageCheckerEnabled?"ON":"OFF"));
+		mainListAdapter.add(VibrationInfoString + 
+				(messageCheckerEnabled?" ON":" OFF"));
     }
     
     private void EnableMessageChecker() {
@@ -63,7 +66,7 @@ public class MineVibrationSetting extends Activity {
 		MineLog.v("Disable Message Checker");
 		MineVibrationToggler.EnableMessageVibration(mineContext, false);
     }
-    
+
     private void ToogleMessageChecker() {
     	
     	if (messageCheckerEnabled) {
@@ -78,8 +81,8 @@ public class MineVibrationSetting extends Activity {
 		while (mainListAdapter.getCount() > 1) {
 		    mainListAdapter.remove(mainListAdapter.getItem(mainListAdapter.getCount()-1));
 		}
-		mainListAdapter.add("Message Vibration: " + 
-				(messageCheckerEnabled?"ON":"OFF"));
+		mainListAdapter.add(VibrationInfoString + 
+				(messageCheckerEnabled?" ON":" OFF"));
 		
 		Intent intent = new Intent(MineVibrationToggler.VIBRATION_ACTION_NAME);
 		mineContext.sendBroadcast(intent);

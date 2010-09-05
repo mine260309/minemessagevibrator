@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MineVibrationSetting!</string>
     <string name="app_name">MineVibrationSetting</string>
-<string name="widget_name">MineSMSVibrator</string>
+    <string name="widget_name">MineSMSVibrator</string>
+<string name="toggle_vibration_menu">Toggle Vibration</string>
+<string name="vibration_info">Message Vibration: </string>
+<string name="enable_vibration_info">Enable Message Vibration</string>
+<string name="disable_vibration_info">Disable Message Vibration</string>
 </resources>
