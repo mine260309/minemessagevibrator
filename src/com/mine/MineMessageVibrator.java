@@ -12,7 +12,7 @@ public class MineMessageVibrator {
 	public static void notifySMS(Context context) {
 		MineLog.v("notifying SMS");
 		vibrate(context);
-		
+
 		//TODO: maybe I can use notification instead
 	}
 	
