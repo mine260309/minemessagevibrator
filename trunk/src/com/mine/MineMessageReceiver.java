@@ -12,7 +12,7 @@ public class MineMessageReceiver extends BroadcastReceiver {
 		MineLog.v("Received a message");
 		intent.setClass(context, MineMessageReceiverService.class);
 		intent.putExtra("result", getResultCode());
-		
+
 	    /*
 	     * This service will process the activity and play notifications
 	     * after it's work is done the service will be stopped.

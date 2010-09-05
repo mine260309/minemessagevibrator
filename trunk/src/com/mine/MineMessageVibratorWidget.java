@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 public class MineMessageVibratorWidget extends AppWidgetProvider {
 	
@@ -67,6 +68,15 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 		boolean vibrate_enabled = MineVibrationToggler.GetVibrationMode(context);
 		vibrate_enabled = vibrate_enabled?false:true;
 	    MineVibrationToggler.EnableMessageVibration(context, vibrate_enabled);
+	    
+	    String info;
+	    if(vibrate_enabled) {
+	    	info = context.getString(R.string.enable_vibration_info);
+	    }
+	    else {
+	    	info = context.getString(R.string.disable_vibration_info);
+	    }
+	    Toast.makeText(context,info, Toast.LENGTH_SHORT).show();
 	}
 	
 	public static void updateWidget(Context context) {

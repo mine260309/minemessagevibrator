@@ -23,7 +23,7 @@ public class MineVibrationToggler {
 				PackageManager.DONT_KILL_APP);
 		SetVibrationMode(context, enable);
 	}
-	
+
 	private static void SetVibrationMode(Context context, boolean enable) {
       // We need an Editor object to make preference changes.
       // All objects are from android.context.Context
