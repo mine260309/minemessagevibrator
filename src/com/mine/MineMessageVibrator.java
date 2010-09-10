@@ -2,6 +2,7 @@ package com.mine;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.telephony.TelephonyManager;
 
 
 public class MineMessageVibrator {
@@ -23,8 +24,18 @@ public class MineMessageVibrator {
 		//TODO: maybe I can use notification instead
 	}
 
+	public static void notifyReminder(Context context) {
+		MineLog.v("notifying reminder");
+		vibrate(context);
+	}
+	
 	private static void vibrate(Context context) {
-		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		v.vibrate(1000);
+	    // Get phone state, if not idle then don't vibrate
+	    TelephonyManager mTM = 
+	      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+	    if (mTM.getCallState()== TelephonyManager.CALL_STATE_IDLE) {
+	    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+	    	v.vibrate(1000);
+	    }
 	}
 }

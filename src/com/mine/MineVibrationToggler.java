@@ -21,6 +21,11 @@ public class MineVibrationToggler {
 		pm.setComponentEnabledSetting(cn, 
 				enable_disable,
 				PackageManager.DONT_KILL_APP);
+		
+		if(!enable) {
+			MineMessageReminderReceiver.cancelReminder(context);
+		}
+		
 		SetVibrationMode(context, enable);
 	}
 

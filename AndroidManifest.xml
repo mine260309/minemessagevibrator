@@ -24,9 +24,18 @@
           android:mimeType="application/vnd.wap.mms-message" />
       </intent-filter>
     </receiver>
+    
+    <receiver android:name=".MineMessageReminderReceiver">
+      <intent-filter>
+        <action
+          android:name="com.mine.ACTION_REMIND" />
+      </intent-filter>
+    </receiver>
 
     <service
       android:name=".MineMessageReceiverService" />
+    <service
+      android:name=".MineMessageReminderService" />
     
     <receiver android:name=".MineMessageVibratorWidget" android:label="@string/widget_name">
         <intent-filter>
@@ -44,7 +53,8 @@
     android:name="android.permission.RECEIVE_MMS" />
   <uses-permission
     android:name="android.permission.VIBRATE" />
-  
-  
-
+  <uses-permission
+    android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission
+    android:name="android.permission.READ_SMS" />
 </manifest> 
