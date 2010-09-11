@@ -57,4 +57,5 @@
     android:name="android.permission.READ_PHONE_STATE" />
   <uses-permission
     android:name="android.permission.READ_SMS" />
+<uses-sdk android:minSdkVersion="3"></uses-sdk>
 </manifest> 

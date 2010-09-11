@@ -9,7 +9,7 @@ import android.content.Intent;
 public class MineMessageReminderReceiver extends BroadcastReceiver {
 
 	private static PendingIntent reminderPendingIntent = null;
-	private static final int reminderInterval = 5*60; //reminder interval, in seconds
+//	private static final int reminderInterval = 10;//5*60; //reminder interval, in seconds
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -60,9 +60,10 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	    reminderPendingIntent =
 	        PendingIntent.getBroadcast(context, 0, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 	    
-	    long triggerTime = System.currentTimeMillis() + (reminderInterval * 1000);
+	    int reminderIntervalSeconds = MineVibrationToggler.GetReminderInterval(context);
+	    long triggerTime = System.currentTimeMillis() + (reminderIntervalSeconds * 1000);
 	    MineLog.v("MineMessageReminderReceiver: scheduled reminder notification in " 
-	    		+ reminderInterval + " seconds, Unread: "+unreadNumber);
+	    		+ reminderIntervalSeconds + " seconds, Unread: "+unreadNumber);
 	    am.set(AlarmManager.RTC_WAKEUP, triggerTime, reminderPendingIntent);
 	}
 

@@ -117,11 +117,18 @@ public class MineMessageReminderService extends Service {
 			}
 			int currentUnreadNumber = MineMessageUtils.getUnreadMessagesCount(context);
 			
+			//TODO: maybe I can optimize the code
 			if (currentUnreadNumber < previousUnreadNumber) {
 				MineMessageReminderReceiver.cancelReminder(context);
 			} else {
-				MineMessageVibrator.notifySMS(context);
-				MineMessageReminderReceiver.scheduleReminder(context, currentUnreadNumber);
+				if (MineVibrationToggler.GetReminderEnabled(context)) {
+					// Check if reminder is still enabled or not
+					MineMessageVibrator.notifySMS(context);
+					MineMessageReminderReceiver.scheduleReminder(context, currentUnreadNumber);
+				}
+				else {
+					MineMessageReminderReceiver.cancelReminder(context);
+				}
 			}
 	    }
 	}

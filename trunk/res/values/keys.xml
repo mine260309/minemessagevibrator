@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_vibrate_enable_key">vibrationEnabled</string>
+    <string name="pref_reminder_enable_key">reminderEnabled</string>
+    <string name="pref_reminder_interval_key">reminderInterval</string>
+</resources>

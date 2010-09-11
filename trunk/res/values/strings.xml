@@ -6,4 +6,16 @@
 <string name="vibration_info">Message Vibration: </string>
 <string name="enable_vibration_info">Enable Message Vibration</string>
 <string name="disable_vibration_info">Disable Message Vibration</string>
+<string name="pref_title">Mine Message Vibration Configuration</string>
+<string name="pref_reminder_interval">Reminder Interval</string>
+<string name="pref_vibrate_enable_title">Enable Message Vibration</string>
+<string name="pref_vibrate_enable_summary_on">Message Vibration is Enabled</string>
+<string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
+<string name="pref_reminder_enable_title">Enable Reminder</string>
+<string name="pref_reminder_enable_summary_on">Reminder is Enabled</string>
+<string name="pref_reminder_enable_summary_off">Reminder is Disabled</string>
+<string name="pref_email_title">E-Mail the Developer</string>
+<string name="pref_reminder_interval_title">Reminder Interval</string>
+<string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
+<string name="pref_reminder_interval_default">5</string>
 </resources>

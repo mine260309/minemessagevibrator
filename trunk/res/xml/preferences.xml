@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+<PreferenceCategory android:title="@string/pref_title">
+<com.mine.MineVibrationEnableCheckBoxPreference
+    android:key="@string/pref_vibrate_enable_key"
+    android:title="@string/pref_vibrate_enable_title" 
+    android:summaryOn="@string/pref_vibrate_enable_summary_on" 
+    android:summaryOff="@string/pref_vibrate_enable_summary_off">
+</com.mine.MineVibrationEnableCheckBoxPreference>
+
+<com.mine.MineReminderEnableCheckBoxPreference 
+    android:key="@string/pref_reminder_enable_key"
+    android:title="@string/pref_reminder_enable_title"
+    android:summaryOn="@string/pref_reminder_enable_summary_on" 
+    android:summaryOff="@string/pref_reminder_enable_summary_off"
+>
+</com.mine.MineReminderEnableCheckBoxPreference>
+
+<ListPreference
+    android:key="@string/pref_reminder_interval_key"
+    android:title="@string/pref_reminder_interval_title"
+    android:entries="@array/pref_reminder_interval_entries"
+    android:entryValues="@array/pref_reminder_interval_entries"
+    android:dialogTitle="@string/pref_reminder_interval_dialogTitle"
+    android:defaultValue="@string/pref_reminder_interval_default"
+    android:dependency="@string/pref_reminder_enable_key"
+>
+
+</ListPreference>
+
+</PreferenceCategory>
+</PreferenceScreen>
