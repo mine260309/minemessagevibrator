@@ -2,7 +2,17 @@
 <resources>
     <string name="app_name">Mine短信震动切换</string>
     <string name="widget_name">Mine短信震动切换</string>
-<string name="toggle_vibration_menu">切换短信震动</string>
-<string name="vibration_info">短信震动: </string>
-<string name="enable_vibration_info">设置短信震动</string><string name="disable_vibration_info">取消短信震动</string>
+    <string name="toggle_vibration_menu">切换短信震动</string>
+    <string name="vibration_info">短信震动: </string>
+    <string name="enable_vibration_info">设置短信震动</string>
+    <string name="disable_vibration_info">取消短信震动</string>
+    <string name="pref_title">Mine短信震动设置</string>
+    <string name="pref_reminder_interval">提醒间隔</string>
+    <string name="pref_vibrate_enable_title">设置短信震动</string>
+    <string name="pref_vibrate_enable_summary_on">短信震动设置成功</string>
+    <string name="pref_vibrate_enable_summary_off">短信震动设置取消</string>
+    <string name="pref_reminder_enable_title">设置提醒</string>
+    <string name="pref_reminder_enable_summary_on">提醒设置成功</string>
+    <string name="pref_reminder_enable_summary_off">提醒设置取消</string>
+    <string name="pref_email_title">发E-Mail给开发者</string><string name="pref_reminder_interval_title">提醒间隔</string><string name="pref_reminder_interval_dialogTitle">提醒间隔 (分钟)</string>
 </resources>

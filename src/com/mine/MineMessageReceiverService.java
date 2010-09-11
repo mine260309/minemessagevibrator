@@ -93,8 +93,12 @@ public class MineMessageReceiverService extends Service {
 			  handleSmsReceived(intent);
 		  } else if (ACTION_MMS_RECEIVED.equals(action) && MMS_DATA_TYPE.equals(dataType)) {
 		      handleMmsReceived(intent);
-		  } 
-		  MineMessageReminderReceiver.scheduleReminder(context, -1);
+		  }
+		  
+		  if (MineVibrationToggler.GetReminderEnabled(context)) {
+			  MineMessageReminderReceiver.scheduleReminder(context, -1);
+		  }
+
 		  // NOTE: We MUST not call stopSelf() directly, since we need to
 		  // make sure the wake lock acquired by AlertReceiver is released.
 		  finishStartingService(MineMessageReceiverService.this, serviceId);
