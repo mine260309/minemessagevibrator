@@ -11,4 +11,13 @@
     <item>15</item>
   </string-array>
 
+  <string-array
+    name="pref_vibration_mode_entries">
+    <item>Short</item>
+    <item>Middle</item>
+    <item>Long</item>
+    <item>Multiple Short</item>
+    <item>Multiple Middle</item>
+  </string-array>
+
 </resources>

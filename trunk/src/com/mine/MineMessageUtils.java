@@ -55,7 +55,7 @@ public class MineMessageUtils {
 	    }
 	  }
 
-	  MineLog.v("getUnreadSmsCount(): unread count = " + count);
+	  MineLog.v("sms unread count = " + count);
 	  return count;
 	}
 
