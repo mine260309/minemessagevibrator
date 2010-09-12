@@ -17,5 +17,9 @@
 <string name="pref_email_title">E-Mail the Developer</string>
 <string name="pref_reminder_interval_title">Reminder Interval</string>
 <string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
-<string name="pref_reminder_interval_default">5</string>
+
+<!-- Vibration mode preference -->
+<string name="pref_vibration_mode_title">Vibration Mode</string>
+<string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
+
 </resources>
