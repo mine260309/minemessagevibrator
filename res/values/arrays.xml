@@ -20,4 +20,14 @@
     <item>Multiple Middle</item>
   </string-array>
 
+  <string-array
+    name="pref_reminder_vibration_mode_entries">
+    <item>Same as Message</item>
+    <item>Short</item>
+    <item>Middle</item>
+    <item>Long</item>
+    <item>Multiple Short</item>
+    <item>Multiple Middle</item>
+  </string-array>
+
 </resources>

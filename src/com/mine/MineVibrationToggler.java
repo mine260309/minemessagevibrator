@@ -37,8 +37,8 @@ public class MineVibrationToggler {
 		if(!enable) {
 			MineMessageReminderReceiver.cancelReminder(context);
 		}
-		
-		SetVibrationMode(context, enable);
+
+		SetVibrationEnable(context, enable);
 	}
 	
 	public static void EnableReminder(Context context, boolean enable) {
@@ -57,7 +57,7 @@ public class MineVibrationToggler {
 		return ReminderEnabled;
 	}
 	
-	public static boolean GetVibrationMode(Context context) {
+	public static boolean GetVibrationEnabled(Context context) {
 		initStatus(context);
 		return VibrateEnabled;
 	}
@@ -69,7 +69,18 @@ public class MineVibrationToggler {
 		return seconds;
 	}
 	
-	private static void SetVibrationMode(Context context, boolean enable) {
+	public static boolean IsFirstRun(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		boolean ret = settings.getBoolean(context.getString(R.string.pref_first_time_run_key), true);
+		if (ret) {
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putBoolean(context.getString(R.string.pref_first_time_run_key), false);
+			editor.commit();
+		}
+		return ret;
+	}
+
+	private static void SetVibrationEnable(Context context, boolean enable) {
       // We need an Editor object to make preference changes.
       // All objects are from android.context.Context
  //     SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

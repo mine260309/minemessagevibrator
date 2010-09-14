@@ -123,7 +123,7 @@ public class MineMessageReminderService extends Service {
 			} else {
 				if (MineVibrationToggler.GetReminderEnabled(context)) {
 					// Check if reminder is still enabled or not
-					MineMessageVibrator.notifySMS(context);
+					MineMessageVibrator.notifyReminder(context);
 					MineMessageReminderReceiver.scheduleReminder(context, currentUnreadNumber);
 				}
 				else {
