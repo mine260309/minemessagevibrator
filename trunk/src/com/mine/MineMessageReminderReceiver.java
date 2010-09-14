@@ -33,12 +33,22 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	public static void scheduleReminder(Context context, int currentUnreadCount) {
 		int unreadNumber;
 		if (currentUnreadCount == -1) {
+			
+			// Wait for a short while and then check the number of unread messages;
+			// This is intended to get the correct number
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    unreadNumber = MineMessageUtils.getUnreadMessagesCount(context);
 		    // TODO: This is very hacky!! 
+		    // actually this is a bug!
 		    // It assumes this happens before the system add the current message 
-		    unreadNumber++;
+		    //unreadNumber++;
 		    if (unreadNumber <= 0) {
-		    	MineLog.e("scheduleReminder: get 0 unread message, why?!");
+		    	MineLog.e("scheduleReminder: get 0 unread message, maybe it's read?!");
 		    	return;
 		    }
 		}

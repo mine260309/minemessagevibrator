@@ -65,7 +65,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 		MineLog.v("Toggle vibration");
 
 		// Get setting from preference
-		boolean vibrate_enabled = MineVibrationToggler.GetVibrationMode(context);
+		boolean vibrate_enabled = MineVibrationToggler.GetVibrationEnabled(context);
 		vibrate_enabled = vibrate_enabled?false:true;
 	    MineVibrationToggler.EnableMessageVibration(context, vibrate_enabled);
 	    
@@ -97,7 +97,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 	}
 	
 	private static void updateButtons(RemoteViews views, Context context) {
-		boolean vibrate_enabled = MineVibrationToggler.GetVibrationMode(context);
+		boolean vibrate_enabled = MineVibrationToggler.GetVibrationEnabled(context);
 		if (vibrate_enabled) {
 			views.setImageViewResource(R.id.btn_toggle_vibrate, R.drawable.mes_button_vibrate);
 		}

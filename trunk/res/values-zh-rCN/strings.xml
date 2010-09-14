@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!-- General Strings -->
     <string name="app_name">Mine短信震动切换</string>
     <string name="widget_name">Mine短信震动切换</string>
     <string name="toggle_vibration_menu">切换短信震动</string>
@@ -21,4 +23,26 @@
     <!-- Vibration mode preference -->
     <string name="pref_vibration_mode_title">震动模式</string>
     <string name="pref_vibration_mode_dialogTitle">设置震动模式</string>
+    
+    <!-- Reminder Vibration mode preference -->
+    <string name="pref_reminder_vibration_mode_title">提醒震动模式</string>
+    <string name="pref_reminder_vibration_mode_dialogTitle">设置提醒震动模式</string>
+    
+<!-- First time run help message -->
+<string name="first_run_dialog_title">使用帮助</string>
+<string name="first_run_dialog_message">
+简单几步设置短信震动:\n
+1) 取消默认短信通知中的震动\n
+2) 在这里设置短信震动\n
+3) 添加桌面小部件\"Mine短信震动切换\"\n
+4) 搞定~\n
+\n
+更多设置\n
+1) 为短信设置震动模式\n
+2) 设置未读短信提醒\n
+3) 为提醒设置不同的震动模式
+</string>
+
+<string name="menu_help_string">帮助</string>
+    
 </resources>

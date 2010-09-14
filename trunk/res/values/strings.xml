@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MineVibrationSetting</string>
-    <string name="widget_name">MineSMSVibrator</string>
+<!-- Shared Strings with other languages -->
+<string name="OK_string">OK</string>
+
+<!-- General Strings -->
+<string name="app_name">MineVibrationSetting</string>
+<string name="widget_name">MineSMSVibrator</string>
 <string name="toggle_vibration_menu">Toggle Vibration</string>
 <string name="vibration_info">Message Vibration: </string>
 <string name="enable_vibration_info">Enable Message Vibration</string>
@@ -21,5 +25,26 @@
 <!-- Vibration mode preference -->
 <string name="pref_vibration_mode_title">Vibration Mode</string>
 <string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
+
+<!-- Reminder Vibration mode preference -->
+<string name="pref_reminder_vibration_mode_title">Reminder Vibration Mode</string>
+<string name="pref_reminder_vibration_mode_dialogTitle">Set Reminder Vib Mode</string>
+
+<!-- First time run help message -->
+<string name="first_run_dialog_title">First Time Run Help</string>
+<string name="first_run_dialog_message">
+Simple Steps to toggle message vibration:\n
+1) Disable default message application\'s vibrate\n
+2) Enable this app\n
+3) Add a widget MineMessageVibrator\n
+4) Enjoy~\n
+\n
+Furthermore\n
+1) Set vibration mode for incoming messages\n
+2) Set a reminder for the unread messages\n
+3) Pick a different vibration mode for reminder
+</string>
+
+<string name="menu_help_string">Help</string>
 
 </resources>
