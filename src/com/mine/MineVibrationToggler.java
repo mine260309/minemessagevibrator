@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.preference.PreferenceManager;
 
 public class MineVibrationToggler {
@@ -18,8 +19,8 @@ public class MineVibrationToggler {
 	private static void initStatus(Context context) {
 		if (!inited) {
 			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-			VibrateEnabled = settings.getBoolean(context.getString(R.string.pref_reminder_enable_key), false);		
-			ReminderEnabled = settings.getBoolean(context.getString(R.string.pref_vibrate_enable_key), false);
+			VibrateEnabled = settings.getBoolean(context.getString(R.string.pref_vibrate_enable_key), false);		
+			ReminderEnabled = settings.getBoolean(context.getString(R.string.pref_reminder_enable_key), false);
 			inited = true;
 		}
 	}
@@ -79,7 +80,22 @@ public class MineVibrationToggler {
 		}
 		return ret;
 	}
+	
+	public static boolean ShallVibrate(Context context) {
+		int notifyMode = GetPhoneRingerState(context);
+		if (notifyMode ==  AudioManager.RINGER_MODE_SILENT) {
+			MineLog.v("phone is in silent mode");
+			return false;
+		}
+		MineLog.v("phone is in mode: " + notifyMode);
+		return true;
+	}
 
+	private static int GetPhoneRingerState(Context context) {
+		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		return am.getRingerMode();
+	}
+	
 	private static void SetVibrationEnable(Context context, boolean enable) {
       // We need an Editor object to make preference changes.
       // All objects are from android.context.Context

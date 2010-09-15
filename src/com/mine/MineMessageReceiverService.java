@@ -94,7 +94,7 @@ public class MineMessageReceiverService extends Service {
 		  } else if (ACTION_MMS_RECEIVED.equals(action) && MMS_DATA_TYPE.equals(dataType)) {
 		      handleMmsReceived(intent);
 		  }
-		  
+
 		  if (MineVibrationToggler.GetReminderEnabled(context)) {
 			  MineMessageReminderReceiver.scheduleReminder(context, -1);
 		  }

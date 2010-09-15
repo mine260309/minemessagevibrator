@@ -58,13 +58,19 @@ public class MineMessageVibrator {
 	}
 */
 	private static void vibrate(Context context, int reason) {
-	    // Get phone state, if not idle then don't vibrate
-	    TelephonyManager mTM = 
-	      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-	    if (mTM.getCallState()== TelephonyManager.CALL_STATE_IDLE) {
-	    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-	    	v.vibrate(GetVibratePattern(context, reason), -1);
-	    }
+		// If the phone is in silent mode, do not vibrate
+		if(MineVibrationToggler.ShallVibrate(context)) {
+		    // Get phone state, if not idle then don't vibrate
+		    TelephonyManager mTM = 
+		      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		    if (mTM.getCallState()== TelephonyManager.CALL_STATE_IDLE) {
+		    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		    	v.vibrate(GetVibratePattern(context, reason), -1);
+		    }
+		}
+		else {
+			MineLog.v("phone in silent mode, not vibrate");
+		}
 	}
 	
 	private static long[] GetVibratePattern(Context context, int reason){
