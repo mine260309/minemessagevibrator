@@ -68,7 +68,7 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 		boolean vibrate_enabled = MineVibrationToggler.GetVibrationEnabled(context);
 		vibrate_enabled = vibrate_enabled?false:true;
 	    MineVibrationToggler.EnableMessageVibration(context, vibrate_enabled);
-	    
+
 	    String info;
 	    if(vibrate_enabled) {
 	    	info = context.getString(R.string.enable_vibration_info);

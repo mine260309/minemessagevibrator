@@ -42,7 +42,10 @@ Simple Steps to toggle message vibration:\n
 Furthermore\n
 1) Set vibration mode for incoming messages\n
 2) Set a reminder for the unread messages\n
-3) Pick a different vibration mode for reminder
+3) Pick a different vibration mode for reminder\n
+\n
+Updates:\n
+1.02: Do not vibrate when phone in silent mode
 </string>
 
 <string name="menu_help_string">Help</string>
