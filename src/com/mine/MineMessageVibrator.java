@@ -1,7 +1,10 @@
 package com.mine;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -46,17 +49,7 @@ public class MineMessageVibrator {
 		MineLog.v("notifying reminder");
 		vibrate(context, VIBRATE_REASON_REMINDER);
 	}
-/*
-	private static void vibrate(Context context) {
-	    // Get phone state, if not idle then don't vibrate
-	    TelephonyManager mTM = 
-	      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-	    if (mTM.getCallState()== TelephonyManager.CALL_STATE_IDLE) {
-	    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-	    	v.vibrate(1000);
-	    }
-	}
-*/
+
 	private static void vibrate(Context context, int reason) {
 		// If the phone is in silent mode, do not vibrate
 		if(MineVibrationToggler.ShallVibrate(context)) {
@@ -64,8 +57,35 @@ public class MineMessageVibrator {
 		    TelephonyManager mTM = 
 		      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 		    if (mTM.getCallState()== TelephonyManager.CALL_STATE_IDLE) {
-		    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		    	v.vibrate(GetVibratePattern(context, reason), -1);
+		    	//Check whether we need to ring or vibrate, or both...
+		    	boolean needSound = (reason == VIBRATE_REASON_REMINDER) &&
+		    				MineVibrationToggler.GetReminderSoundEnabled(context);
+		    	boolean needVibrate = (reason!=VIBRATE_REASON_REMINDER) ||
+		    		((reason == VIBRATE_REASON_REMINDER) &&
+		    				MineVibrationToggler.GetReminderVibrateEnabled(context));
+		    	
+		    	if (needSound) {
+		    		NotificationManager nm = 
+		    			(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		    		Notification n = new Notification();
+		    		
+		    	    // Try and parse the user preference, use the default if it fails
+		    	    Uri reminderSoundURI =
+		    	      Uri.parse(MineVibrationToggler.GetReminderSoundString(context));
+		    	    
+		    		n.sound = reminderSoundURI;
+		    		nm.notify(reason, n);
+		    		MineLog.v("Playing sound " + reminderSoundURI);
+	    		}
+
+		    	if (needVibrate) {
+		    		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		    		v.vibrate(GetVibratePattern(context, reason), -1);
+		    		MineLog.v("Vibrating... ");
+		    	}
+		    }
+		    else {
+		    	MineLog.v("phone in call, not vibrate");
 		    }
 		}
 		else {

@@ -25,6 +25,6 @@ public class MineReminderEnableCheckBoxPreference extends CheckBoxPreference {
 	@Override
 	protected void onClick() {
 	    super.onClick();
-	    MineVibrationToggler.EnableReminder(context, isChecked());
+	    MineVibrationToggler.EnableReminderVibrate(context, isChecked());
 	}
 }

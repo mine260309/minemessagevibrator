@@ -20,27 +20,24 @@
     android:dependency="@string/pref_vibrate_enable_key"
 >
 </ListPreference>
+</PreferenceCategory>
 
-<com.mine.MineReminderEnableCheckBoxPreference 
+<PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
+<CheckBoxPreference 
     android:key="@string/pref_reminder_enable_key"
     android:title="@string/pref_reminder_enable_title"
-    android:summaryOn="@string/pref_reminder_enable_summary_on" 
-    android:summaryOff="@string/pref_reminder_enable_summary_off"
     android:dependency="@string/pref_vibrate_enable_key"
 >
-</com.mine.MineReminderEnableCheckBoxPreference>
+</CheckBoxPreference>
 
-<ListPreference
-    android:key="@string/pref_reminder_interval_key"
-    android:title="@string/pref_reminder_interval_title"
-    android:entries="@array/pref_reminder_interval_entries"
-    android:entryValues="@array/pref_reminder_interval_entries"
-    android:dialogTitle="@string/pref_reminder_interval_dialogTitle"
-    android:defaultValue="@string/pref_reminder_interval_default"
+<com.mine.MineReminderEnableCheckBoxPreference 
+    android:key="@string/pref_reminder_vibrate_enable_key"
+    android:title="@string/pref_reminder_vibrate_enable_title"
+    android:summaryOn="@string/pref_reminder_vibrate_enable_summary_on" 
+    android:summaryOff="@string/pref_reminder_vibrate_enable_summary_off"
     android:dependency="@string/pref_reminder_enable_key"
 >
-
-</ListPreference>
+</com.mine.MineReminderEnableCheckBoxPreference>
 
 <ListPreference
     android:key="@string/pref_reminder_vibration_mode_key"
@@ -49,6 +46,38 @@
     android:entryValues="@array/pref_reminder_vibration_mode_entries"
     android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
     android:defaultValue="@string/pref_reminder_vibration_mode_default"
+    android:dependency="@string/pref_reminder_vibrate_enable_key"
+    android:summary="@string/pref_reminder_vibrate_summary"
+>
+</ListPreference>
+
+<CheckBoxPreference 
+    android:key="@string/pref_reminder_sound_enable_key"
+    android:title="@string/pref_reminder_sound_enable_title"
+    android:summaryOn="@string/pref_reminder_sound_enable_summary_on" 
+    android:summaryOff="@string/pref_reminder_sound_enable_summary_off"
+    android:dependency="@string/pref_reminder_enable_key"
+>
+</CheckBoxPreference>
+
+<RingtonePreference
+    android:key="@string/pref_reminder_sound_key"
+    android:title="@string/pref_reminder_sound_title"
+    android:summary="@string/pref_reminder_sound_summary"
+    android:ringtoneType="notification"
+    android:showDefault="true"
+    android:showSilent="true"
+    android:dependency="@string/pref_reminder_sound_enable_key"
+    android:defaultValue="content://settings/system/notification_sound" 
+/>
+
+<ListPreference
+    android:key="@string/pref_reminder_interval_key"
+    android:title="@string/pref_reminder_interval_title"
+    android:entries="@array/pref_reminder_interval_entries"
+    android:entryValues="@array/pref_reminder_interval_entries"
+    android:dialogTitle="@string/pref_reminder_interval_dialogTitle"
+    android:defaultValue="@string/pref_reminder_interval_default"
     android:dependency="@string/pref_reminder_enable_key"
 >
 </ListPreference>

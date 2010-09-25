@@ -15,9 +15,6 @@
 <string name="pref_vibrate_enable_title">Enable Message Vibration</string>
 <string name="pref_vibrate_enable_summary_on">Message Vibration is Enabled</string>
 <string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
-<string name="pref_reminder_enable_title">Enable Reminder</string>
-<string name="pref_reminder_enable_summary_on">Reminder is Enabled</string>
-<string name="pref_reminder_enable_summary_off">Reminder is Disabled</string>
 <string name="pref_email_title">E-Mail the Developer</string>
 <string name="pref_reminder_interval_title">Reminder Interval</string>
 <string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
@@ -26,9 +23,23 @@
 <string name="pref_vibration_mode_title">Vibration Mode</string>
 <string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
 
+<string name="pref_reminder_vibrate_catagory">Reminder Preferences</string>
+<string name="pref_reminder_enable_title">Enable Reminder</string>
+
 <!-- Reminder Vibration mode preference -->
-<string name="pref_reminder_vibration_mode_title">Reminder Vibration Mode</string>
+<string name="pref_reminder_vibrate_enable_title">Enable Vibrate</string>
+<string name="pref_reminder_vibrate_summary">Reminder will vibrate for every interval</string>
+<string name="pref_reminder_vibrate_enable_summary_on">Reminder Vibration is Enabled</string>
+<string name="pref_reminder_vibrate_enable_summary_off">Reminder Vibration is Disabled</string>
+<string name="pref_reminder_vibration_mode_title">Vibration Mode</string>
 <string name="pref_reminder_vibration_mode_dialogTitle">Set Reminder Vib Mode</string>
+
+<!-- Reminder Sound preference -->
+<string name="pref_reminder_sound_enable_title">Enable Sound</string>
+<string name="pref_reminder_sound_enable_summary_on">Reminder Sound is Enabled</string>
+<string name="pref_reminder_sound_enable_summary_off">Reminder Sound is Disabled</string>
+<string name="pref_reminder_sound_title">Reminder Sound</string>
+<string name="pref_reminder_sound_summary">Reminder will play this sound for every interval</string>
 
 <!-- First time run help message -->
 <string name="first_run_dialog_title">First Time Run Help</string>
@@ -43,8 +54,10 @@ Furthermore\n
 1) Set vibration mode for incoming messages\n
 2) Set a reminder for the unread messages\n
 3) Pick a different vibration mode for reminder\n
+4） Set a reminder sound\n
 \n
 Updates:\n
+1.03: Add reminder sound support\n
 1.02: Do not vibrate when phone in silent mode
 </string>
 

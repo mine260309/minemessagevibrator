@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 
 public class MineVibrationToggler {
 
@@ -14,13 +15,21 @@ public class MineVibrationToggler {
 //	private static final String PREFS_NAME = "MineMessageVibrationPrefFile";
 	private static boolean VibrateEnabled;
 	private static boolean ReminderEnabled;
+	private static boolean ReminderVibrateEnabled;
+	private static boolean ReminderSoundEnabled;
 	private static boolean inited = false;
 	
 	private static void initStatus(Context context) {
 		if (!inited) {
 			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-			VibrateEnabled = settings.getBoolean(context.getString(R.string.pref_vibrate_enable_key), false);		
-			ReminderEnabled = settings.getBoolean(context.getString(R.string.pref_reminder_enable_key), false);
+			VibrateEnabled = settings.getBoolean(
+					context.getString(R.string.pref_vibrate_enable_key), false);		
+			ReminderEnabled = settings.getBoolean(
+					context.getString(R.string.pref_reminder_enable_key), false);
+			ReminderVibrateEnabled = settings.getBoolean(
+					context.getString(R.string.pref_reminder_vibrate_enable_key), false);
+			ReminderSoundEnabled = settings.getBoolean(
+					context.getString(R.string.pref_reminder_sound_enable_key), false);
 			inited = true;
 		}
 	}
@@ -42,25 +51,39 @@ public class MineVibrationToggler {
 		SetVibrationEnable(context, enable);
 	}
 	
-	public static void EnableReminder(Context context, boolean enable) {
+	public static void EnableReminderVibrate(Context context, boolean enable) {
 		initStatus(context);
-		ReminderEnabled = enable;
+		ReminderVibrateEnabled = enable;
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(context.getString(R.string.pref_reminder_enable_key), enable);
+		editor.putBoolean(context.getString(R.string.pref_reminder_vibrate_enable_key), enable);
 
 		// Commit the edits!
 		editor.commit();
 	}
 	
 	public static boolean GetReminderEnabled(Context context) {
-		initStatus(context);
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		ReminderEnabled = settings.getBoolean(
+				context.getString(R.string.pref_reminder_enable_key), false);
 		return ReminderEnabled;
 	}
 	
 	public static boolean GetVibrationEnabled(Context context) {
 		initStatus(context);
 		return VibrateEnabled;
+	}
+	
+	public static boolean GetReminderVibrateEnabled(Context context) {
+		initStatus(context);
+		return ReminderVibrateEnabled;
+	}
+	
+	public static boolean GetReminderSoundEnabled(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		ReminderSoundEnabled = settings.getBoolean(
+				context.getString(R.string.pref_reminder_sound_enable_key), false);
+		return ReminderSoundEnabled;
 	}
 	
 	public static int GetReminderInterval(Context context) {
@@ -70,6 +93,14 @@ public class MineVibrationToggler {
 		return seconds;
 	}
 	
+	public static String GetReminderSoundString(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		String reminder = settings.getString(
+				context.getString(R.string.pref_reminder_sound_key), 
+				Settings.System.DEFAULT_NOTIFICATION_URI.toString());
+		return reminder;
+	}
+
 	public static boolean IsFirstRun(Context context) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		boolean ret = settings.getBoolean(context.getString(R.string.pref_first_time_run_key), true);
@@ -80,7 +111,7 @@ public class MineVibrationToggler {
 		}
 		return ret;
 	}
-	
+
 	public static boolean ShallVibrate(Context context) {
 		int notifyMode = GetPhoneRingerState(context);
 		if (notifyMode ==  AudioManager.RINGER_MODE_SILENT) {
