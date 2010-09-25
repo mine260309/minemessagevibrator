@@ -13,9 +13,6 @@
     <string name="pref_vibrate_enable_title">设置短信震动</string>
     <string name="pref_vibrate_enable_summary_on">短信震动设置成功</string>
     <string name="pref_vibrate_enable_summary_off">短信震动设置取消</string>
-    <string name="pref_reminder_enable_title">设置提醒</string>
-    <string name="pref_reminder_enable_summary_on">提醒设置成功</string>
-    <string name="pref_reminder_enable_summary_off">提醒设置取消</string>
     <string name="pref_email_title">发E-Mail给开发者</string>
     <string name="pref_reminder_interval_title">提醒间隔</string>
     <string name="pref_reminder_interval_dialogTitle">提醒间隔 (分钟)</string>
@@ -23,10 +20,23 @@
     <!-- Vibration mode preference -->
     <string name="pref_vibration_mode_title">震动模式</string>
     <string name="pref_vibration_mode_dialogTitle">设置震动模式</string>
-    
+    <string name="pref_reminder_vibrate_catagory">提醒相关设置</string>
+    <string name="pref_reminder_enable_title">启用提醒</string>
+
     <!-- Reminder Vibration mode preference -->
+    <string name="pref_reminder_vibrate_enable_title">启用震动</string>
+    <string name="pref_reminder_vibrate_summary">每过提醒间隔会震动一下</string>
+    <string name="pref_reminder_vibrate_enable_summary_on">启用提醒震动</string>
+    <string name="pref_reminder_vibrate_enable_summary_off">禁用提醒震动</string>
     <string name="pref_reminder_vibration_mode_title">提醒震动模式</string>
     <string name="pref_reminder_vibration_mode_dialogTitle">设置提醒震动模式</string>
+    
+<!-- Reminder Sound preference -->
+<string name="pref_reminder_sound_enable_title">设置铃声</string>
+<string name="pref_reminder_sound_enable_summary_on">启用提醒铃声</string>
+<string name="pref_reminder_sound_enable_summary_off">禁用提醒铃声</string>
+<string name="pref_reminder_sound_title">提醒铃声</string>
+<string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
     
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>
@@ -41,8 +51,10 @@
 1) 为短信设置震动模式\n
 2) 设置未读短信提醒\n
 3) 为提醒设置不同的震动模式\n
+4） 为提醒设置铃声\n
 \n
 版本更新:\n
+1.03: 添加了提醒铃声的设置\n
 1.02: 手机在静音时不震动
 </string>
 

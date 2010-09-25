@@ -6,4 +6,8 @@
     <string name="pref_reminder_vibration_mode_key">reminderVibrationInterval</string>
     <string name="pref_reminder_interval_key">reminderInterval</string>
     <string name="pref_first_time_run_key">firstTimeRun</string>
+    <string name="pref_reminder_sound_enable_key">reminderSoundEnabled</string>
+    <string name="pref_reminder_sound_key">reminderSound</string>
+    <string name="pref_reminder_vibrate_enable_key">reminderVibrateEnabled</string>
+    
 </resources>
