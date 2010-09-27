@@ -112,6 +112,12 @@ public class MineVibrationToggler {
 		return ret;
 	}
 
+	public static boolean IsWakeLockEnabled(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		return  settings.getBoolean(
+				context.getString(R.string.pref_reminder_wakelock_enable_key), false);
+	}
+	
 	public static boolean ShallVibrate(Context context) {
 		int notifyMode = GetPhoneRingerState(context);
 		if (notifyMode ==  AudioManager.RINGER_MODE_SILENT) {

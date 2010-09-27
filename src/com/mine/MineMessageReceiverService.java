@@ -8,6 +8,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.PowerManager;
 import android.os.Process;
 
 public class MineMessageReceiverService extends Service {
@@ -16,7 +17,9 @@ public class MineMessageReceiverService extends Service {
 	private static final String ACTION_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
 	private static final String ACTION_MMS_RECEIVED = "android.provider.Telephony.WAP_PUSH_RECEIVED";
 	private static final String MMS_DATA_TYPE = "application/vnd.wap.mms-message";
-	  
+	
+	private static PowerManager.WakeLock mStartingService;
+	
 	private Context context;
 	private MineMessageServiceHandler mServiceHandler;
 	private Looper mServiceLooper;
@@ -60,6 +63,14 @@ public class MineMessageReceiverService extends Service {
 	  public static void beginStartingService(Context context, Intent intent) {
 	    synchronized (mStartingServiceSync) {
 	      MineLog.v("MineMessageReceiverService.beginStartingService()");
+	      if (mStartingService == null) {
+	          PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+	          mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+	              MineLog.LOGTAG+".MessageReceiverService");
+	          mStartingService.setReferenceCounted(false);
+	      }
+	      mStartingService.acquire();
+	      
 	      context.startService(intent);
 	    }
 	  }
@@ -70,8 +81,12 @@ public class MineMessageReceiverService extends Service {
 	   */
 	  public static void finishStartingService(Service service, int startId) {
 	    synchronized (mStartingServiceSync) {
-	      MineLog.v("MineMessageReceiverService.finishStartingService()");
-	      service.stopSelf(startId);
+	      MineLog.v("MineMessageReceiverService.finishStartingService()");	      
+	      if (mStartingService != null) {
+	          if (service.stopSelfResult(startId)) {
+	            mStartingService.release();
+	          }
+	      }
 	    }
 	  }
 	  

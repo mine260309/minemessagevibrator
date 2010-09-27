@@ -37,7 +37,12 @@
 <string name="pref_reminder_sound_enable_summary_off">禁用提醒铃声</string>
 <string name="pref_reminder_sound_title">提醒铃声</string>
 <string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
-    
+
+<!--  WakeLock preference -->
+<string name="pref_reminder_wakelock_enable_title">强制唤醒提醒</string>
+<string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
+<string name="pref_reminder_wakelock_enable_summary_off">取消强制唤醒</string>
+
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>
 <string name="first_run_dialog_message">
@@ -54,6 +59,7 @@
 4） 为提醒设置铃声\n
 \n
 版本更新:\n
+1.04: 某些手机的kernel问题导致提醒不能及时唤醒,添加了强制唤醒提醒的选项设置.(如果你发现提醒经常延迟,请选中此选项)\n
 1.03: 添加了提醒铃声的设置\n
 1.02: 手机在静音时不震动
 </string>
