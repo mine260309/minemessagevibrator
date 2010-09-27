@@ -8,6 +8,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.PowerManager;
 import android.os.Process;
 
 public class MineMessageReminderService extends Service {
@@ -15,6 +16,8 @@ public class MineMessageReminderService extends Service {
 	private static final Object mStartingServiceSync = new Object();
 	public static final String ACTION_REMIND = "com.mine.ACTION_REMIND";
 	public static final String UNREAD_NUMBER = "com.mine.UNREAD";
+	
+	private static PowerManager.WakeLock mStartingService;
 	
 	private Context context;
 	private MineReminderServiceHandler mServiceHandler;
@@ -59,6 +62,14 @@ public class MineMessageReminderService extends Service {
 	public static void beginStartingService(Context context, Intent intent) {
 	  synchronized (mStartingServiceSync) {
 	    MineLog.v("MineMessageReminderService.beginStartingService()");
+	    if (mStartingService == null) {
+	        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+	        mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+	              MineLog.LOGTAG+".MessageReminderService");
+	        mStartingService.setReferenceCounted(false);
+	    }
+	    mStartingService.acquire();
+
 	    context.startService(intent);
 	  }
 	}
@@ -70,7 +81,11 @@ public class MineMessageReminderService extends Service {
 	public static void finishStartingService(Service service, int startId) {
 	  synchronized (mStartingServiceSync) {
 	    MineLog.v("MineMessageReminderService.finishStartingService()");
-	    service.stopSelf(startId);
+	    if (mStartingService != null) {
+	        if (service.stopSelfResult(startId)) {
+	        	mStartingService.release();
+	        }
+	    }
 	  }
 	}
 	

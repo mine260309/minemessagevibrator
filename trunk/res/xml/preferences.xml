@@ -82,5 +82,13 @@
 >
 </ListPreference>
 
+<CheckBoxPreference 
+    android:key="@string/pref_reminder_wakelock_enable_key"
+    android:title="@string/pref_reminder_wakelock_enable_title"
+    android:summaryOn="@string/pref_reminder_wakelock_enable_summary_on" 
+    android:summaryOff="@string/pref_reminder_wakelock_enable_summary_off"
+    android:dependency="@string/pref_reminder_enable_key"
+/>
+
 </PreferenceCategory>
 </PreferenceScreen>

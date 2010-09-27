@@ -41,6 +41,11 @@
 <string name="pref_reminder_sound_title">Reminder Sound</string>
 <string name="pref_reminder_sound_summary">Reminder will play this sound for every interval</string>
 
+<!--  WakeLock preference -->
+<string name="pref_reminder_wakelock_enable_title">Force Wake Reminder</string>
+<string name="pref_reminder_wakelock_enable_summary_on">Reminder will be forcely waken up</string>
+<string name="pref_reminder_wakelock_enable_summary_off">Don\'t force wake up reminder</string>
+    
 <!-- First time run help message -->
 <string name="first_run_dialog_title">First Time Run Help</string>
 <string name="first_run_dialog_message">
@@ -57,6 +62,7 @@ Furthermore\n
 4） Set a reminder sound\n
 \n
 Updates:\n
+1.04: Add option for forcely wake up reminder. Some devices have kernel problems that the reminder is not waken up in time, if you have such problem, please check this option\n
 1.03: Add reminder sound support\n
 1.02: Do not vibrate when phone in silent mode
 </string>

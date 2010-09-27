@@ -5,19 +5,20 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 
 public class MineMessageReminderReceiver extends BroadcastReceiver {
 
 	private static PendingIntent reminderPendingIntent = null;
 //	private static final int reminderInterval = 10;//5*60; //reminder interval, in seconds
+	private static PowerManager.WakeLock mStartingService;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
-		intent.setClass(context, MineMessageReminderService.class);
-		MineMessageReminderService.beginStartingService(context, intent);
-		
 		MineLog.v("Receive an intent: "+ intent.getAction());
+		intent.setClass(context, MineMessageReminderService.class);
+		MineMessageReminderService.beginStartingService(context, intent);		
 	}
 
 	/**
@@ -74,7 +75,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	    long triggerTime = System.currentTimeMillis() + (reminderIntervalSeconds * 1000);
 	    MineLog.v("MineMessageReminderReceiver: scheduled reminder notification in " 
 	    		+ reminderIntervalSeconds + " seconds, Unread: "+unreadNumber);
-	    am.set(AlarmManager.RTC_WAKEUP, triggerTime, reminderPendingIntent);
+	    am.set(AlarmManager.RTC, triggerTime, reminderPendingIntent);
+	    acquireWakeLockIfNeeded(context);
 	}
 
 	/*
@@ -88,6 +90,28 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
     		reminderPendingIntent.cancel();
     		reminderPendingIntent = null;
     		MineLog.v("MineMessageReminderReceiver: cancelReminder()");
+    		releaseWakeLock();
     	}
+	}
+	
+	private static void acquireWakeLockIfNeeded(Context context) {
+		if(MineVibrationToggler.IsWakeLockEnabled(context)) {
+		    if (mStartingService == null) {
+		        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+		        mStartingService = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+		              MineLog.LOGTAG+".MessageReminderService");
+		        mStartingService.setReferenceCounted(false);
+		    }
+		    mStartingService.acquire();
+		    MineLog.v("acquire wake lock");
+		}
+	}
+	private static void releaseWakeLock(){
+		if(mStartingService != null) {
+			if(mStartingService.isHeld()) {
+				mStartingService.release();
+				MineLog.v("release wake lock");
+			}
+		}
 	}
 }
