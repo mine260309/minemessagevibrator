@@ -1,9 +1,13 @@
 package com.mine;
 
+import java.util.ArrayList;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -92,7 +96,7 @@ public class MineVibrationToggler {
 		int seconds = 60 * Integer.valueOf(minutes);
 		return seconds;
 	}
-	
+
 	public static String GetReminderSoundString(Context context) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		String reminder = settings.getString(
@@ -112,6 +116,23 @@ public class MineVibrationToggler {
 		return ret;
 	}
 
+	public static boolean IsUpgraded(Context context) {
+		PackageManager manager = context.getPackageManager();
+		int nowVersion = 0;
+		try {
+			PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+			nowVersion = info.versionCode;  //°æ±¾ºÅ
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		int storedVersion = GetVersion(context);
+		if(nowVersion > storedVersion) {
+			SetVersion(context, nowVersion);
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean IsWakeLockEnabled(Context context) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		return  settings.getBoolean(
@@ -128,6 +149,82 @@ public class MineVibrationToggler {
 		return true;
 	}
 
+	/**
+	 * Parse the user provided custom vibrate pattern into a long[]
+	 *
+	 */
+	public static long[] parseVibratePattern(String stringPattern) {
+	    ArrayList<Long> arrayListPattern = new ArrayList<Long>();
+	    Long l;
+
+	    if (stringPattern == null) return null;
+
+	    String[] splitPattern = stringPattern.split(",");
+	    int VIBRATE_PATTERN_MAX_SECONDS = 60000;
+	    int VIBRATE_PATTERN_MAX_PATTERN = 100;
+
+	    for (int i = 0; i < splitPattern.length; i++) {
+	      try {
+	        l = Long.parseLong(splitPattern[i].trim());
+	      } catch (NumberFormatException e) {
+	        return null;
+	      }
+	      if (l > VIBRATE_PATTERN_MAX_SECONDS) {
+	        return null;
+	      }
+	      arrayListPattern.add(l);
+	    }
+
+	    // TODO: can i just cast the whole ArrayList into long[]?
+	    int size = arrayListPattern.size();
+	    if (size > 0 && size < VIBRATE_PATTERN_MAX_PATTERN) {
+	      long[] pattern = new long[size];
+	      for (int i = 0; i < pattern.length; i++) {
+	        pattern[i] = arrayListPattern.get(i);
+	      }
+	      return pattern;
+	    }
+
+	    return null;
+	}
+
+	public static void SetVibratePatternbyReason(Context context, int reason, String pattern) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		String key;
+		if(reason == MineMessageVibrator.VIBRATE_REASON_REMINDER)
+			key = context.getString(R.string.pref_reminder_vibrate_pattern_key);
+		else
+			key = context.getString(R.string.pref_sms_vibrate_pattern_key);
+		editor.putString(key, pattern);
+
+		// Commit the edits!
+		editor.commit();
+	}
+	
+	public static String GetVibratePatternbyReason(Context context, int reason) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		String key;
+		if(reason == MineMessageVibrator.VIBRATE_REASON_REMINDER)
+			key = context.getString(R.string.pref_reminder_vibrate_pattern_key);
+		else
+			key = context.getString(R.string.pref_sms_vibrate_pattern_key);
+		return settings.getString(key, 
+				context.getString(R.string.pref_vibrate_pattern_default));
+	}
+
+	public static int GetVersion(Context context){
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		return settings.getInt(context.getString(R.string.pref_mine_message_vibrator_version_key),
+				0);
+	}
+	public static void SetVersion(Context context, int version){
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt(context.getString(R.string.pref_mine_message_vibrator_version_key), version);
+		editor.commit();
+	}
+	
 	private static int GetPhoneRingerState(Context context) {
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		return am.getRingerMode();

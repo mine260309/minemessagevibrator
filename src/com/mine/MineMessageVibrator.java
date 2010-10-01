@@ -14,16 +14,17 @@ public class MineMessageVibrator {
 //	private static final int MINE_MESSAGE_NOTIFICATION_ID = 0x1086;
 //	private static Notification smsNotify = null;
 //	private static Notification mmsNotify = null;
-	private static final int VIBRATE_REASON_SMS = 0;
-	private static final int VIBRATE_REASON_MMS = VIBRATE_REASON_SMS;
-	private static final int VIBRATE_REASON_REMINDER = 2;
-	
+	public static final int VIBRATE_REASON_SMS = 0;
+	public static final int VIBRATE_REASON_MMS = VIBRATE_REASON_SMS;
+	public static final int VIBRATE_REASON_REMINDER = 2;
+
 	private static final String VIBRATE_MODE_SHORT = "Short";
 	private static final String VIBRATE_MODE_MIDDLE = "Middle";
 	private static final String VIBRATE_MODE_LONG = "Long";
 	private static final String VIBRATE_MODE_MULTIPLE_SHORT = "Multiple Short";
 	private static final String VIBRATE_MODE_MULTIPLE_MIDDLE = "Multiple Middle";
 	private static final String VIBRATE_MODE_SAME_AS_MESSAGE = "Same as Message";
+	private static final String VIBRATE_MODE_CUSTOM = "Custom";
 
 	private static final long[] VibratePatternShort = new long[] {0, 500};
 	private static final long[] VibratePatternMiddle = new long[] {0, 1200};
@@ -92,7 +93,7 @@ public class MineMessageVibrator {
 			MineLog.v("phone in silent mode, not vibrate");
 		}
 	}
-	
+
 	private static long[] GetVibratePattern(Context context, int reason){
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		String pattern;
@@ -122,6 +123,16 @@ public class MineMessageVibrator {
 				pat = VibratePatternMultipleMiddle;
 				MineLog.v("Reminder Vibrate using pattern "+pattern);
 			}
+			else if (pattern.equals(VIBRATE_MODE_CUSTOM)) {
+				pat = MineVibrationToggler.parseVibratePattern(
+						settings.getString(context.getString(R.string.pref_reminder_vibrate_pattern_key),
+								context.getString(R.string.pref_vibrate_pattern_default)));
+				if (pat == null) {
+					MineLog.e("Parse Custom Pattern Error, using defalt Middle");
+					pat = VibratePatternMiddle;
+				}
+				MineLog.v("Vibrate using custom pattern " + pat.toString());
+			}
 			else {
 				//default, use same as message
 				reason = VIBRATE_REASON_SMS;
@@ -149,6 +160,16 @@ public class MineMessageVibrator {
 			else if (pattern.equals(VIBRATE_MODE_MULTIPLE_MIDDLE)) {
 				pat = VibratePatternMultipleMiddle;
 				MineLog.v("Vibrate using pattern "+pattern);
+			}
+			else if (pattern.equals(VIBRATE_MODE_CUSTOM)) {
+				pat = MineVibrationToggler.parseVibratePattern(
+						settings.getString(context.getString(R.string.pref_sms_vibrate_pattern_key),
+								context.getString(R.string.pref_vibrate_pattern_default)));
+				if (pat == null) {
+					MineLog.e("Parse Custom Pattern Error, using defalt Middle");
+					pat = VibratePatternMiddle;
+				}
+				MineLog.v("Vibrate using custom pattern " + pat.toString());
 			}
 			else {
 				//default, use middle

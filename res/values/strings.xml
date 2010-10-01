@@ -23,6 +23,12 @@
 <string name="pref_vibration_mode_title">Vibration Mode</string>
 <string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
 
+<string name="pref_vibrate_pattern_help">Enter a custom vibrate pattern, in the format:\nOff,On,Off,On,etc, in milliseconds\n\nFor example:\n0,1000,500,1000\n0,500,200,500,200,500</string>
+<string name="pref_vibrate_pattern_title">Vibrate Pattern</string>
+<string name="pref_vibrate_pattern_summary">Set the vibration pattern</string>
+<string name="pref_vibrate_pattern_ok">Set Custom vibrate pattern Successfully</string>
+<string name="pref_vibrate_pattern_bad">Vibrate pattern Invalid!\nPattern unchanged</string>
+   
 <string name="pref_reminder_vibrate_catagory">Reminder Preferences</string>
 <string name="pref_reminder_enable_title">Enable Reminder</string>
 
@@ -59,14 +65,20 @@ Furthermore\n
 1) Set vibration mode for incoming messages\n
 2) Set a reminder for the unread messages\n
 3) Pick a different vibration mode for reminder\n
-4） Set a reminder sound\n
+4） Set a reminder sound
+</string>
+
+<string name="upgraded_run_dialog_title">What\'s New</string>
+<string name="upgraded_run_dialog_message">
+MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.05: Custom Vibrate Pattern support\n
 1.04: Add option for forcely wake up reminder. Some devices have kernel problems that the reminder is not waken up in time, if you have such problem, please check this option\n
 1.03: Add reminder sound support\n
 1.02: Do not vibrate when phone in silent mode
 </string>
 
 <string name="menu_help_string">Help</string>
-
+<string name="menu_whatsnew_string">What\'s New</string>
 </resources>

@@ -10,7 +10,7 @@
     android:summaryOff="@string/pref_vibrate_enable_summary_off">
 </com.mine.MineVibrationEnableCheckBoxPreference>
 
-<ListPreference
+<com.mine.CustomVibrateListPreference
     android:key="@string/pref_vibration_mode_key"
     android:title="@string/pref_vibration_mode_title"
     android:entries="@array/pref_vibration_mode_entries"
@@ -19,7 +19,8 @@
     android:defaultValue="@string/pref_vibration_mode_default"
     android:dependency="@string/pref_vibrate_enable_key"
 >
-</ListPreference>
+</com.mine.CustomVibrateListPreference>
+
 </PreferenceCategory>
 
 <PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
@@ -39,7 +40,7 @@
 >
 </com.mine.MineReminderEnableCheckBoxPreference>
 
-<ListPreference
+<com.mine.CustomVibrateListPreference
     android:key="@string/pref_reminder_vibration_mode_key"
     android:title="@string/pref_reminder_vibration_mode_title"
     android:entries="@array/pref_reminder_vibration_mode_entries"
@@ -49,7 +50,7 @@
     android:dependency="@string/pref_reminder_vibrate_enable_key"
     android:summary="@string/pref_reminder_vibrate_summary"
 >
-</ListPreference>
+</com.mine.CustomVibrateListPreference>
 
 <CheckBoxPreference 
     android:key="@string/pref_reminder_sound_enable_key"
