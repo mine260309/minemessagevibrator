@@ -18,6 +18,7 @@
     <item>Long</item>
     <item>Multiple Short</item>
     <item>Multiple Middle</item>
+    <item>Custom</item>
   </string-array>
 
   <string-array
@@ -28,6 +29,7 @@
     <item>Long</item>
     <item>Multiple Short</item>
     <item>Multiple Middle</item>
+    <item>Custom</item>
   </string-array>
 
 </resources>

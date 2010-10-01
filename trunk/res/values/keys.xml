@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="pref_mine_message_vibrator_version_key">mineMessageVibrateVersion</string>
+
     <string name="pref_vibrate_enable_key">vibrationEnabled</string>
     <string name="pref_vibration_mode_key">vibrationMode</string>
     <string name="pref_reminder_enable_key">reminderEnabled</string>
@@ -10,4 +12,6 @@
     <string name="pref_reminder_sound_key">reminderSound</string>
     <string name="pref_reminder_vibrate_enable_key">reminderVibrateEnabled</string>
     <string name="pref_reminder_wakelock_enable_key">reminderWakeLockEnabled</string>
+    <string name="pref_sms_vibrate_pattern_key">smsVibratePattern</string>
+    <string name="pref_reminder_vibrate_pattern_key">reminderVibratePattern</string>
 </resources>
