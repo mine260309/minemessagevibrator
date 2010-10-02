@@ -131,7 +131,7 @@ public class MineMessageReminderService extends Service {
 				previousUnreadNumber = 1; // set to 1 to simulate we have 1 unread previously
 			}
 			int currentUnreadNumber = MineMessageUtils.getUnreadMessagesCount(context);
-			
+
 			//TODO: maybe I can optimize the code
 			if (currentUnreadNumber < previousUnreadNumber) {
 				MineMessageReminderReceiver.cancelReminder(context);

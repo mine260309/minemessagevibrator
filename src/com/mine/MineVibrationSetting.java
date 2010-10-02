@@ -16,13 +16,14 @@ public class MineVibrationSetting extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+        if(MineVibrationToggler.IsUpgraded(this)){
+        	// There is an upgrade, show upgrade dialog
+        	showDialog(UPGRADED_RUN_DIALOG_ID);
+        }
         if(MineVibrationToggler.IsFirstRun(this)) {
         	// This is the first time running, show a help screen
         	showDialog(FIRST_TIME_RUN_DIALOG_ID);
-        }
-        if(MineVibrationToggler.IsUpgraded(this)){
-        	showDialog(UPGRADED_RUN_DIALOG_ID);
         }
         addPreferencesFromResource(R.xml.preferences);
     }
@@ -62,7 +63,7 @@ public class MineVibrationSetting extends PreferenceActivity {
 
         return result;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId())

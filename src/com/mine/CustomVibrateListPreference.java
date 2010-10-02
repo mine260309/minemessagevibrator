@@ -64,7 +64,7 @@ public class CustomVibrateListPreference extends ListPreference {
 	      View v = inflater.inflate(R.layout.vibratepatternlayout, null);
 
 	      final EditText et = (EditText) v.findViewById(R.id.CustomVibrateEditText);
-	      
+
 	      vibrate_pattern_custom = MineVibrationToggler.GetVibratePatternbyReason(context, vibrate_reason);
 	      et.setText(vibrate_pattern_custom);
 
@@ -82,7 +82,7 @@ public class CustomVibrateListPreference extends ListPreference {
 	        			  new_pattern);
 
 	            Toast.makeText(context, context.getString(R.string.pref_vibrate_pattern_ok),
-	                Toast.LENGTH_LONG).show();
+	                Toast.LENGTH_SHORT).show();
 
 	          } else {
 
@@ -92,7 +92,7 @@ public class CustomVibrateListPreference extends ListPreference {
 	             */
 
 	            Toast.makeText(context, context.getString(R.string.pref_vibrate_pattern_bad),
-	                Toast.LENGTH_LONG).show();
+	                Toast.LENGTH_SHORT).show();
 	          }
 	        }
 	      })

@@ -70,7 +70,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	    }
 	    reminderPendingIntent =
 	        PendingIntent.getBroadcast(context, 0, reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-	    
+
 	    int reminderIntervalSeconds = MineVibrationToggler.GetReminderInterval(context);
 	    long triggerTime = System.currentTimeMillis() + (reminderIntervalSeconds * 1000);
 	    MineLog.v("MineMessageReminderReceiver: scheduled reminder notification in " 
