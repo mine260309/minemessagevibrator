@@ -74,6 +74,10 @@ MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
 1.05: Custom Vibrate Pattern support\n
+\n
+TODO: In the future release, I plan to separate the Message Vibrate and the Reminder settings, which means the widget will not be able to switch the reminder ON/OFF. What\'s your opinion? Let me know your idea by sending mail to mine260309@gmail.com\n
+\n
+Histories:\n
 1.04: Add option for forcely wake up reminder. Some devices have kernel problems that the reminder is not waken up in time, if you have such problem, please check this option\n
 1.03: Add reminder sound support\n
 1.02: Do not vibrate when phone in silent mode

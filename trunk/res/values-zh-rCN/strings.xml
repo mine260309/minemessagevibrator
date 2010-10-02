@@ -63,15 +63,19 @@
 1) 为短信设置震动模式\n
 2) 设置未读短信提醒\n
 3) 为提醒设置不同的震动模式\n
-4） 为提醒设置铃声
+4) 为提醒设置铃声
 </string>
 
-<string name="upgraded_run_dialog_title">What\'s New</string>
+<string name="upgraded_run_dialog_title">看看有哪些更新</string>
 <string name="upgraded_run_dialog_message">
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
 1.05: 可以使用自定义震动模式\n
+\n
+计划在将来版本中将短信震动和提醒功能分开设置,widget将不能切换提醒,你觉得这样好不好?欢迎发邮件到mine260309@gmail.com说明你的想法\n
+\n
+历史更新:\n
 1.04: 某些手机的kernel问题导致提醒不能及时唤醒,添加了强制唤醒提醒的选项设置.(如果你发现提醒经常延迟,请选中此选项)\n
 1.03: 添加了提醒铃声的设置\n
 1.02: 手机在静音时不震动
