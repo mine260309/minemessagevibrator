@@ -64,19 +64,39 @@ public class MineMessageVibratorWidget extends AppWidgetProvider {
 	private void toggleVibration(Context context) {
 		MineLog.v("Toggle vibration");
 
-		// Get setting from preference
-		boolean vibrate_enabled = MineVibrationToggler.GetVibrationEnabled(context);
-		vibrate_enabled = vibrate_enabled?false:true;
-	    MineVibrationToggler.EnableMessageVibration(context, vibrate_enabled);
-
+		// Get setting from preference		
+		boolean vibratePref = MineVibrationToggler.GetVibrationEnabledPreference(context);
+		boolean vibAppAutoEnabled = MineVibrationToggler.GetAppAutoEnabled(context);
+		/**
+		 * if AppAuto 
+		 * case1 vib ON, auto ON:  this should not happen;
+		 * case2 vib ON, auto OFF: this is the normal case, just toggle it;
+		 * case3 vib OFF, auto ON: toggle auto to OFF;
+		 * case4 vib OFF, auto OFF: this is the normal case, just toggle it;
+		 * else
+		 * just normal case
+		 * 
+		 * so if auto ON, disable auto;
+		 *    if auto OFF, just normal case;
+		 */
 	    String info;
-	    if(vibrate_enabled) {
-	    	info = context.getString(R.string.enable_vibration_info);
-	    }
-	    else {
-	    	info = context.getString(R.string.disable_vibration_info);
-	    }
-	    Toast.makeText(context,info, Toast.LENGTH_SHORT).show();
+		if (vibAppAutoEnabled) {
+			MineVibrationToggler.DisableAppAuto(context);
+			info = context.getString(R.string.app_auto_disable);
+			Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
+		}
+		else {
+			vibratePref = vibratePref?false:true;
+		    MineVibrationToggler.EnableMessageVibration(context, vibratePref);
+	
+		    if(vibratePref) {
+		    	info = context.getString(R.string.enable_vibration_info);
+		    }
+		    else {
+		    	info = context.getString(R.string.disable_vibration_info);
+		    }
+		    Toast.makeText(context,info, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public static void updateWidget(Context context) {

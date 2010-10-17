@@ -14,4 +14,8 @@
     <string name="pref_reminder_wakelock_enable_key">reminderWakeLockEnabled</string>
     <string name="pref_sms_vibrate_pattern_key">smsVibratePattern</string>
     <string name="pref_reminder_vibrate_pattern_key">reminderVibratePattern</string>
+    <string name="pref_app_auto_enable_key">appAutoEnable</string>
+    
+    <!-- Invisible settings -->
+    <string name="pref_app_auto_vib_reminder_enabled_key">appAutoVibReminderEnabled</string>
 </resources>

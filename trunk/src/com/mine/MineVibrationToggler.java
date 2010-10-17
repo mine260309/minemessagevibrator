@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,7 +20,7 @@ public class MineVibrationToggler {
 //	private static final String PREFS_NAME = "MineMessageVibrationPrefFile";
 	private static boolean VibrateEnabled;
 	private static boolean ReminderEnabled;
-	private static boolean ReminderVibrateEnabled;
+//	private static boolean ReminderVibrateEnabled;
 	private static boolean ReminderSoundEnabled;
 	private static boolean inited = false;
 	
@@ -30,58 +31,83 @@ public class MineVibrationToggler {
 					context.getString(R.string.pref_vibrate_enable_key), false);		
 			ReminderEnabled = settings.getBoolean(
 					context.getString(R.string.pref_reminder_enable_key), false);
-			ReminderVibrateEnabled = settings.getBoolean(
-					context.getString(R.string.pref_reminder_vibrate_enable_key), false);
+//			ReminderVibrateEnabled = settings.getBoolean(
+//					context.getString(R.string.pref_reminder_vibrate_enable_key), false);
 			ReminderSoundEnabled = settings.getBoolean(
 					context.getString(R.string.pref_reminder_sound_enable_key), false);
 			inited = true;
 		}
 	}
 
-	public static void EnableMessageVibration(Context context, boolean enable) {
-		initStatus(context);
+	/** Set the broadcast receiver for messages enable or disable; 
+	 *  It depends on the Message Vibration checkbox & the reminder checkbox 
+	 *  broadcast receiver will be disabled when both checkboxes are disabled */
+	private static void SetMessageReceiver(Context context) {
 		PackageManager pm = context.getPackageManager();
 		ComponentName cn = new ComponentName(context, MineMessageReceiver.class);
-		int enable_disable = enable? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+		boolean smsVibrateEnabled, reminderEnabled;
+		smsVibrateEnabled = GetVibrationEnabled(context);
+		reminderEnabled = GetReminderEnabled(context);
+		//appAutoEnabled = GetAppAutoEnabled(context);
+		
+		boolean enable = (smsVibrateEnabled | reminderEnabled);
+		int enable_disable = enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 				:PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 		pm.setComponentEnabledSetting(cn, 
 				enable_disable,
 				PackageManager.DONT_KILL_APP);
+		MineLog.v("Set the MessageReceiver " + (enable?"Enabled":"Disabled"));
+	}
 
-		if(!enable) {
-			MineMessageReminderReceiver.cancelReminder(context);
-		}
-
+	public static void EnableMessageVibration(Context context, boolean enable) {
+		initStatus(context);
 		SetVibrationEnable(context, enable);
+		
+		SetMessageReceiver(context);
 	}
 	
-	public static void EnableReminderVibrate(Context context, boolean enable) {
+	public static void EnableReminder(Context context, boolean enable) {
 		initStatus(context);
-		ReminderVibrateEnabled = enable;
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(context.getString(R.string.pref_reminder_vibrate_enable_key), enable);
+		editor.putBoolean(context.getString(R.string.pref_reminder_enable_key), enable);
 
 		// Commit the edits!
 		editor.commit();
+		
+		if(!enable) {
+			MineMessageReminderReceiver.cancelReminder(context);
+		}
+		SetMessageReceiver(context);
 	}
-	
+
 	public static boolean GetReminderEnabled(Context context) {
+		ReminderEnabled = GetReminderEnabledPreference(context);
+		return ReminderEnabled || GetAppAutoEnabled(context);
+	}
+	public static boolean GetReminderEnabledPreference(Context context) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-		ReminderEnabled = settings.getBoolean(
+		return settings.getBoolean(
 				context.getString(R.string.pref_reminder_enable_key), false);
-		return ReminderEnabled;
+		
 	}
 	
 	public static boolean GetVibrationEnabled(Context context) {
 		initStatus(context);
-		return VibrateEnabled;
+		return VibrateEnabled || GetAppAutoEnabled(context);
 	}
 	
-	public static boolean GetReminderVibrateEnabled(Context context) {
-		initStatus(context);
-		return ReminderVibrateEnabled;
+	public static boolean GetVibrationEnabledPreference(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		return settings.getBoolean(
+				context.getString(R.string.pref_vibrate_enable_key), false);		
 	}
+
+	//public static boolean GetReminderVibrateEnabled(Context context) {
+	//	return GetVibrationEnabled(context) && GetReminderEnabled(context);
+		//SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		//return settings.getBoolean(context.getString(R.string.pref_reminder_vibrate_enable_key), false);
+	//}
 	
 	public static boolean GetReminderSoundEnabled(Context context) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -139,7 +165,7 @@ public class MineVibrationToggler {
 				context.getString(R.string.pref_reminder_wakelock_enable_key), false);
 	}
 	
-	public static boolean ShallVibrate(Context context) {
+	public static boolean ShallNotify(Context context) {
 		int notifyMode = GetPhoneRingerState(context);
 		if (notifyMode ==  AudioManager.RINGER_MODE_SILENT) {
 			MineLog.v("phone is in silent mode");
@@ -241,5 +267,59 @@ public class MineVibrationToggler {
 
 		// Commit the edits!
 		editor.commit();
+	}
+	
+	/**
+	 * When app is disabled and user switch to vibrate mode, enable app automatically;
+	 * 
+	 * @param context
+	 */
+	public static void EnableAppAuto(Context context) {
+		boolean appEnabled = /*GetReminderEnabled(context) || */GetVibrationEnabled(context);
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		boolean appAutoEnabled = settings.getBoolean(
+				context.getString(R.string.pref_app_auto_enable_key), true);
+
+		if (!appEnabled && appAutoEnabled) {
+			// enable app automatically
+			editor.putBoolean(context.getString(R.string.pref_app_auto_vib_reminder_enabled_key), true);
+			editor.commit();
+			SetMessageReceiver(context);
+			Intent intent = new Intent(MineVibrationToggler.VIBRATION_ACTION_NAME);
+			context.sendBroadcast(intent);
+		}
+	}
+
+	/**
+	 * When app is automatically enabled, disable it here
+	 * @param context
+	 */
+	public static void DisableAppAuto(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+
+		editor.putBoolean(context.getString(R.string.pref_app_auto_vib_reminder_enabled_key), false);
+		editor.commit();
+		SetMessageReceiver(context);
+		Intent intent = new Intent(MineVibrationToggler.VIBRATION_ACTION_NAME);
+		context.sendBroadcast(intent);
+	}
+
+	public static boolean GetAppAutoEnabled(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context.getString(R.string.pref_app_auto_vib_reminder_enabled_key), false);
+	}
+	
+	public static void SetAppAutoEnablePreference(Context context, boolean enable) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(context.getString(R.string.pref_app_auto_enable_key), enable);
+		if (enable) {
+			EnableAppAuto(context);
+		}
+		if(!enable) {
+			DisableAppAuto(context);
+		}
 	}
 }
