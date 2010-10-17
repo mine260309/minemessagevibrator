@@ -24,21 +24,20 @@
 </PreferenceCategory>
 
 <PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
-<CheckBoxPreference 
+<com.mine.MineReminderEnableCheckBoxPreference  
     android:key="@string/pref_reminder_enable_key"
     android:title="@string/pref_reminder_enable_title"
-    android:dependency="@string/pref_vibrate_enable_key"
 >
-</CheckBoxPreference>
+</com.mine.MineReminderEnableCheckBoxPreference >
 
-<com.mine.MineReminderEnableCheckBoxPreference 
+<!-- CheckBoxPreference 
     android:key="@string/pref_reminder_vibrate_enable_key"
     android:title="@string/pref_reminder_vibrate_enable_title"
     android:summaryOn="@string/pref_reminder_vibrate_enable_summary_on" 
     android:summaryOff="@string/pref_reminder_vibrate_enable_summary_off"
-    android:dependency="@string/pref_reminder_enable_key"
->
-</com.mine.MineReminderEnableCheckBoxPreference>
+    android:dependency="@string/pref_vibrate_enable_key"
+-->
+<!--  /CheckBoxPreference -->
 
 <com.mine.CustomVibrateListPreference
     android:key="@string/pref_reminder_vibration_mode_key"
@@ -47,7 +46,7 @@
     android:entryValues="@array/pref_reminder_vibration_mode_entries"
     android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
     android:defaultValue="@string/pref_reminder_vibration_mode_default"
-    android:dependency="@string/pref_reminder_vibrate_enable_key"
+    android:dependency="@string/pref_reminder_enable_key"
     android:summary="@string/pref_reminder_vibrate_summary"
 >
 </com.mine.CustomVibrateListPreference>
@@ -89,6 +88,18 @@
     android:summaryOn="@string/pref_reminder_wakelock_enable_summary_on" 
     android:summaryOff="@string/pref_reminder_wakelock_enable_summary_off"
     android:dependency="@string/pref_reminder_enable_key"
+/>
+
+</PreferenceCategory>
+
+<PreferenceCategory android:title="@string/pref_misc_catagory">
+
+<com.mine.MineAppAutoEnableCheckbox 
+    android:key="@string/pref_app_auto_enable_key"
+    android:title="@string/pref_app_auto_enable_title"
+    android:summaryOn="@string/pref_app_auto_enable_summary_on" 
+    android:summaryOff="@string/pref_app_auto_enable_summary_off"
+    android:enabled="true"
 />
 
 </PreferenceCategory>

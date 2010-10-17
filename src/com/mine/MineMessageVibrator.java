@@ -53,7 +53,7 @@ public class MineMessageVibrator {
 
 	private static void vibrate(Context context, int reason) {
 		// If the phone is in silent mode, do not vibrate
-		if(MineVibrationToggler.ShallVibrate(context)) {
+		if(MineVibrationToggler.ShallNotify(context)) {
 		    // Get phone state, if not idle then don't vibrate
 		    TelephonyManager mTM = 
 		      (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -61,10 +61,9 @@ public class MineMessageVibrator {
 		    	//Check whether we need to ring or vibrate, or both...
 		    	boolean needSound = (reason == VIBRATE_REASON_REMINDER) &&
 		    				MineVibrationToggler.GetReminderSoundEnabled(context);
-		    	boolean needVibrate = (reason!=VIBRATE_REASON_REMINDER) ||
-		    		((reason == VIBRATE_REASON_REMINDER) &&
-		    				MineVibrationToggler.GetReminderVibrateEnabled(context));
-		    	
+		    	boolean needVibrate = MineVibrationToggler.GetVibrationEnabled(context);
+//		    	MineLog.v("VibrationEnabled is " + MineVibrationToggler.GetVibrationEnabled(context)
+//		    			  + "\n ReminderVibrateEnabled is " +  MineVibrationToggler.GetReminderVibrateEnabled(context));
 		    	if (needSound) {
 		    		NotificationManager nm = 
 		    			(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

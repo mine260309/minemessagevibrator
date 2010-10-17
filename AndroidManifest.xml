@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.mine"
-      android:versionCode="6" android:versionName="1.05">
+      android:versionCode="7" android:versionName="1.06">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".MineVibrationSetting"
                   android:label="@string/app_name">
@@ -28,6 +28,13 @@
       <intent-filter>
         <action
           android:name="com.mine.ACTION_REMIND" />
+      </intent-filter>
+    </receiver>
+    
+    <receiver android:name=".MineRingerModeChangeReceiver">
+      <intent-filter>
+        <action
+          android:name="android.media.RINGER_MODE_CHANGED" />
       </intent-filter>
     </receiver>
 

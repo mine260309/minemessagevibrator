@@ -50,6 +50,16 @@
 <string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
 <string name="pref_reminder_wakelock_enable_summary_off">取消强制唤醒</string>
 
+
+<!-- Misc preference -->
+<string name="pref_misc_catagory">其它</string>
+<string name="pref_app_auto_enable_title">自动启用震动和提醒</string>
+<string name="pref_app_auto_enable_summary_on">在手机进入震动时自动启用震动和提醒功能</string>
+<string name="pref_app_auto_enable_summary_off">不自动启用震动和提醒功能</string>
+<string name="app_auto_enable">启用自动震动</string>
+<string name="app_auto_disable">禁用自动震动</string>
+
+
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>
 <string name="first_run_dialog_message">
@@ -71,11 +81,14 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.05: 可以使用自定义震动模式\n
-\n
-计划在将来版本中将短信震动和提醒功能分开设置,widget将不能切换提醒,你觉得这样好不好?欢迎发邮件到mine260309@gmail.com说明你的想法\n
+1.06: 
+桌面小部件仅切换震动,不再切换提醒;\n
+合并短信震动和提醒震动设置;\n
+添加了自动启用震动和提醒的功能.\n
+(如果您觉得新的改动不符合你的习惯，请联系我，发邮件或者在电子市场中留言都可以，谢谢!)\n
 \n
 历史更新:\n
+1.05: 可以使用自定义震动模式\n
 1.04: 某些手机的kernel问题导致提醒不能及时唤醒,添加了强制唤醒提醒的选项设置.(如果你发现提醒经常延迟,请选中此选项)\n
 1.03: 添加了提醒铃声的设置\n
 1.02: 手机在静音时不震动
