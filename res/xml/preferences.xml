@@ -99,7 +99,15 @@
     android:title="@string/pref_app_auto_enable_title"
     android:summaryOn="@string/pref_app_auto_enable_summary_on" 
     android:summaryOff="@string/pref_app_auto_enable_summary_off"
-    android:enabled="true"
+/>
+
+<com.mine.MineDonateDialog
+    android:title="@string/pref_donate_title"
+	android:dialogTitle="@string/pref_donate_dialog_title"
+	android:negativeButtonText="@string/pref_donate_no_button"
+	android:positiveButtonText="@string/pref_donate_yes_button"
+	android:dialogMessage="@string/pref_donate_message"
+	android:summary="@string/pref_donate_summary"
 />
 
 </PreferenceCategory>
