@@ -59,6 +59,11 @@
 <string name="app_auto_enable">启用自动震动</string>
 <string name="app_auto_disable">禁用自动震动</string>
 
+<string name="pref_donate_dialog_title">捐赠</string>
+<string name="pref_donate_yes_button">是的</string>
+<string name="pref_donate_no_button">不了,谢谢</string>
+<string name="pref_donate_summary">如果你喜欢这个软件，请捐赠开发者~</string>
+<string name="pref_donate_message">您愿意为这个小软件捐赠吗?</string>
 
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>

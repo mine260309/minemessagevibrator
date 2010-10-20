@@ -60,6 +60,13 @@
 <string name="app_auto_enable">Enable Auto Vibration</string>
 <string name="app_auto_disable">Disable Auto Vibration</string>
 
+<string name="pref_donate_title">Donate</string>
+<string name="pref_donate_dialog_title">Donate</string>
+<string name="pref_donate_yes_button">Yes</string>
+<string name="pref_donate_no_button">No,thanks</string>
+<string name="pref_donate_summary">If you like this app, please donate~</string>
+<string name="pref_donate_message">Would you like to donate this app?</string>
+
 <!-- First time run help message -->
 <string name="first_run_dialog_title">First Time Run Help</string>
 <string name="first_run_dialog_message">
