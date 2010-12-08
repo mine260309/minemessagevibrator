@@ -80,7 +80,14 @@ public class MineVibrationToggler {
 		}
 		SetMessageReceiver(context);
 	}
-
+	
+	public static void EnableReminderSound(Context context, boolean enable) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(context.getString(R.string.pref_reminder_sound_enable_key), enable);
+		editor.commit();
+	}
+	
 	public static boolean GetReminderEnabled(Context context) {
 		ReminderEnabled = GetReminderEnabledPreference(context);
 		return ReminderEnabled || GetAppAutoEnabled(context);
@@ -89,7 +96,6 @@ public class MineVibrationToggler {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		return settings.getBoolean(
 				context.getString(R.string.pref_reminder_enable_key), false);
-		
 	}
 	
 	public static boolean GetVibrationEnabled(Context context) {
@@ -147,7 +153,7 @@ public class MineVibrationToggler {
 		int nowVersion = 0;
 		try {
 			PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-			nowVersion = info.versionCode;  //°æ±¾ºÅ
+			nowVersion = info.versionCode;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -315,11 +321,17 @@ public class MineVibrationToggler {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(context.getString(R.string.pref_app_auto_enable_key), enable);
+		editor.commit();
 		if (enable) {
 			EnableAppAuto(context);
 		}
 		if(!enable) {
 			DisableAppAuto(context);
 		}
+	}
+	
+	public static boolean GetAppAutoEnablePreference(Context context) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context.getString(R.string.pref_app_auto_enable_key), false);		
 	}
 }

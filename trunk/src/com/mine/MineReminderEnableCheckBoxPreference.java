@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 
 public class MineReminderEnableCheckBoxPreference extends CheckBoxPreference {
 	private Context context;
-	
 
 	public MineReminderEnableCheckBoxPreference(Context c, AttributeSet attrs, int defStyle) {
 	    super(c, attrs, defStyle);
@@ -27,5 +26,7 @@ public class MineReminderEnableCheckBoxPreference extends CheckBoxPreference {
 	protected void onClick() {
 	    super.onClick();
 	    MineVibrationToggler.EnableReminder(context, isChecked());
+	    
+		MineVibrationSetting.AdjustPreference();
 	}
 }

@@ -30,6 +30,8 @@ public class MineVibrationEnableCheckBoxPreference extends CheckBoxPreference {
 	    
 		Intent intent = new Intent(MineVibrationToggler.VIBRATION_ACTION_NAME);
 		context.sendBroadcast(intent);
+		
+		MineVibrationSetting.AdjustPreference();
 	}
 
 }

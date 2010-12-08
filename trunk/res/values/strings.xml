@@ -88,13 +88,16 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
-1.06: \n
-Widgets does NOT toggles Reminder any more, only toggles Vibrate;\n
-Merge the Reminder Vibration option into Message Vibration;\n
-Add option to Auto Enable Vibrate &amp; Reminder.\n
-(If you feel the new changes does not meet your need, do let me know! Send mails or leave comments in the market)\n
+1.07:\n 
+1) When Vibrate/Reminder is disabled and \"Auto Enable\" is activated, make it possible to edit vibrate/reminder pattern;\n
+2) Add Donate button, donate if you like this app :)\n
 \n
 Histories:\n
+1.06: \n
+1) Widgets does NOT toggles Reminder any more, only toggles Vibrate;\n
+2) Merge the Reminder Vibration option into Message Vibration;\n
+3) Add option to Auto Enable Vibrate &amp; Reminder.\n
+(If you feel the new changes does not meet your need, do let me know! Send mails or leave comments in the market)\n
 1.05: Custom Vibrate Pattern support\n
 1.04: Add option for forcely wake up reminder. Some devices have kernel problems that the reminder is not waken up in time, if you have such problem, please check this option\n
 1.03: Add reminder sound support\n
