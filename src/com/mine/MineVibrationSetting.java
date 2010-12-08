@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,11 +13,12 @@ public class MineVibrationSetting extends PreferenceActivity {
 	
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
+	private static MineVibrationSetting context;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context = this;
         if(MineVibrationToggler.IsUpgraded(this)){
         	// There is an upgrade, show upgrade dialog
         	showDialog(UPGRADED_RUN_DIALOG_ID);
@@ -26,6 +28,13 @@ public class MineVibrationSetting extends PreferenceActivity {
         	showDialog(FIRST_TIME_RUN_DIALOG_ID);
         }
         addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+    	super.onPostCreate(savedInstanceState);
+    	//TODO: how to init the preference???!!!
+        AdjustPreference();
     }
 
     @Override
@@ -77,4 +86,62 @@ public class MineVibrationSetting extends PreferenceActivity {
     	}
         return super.onOptionsItemSelected(item);
     }
+    
+    public static void AdjustPreference() {
+    	
+    	// re-adjust the contents based on the logic
+    	Preference vibPref = context.findPreference(context.getString(R.string.pref_vibrate_enable_key));
+    	Preference remPref = context.findPreference(context.getString(R.string.pref_reminder_enable_key));
+    	Preference remSoundPref = context.findPreference(context.getString(R.string.pref_reminder_sound_enable_key));
+
+    	if (vibPref == null || remPref == null || remSoundPref == null) {
+    		MineLog.e("Can't find pref");
+    		return;
+    	}
+    	
+    	boolean vib = MineVibrationToggler.GetVibrationEnabledPreference(context);
+    	boolean auto = MineVibrationToggler.GetAppAutoEnablePreference(context);
+    	boolean rem = MineVibrationToggler.GetReminderEnabledPreference(context);
+    	boolean remSound = MineVibrationToggler.GetReminderSoundEnabled(context) && rem;
+    	MineLog.v("vib:"+ vib +" auto:"+auto+" rem:"+rem+" remSound:"+remSound);
+    	
+		if(!vib && !auto) {
+			vibPref.notifyDependencyChange(true);
+		}
+		else if(!vib && auto){
+			vibPref.notifyDependencyChange(false);
+		}
+		else if(vib && !auto) {
+			vibPref.notifyDependencyChange(false);
+		}
+		else {
+			vibPref.notifyDependencyChange(false);
+		}
+		
+		if(!rem && !auto) {
+			remPref.notifyDependencyChange(true);
+		}
+		else if(!rem && auto){
+			remPref.notifyDependencyChange(false);
+		}
+		else if(rem && !auto) {
+			remPref.notifyDependencyChange(false);
+		}
+		else {
+			remPref.notifyDependencyChange(false);
+		}
+		
+		if(!remSound && !auto) {
+			remSoundPref.notifyDependencyChange(true);
+		}
+		else if(!remSound && auto){
+			remSoundPref.notifyDependencyChange(false);
+		}
+		else if(remSound && !auto) {
+			remSoundPref.notifyDependencyChange(false);
+		}
+		else {
+			remSoundPref.notifyDependencyChange(false);
+		}
+	}
 }

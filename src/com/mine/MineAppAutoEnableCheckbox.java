@@ -26,5 +26,6 @@ public class MineAppAutoEnableCheckbox extends CheckBoxPreference {
 	protected void onClick() {
 	    super.onClick();
 	    MineVibrationToggler.SetAppAutoEnablePreference(context, isChecked());
+	    MineVibrationSetting.AdjustPreference();
 	}
 }

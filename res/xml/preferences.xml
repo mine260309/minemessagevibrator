@@ -51,14 +51,14 @@
 >
 </com.mine.CustomVibrateListPreference>
 
-<CheckBoxPreference 
+<com.mine.MineReminderSoundCheckBoxPreference
     android:key="@string/pref_reminder_sound_enable_key"
     android:title="@string/pref_reminder_sound_enable_title"
     android:summaryOn="@string/pref_reminder_sound_enable_summary_on" 
     android:summaryOff="@string/pref_reminder_sound_enable_summary_off"
     android:dependency="@string/pref_reminder_enable_key"
 >
-</CheckBoxPreference>
+</com.mine.MineReminderSoundCheckBoxPreference>
 
 <RingtonePreference
     android:key="@string/pref_reminder_sound_key"
