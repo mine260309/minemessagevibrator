@@ -59,6 +59,18 @@ public class MineVibrationToggler {
 		MineLog.v("Set the MessageReceiver " + (enable?"Enabled":"Disabled"));
 	}
 
+	public static void SetUpdateViewReceiverEnable(Context context, boolean enable) {
+		PackageManager pm = context.getPackageManager();
+		ComponentName cn = new ComponentName(context, MineUpdateViewReceiver.class);
+		
+		int enable_disable = enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+				:PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+		pm.setComponentEnabledSetting(cn, 
+				enable_disable,
+				PackageManager.DONT_KILL_APP);
+		MineLog.v("Set the MineUpdateViewReceiver " + (enable?"Enabled":"Disabled"));
+	}
+
 	public static void EnableMessageVibration(Context context, boolean enable) {
 		initStatus(context);
 		SetVibrationEnable(context, enable);
@@ -322,9 +334,9 @@ public class MineVibrationToggler {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(context.getString(R.string.pref_app_auto_enable_key), enable);
 		editor.commit();
-		if (enable) {
-			EnableAppAuto(context);
-		}
+//		if (enable) {
+//			EnableAppAuto(context);
+//		}
 		if(!enable) {
 			DisableAppAuto(context);
 		}
