@@ -24,6 +24,13 @@
       </intent-filter>
     </receiver>
     
+    <receiver android:name="MineUpdateViewReceiver">
+      <intent-filter>
+        <action
+          android:name="com.mine.UPDATE_PREF_VIEW" />
+      </intent-filter>
+    </receiver>
+    
     <receiver android:name=".MineMessageReminderReceiver">
       <intent-filter>
         <action

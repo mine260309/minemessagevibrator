@@ -3,6 +3,7 @@ package com.mine;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -10,10 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MineVibrationSetting extends PreferenceActivity {
+	public static final String ACTION_UPDATE_PREF_VIEW = "com.mine.UPDATE_PREF_VIEW";
 	
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
 	private static MineVibrationSetting context;
+	//flag indicate InitAdjustPreference is called
+//	private static boolean InitAdjustPreferenceCalled = false;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +38,11 @@ public class MineVibrationSetting extends PreferenceActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
     	super.onPostCreate(savedInstanceState);
-    	//TODO: how to init the preference???!!!
-        AdjustPreference();
+    	// Send intent to update the preference view
+		MineVibrationToggler.SetUpdateViewReceiverEnable(context,true);
+		Intent intent = new Intent(ACTION_UPDATE_PREF_VIEW);
+		MineLog.v("Send update pref view intent");
+		context.sendBroadcast(intent);
     }
 
     @Override
@@ -98,7 +106,6 @@ public class MineVibrationSetting extends PreferenceActivity {
     		MineLog.e("Can't find pref");
     		return;
     	}
-    	
     	boolean vib = MineVibrationToggler.GetVibrationEnabledPreference(context);
     	boolean auto = MineVibrationToggler.GetAppAutoEnablePreference(context);
     	boolean rem = MineVibrationToggler.GetReminderEnabledPreference(context);
@@ -144,4 +151,11 @@ public class MineVibrationSetting extends PreferenceActivity {
 			remSoundPref.notifyDependencyChange(false);
 		}
 	}
+    
+    /// This function shall be called once, and only once when app starts
+    public static void InitAdjustPreference() {
+//    	InitAdjustPreferenceCalled = true;
+		MineVibrationToggler.SetUpdateViewReceiverEnable(context,false);
+    	AdjustPreference();
+    }
 }
