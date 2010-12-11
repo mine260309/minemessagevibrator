@@ -92,6 +92,8 @@ Updates:\n
 1) When Vibrate/Reminder is disabled and \"Auto Enable\" is activated, make it possible to edit vibrate/reminder pattern;\n
 2) Verified working on Android 2.3 emulator;\n
 3) Add Donate button, donate if you like this app :)\n
+Special Note:\n
+If you find it vibrate randomly without message, probably it\'s downloading an MMS, check it in you Message Application\n
 \n
 Histories:\n
 1.06: \n
