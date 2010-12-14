@@ -33,6 +33,7 @@ public class MineVibrationSetting extends PreferenceActivity {
         	showDialog(FIRST_TIME_RUN_DIALOG_ID);
         }
         addPreferencesFromResource(R.xml.preferences);
+        
     }
 
     @Override
@@ -43,6 +44,10 @@ public class MineVibrationSetting extends PreferenceActivity {
 		Intent intent = new Intent(ACTION_UPDATE_PREF_VIEW);
 		MineLog.v("Send update pref view intent");
 		context.sendBroadcast(intent);
+		
+        //Intent intent2 = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
+        //intent2.setClass(context, MineTelephonyListenService.class);
+        //MineTelephonyListenService.beginStartingService(context, intent2);
     }
 
     @Override

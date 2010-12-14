@@ -49,6 +49,8 @@
       android:name=".MineMessageReceiverService" />
     <service
       android:name=".MineMessageReminderService" />
+    <service
+      android:name=".MineTelephonyListenService" />
     
     <receiver android:name=".MineMessageVibratorWidget" android:label="@string/widget_name">
         <intent-filter>
