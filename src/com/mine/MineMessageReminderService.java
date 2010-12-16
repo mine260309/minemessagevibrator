@@ -107,10 +107,7 @@ public class MineMessageReminderService extends Service {
 
 			if (ACTION_REMIND.equals(action)) {
 				processReminder(intent);
-			}/*
-			 * else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-			 * MineMessageReminderReceiver.cancelReminder(context); }
-			 */
+			}
 
 			// NOTE: We MUST not call stopSelf() directly, since we need to
 			// make sure the wake lock acquired by AlertReceiver is released.
@@ -122,23 +119,68 @@ public class MineMessageReminderService extends Service {
 			// TODO: need to find a way to determine if we need to notify
 			// If user already read the SMS, we shall not notify;
 			// So maybe it shall monitor the number of unread messages...
-			// Case 1: unread message number is decreasing before the previous
-			// schedule
-			// -> cancel notify;
-			// Case 2: unread message number is increasing, maybe this it not
-			// going to happen
-			// -> keep reminding;
-			// Case 3: unread message number is not changing,
-			// -> keep reminding;
+			// If reminder is enabled
+			//   if missedPhoneCalls reminder is enabled
+			//     get the number of missed calls (nMC)
+			//   fi
+			//   get the number of unread messages (nUM)
+			//   if nMC ir not 0 OR nUM is not decreasing
+			//     notify & schedule new reminder
+			//   else
+			//     cancel reminder
+			//   fi
+			// Else
+			//   cancel reminder
+			// Fi
 
-			int previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
+			if (MineVibrationToggler.GetReminderEnabled(context)) {
+				int previousUnreadNumber = 0, missedPhoneCalls = 0, currentUnreadNumber = 0;
+				if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
+					missedPhoneCalls = MineMessageUtils.getMissedPhoneCalls(context);
+				}
+				previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
+				if (previousUnreadNumber == -1) {
+					MineLog.e("Error getting unread number from intent!");
+					previousUnreadNumber = 1; // set to 1 to simulate we have 1
+												// unread previously
+				}
+				currentUnreadNumber = MineMessageUtils
+					.getUnreadMessagesCount(context);
+				boolean isUnreadMessageDecreasing = currentUnreadNumber < previousUnreadNumber;
+				
+				MineLog.v("unread messages: "+currentUnreadNumber +
+						", missed calls: "+missedPhoneCalls);
+				if(missedPhoneCalls > 0 || !isUnreadMessageDecreasing) {
+					MineMessageVibrator.notifyReminder(context);
+					MineMessageReminderReceiver.scheduleReminder(context,
+							currentUnreadNumber,
+							MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
+				}
+				else {
+					MineMessageReminderReceiver.cancelReminder(context,
+							MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
+				}
+			}
+			else {
+				MineMessageReminderReceiver.cancelReminder(context,
+						MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
+			}
+			
+			/*
+			int reminderType = intent.getIntExtra(EXTRA_REMINDER_TYPE, 
+					MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
+			int previousUnreadNumber = 0, missedPhoneCalls = 0, currentUnreadNumber = 0;
+			if (reminderType == MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE) {
+				previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
+			}
 			if (previousUnreadNumber == -1) {
 				MineLog.e("Error getting unread number from intent!");
 				previousUnreadNumber = 1; // set to 1 to simulate we have 1
 											// unread previously
 			}
-			int currentUnreadNumber = MineMessageUtils
+			currentUnreadNumber = MineMessageUtils
 					.getUnreadMessagesCount(context);
+			missedPhoneCalls = MineMessageUtils.getMissedPhoneCalls(context);
 
 			// TODO: maybe I can optimize the code
 			if (currentUnreadNumber < previousUnreadNumber) {
@@ -155,7 +197,7 @@ public class MineMessageReminderService extends Service {
 					MineMessageReminderReceiver.cancelReminder(context,
 							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 				}
-			}
+			}*/
 		}
 	}
 }
