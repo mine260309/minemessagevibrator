@@ -114,8 +114,11 @@ public class MineTelephonyListenService extends Service {
 			}
 			else if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
 				// TODO: add preference check here!!
-				MineMessageReminderReceiver.scheduleReminder(context, 0,
+				if (MineVibrationToggler.GetReminderEnabled(context) &&
+						MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
+					MineMessageReminderReceiver.scheduleReminder(context, 0,
 						MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL);
+				}
 			}
 			// NOTE: We MUST not call stopSelf() directly, since we need to
 			// make sure the wake lock acquired by AlertReceiver is released.

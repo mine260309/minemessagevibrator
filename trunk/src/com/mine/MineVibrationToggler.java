@@ -404,4 +404,8 @@ public class MineVibrationToggler {
 		return settings.getBoolean(context
 				.getString(R.string.pref_app_auto_enable_key), false);
 	}
+
+	public static boolean GetMissedPhoneCallReminderEnabled(Context context) {
+		return true;
+	}
 }

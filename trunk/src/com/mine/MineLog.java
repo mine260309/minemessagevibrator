@@ -7,7 +7,7 @@ public class MineLog {
 
 	public static void v(String msg) {
 		if (DEBUG)
-			android.util.Log.v(LOGTAG, msg);
+	      android.util.Log.v(LOGTAG, msg);
 	}
 
 	public static void e(String msg) {

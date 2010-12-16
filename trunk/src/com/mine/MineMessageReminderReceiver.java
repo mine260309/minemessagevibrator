@@ -119,7 +119,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			MineLog.e("MineMessageReminderReceiver: invalid type!");
 			return;
 		}
-		
+
 		reminderIntent.putExtra(MineMessageReminderService.EXTRA_REMINDER_TYPE, type);
 		
 		reminderPendingIntent = PendingIntent.getBroadcast(context, 0,
