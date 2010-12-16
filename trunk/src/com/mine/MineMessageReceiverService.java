@@ -115,7 +115,8 @@ public class MineMessageReceiverService extends Service {
 			}
 
 			if (MineVibrationToggler.GetReminderEnabled(context)) {
-				MineMessageReminderReceiver.scheduleReminder(context, -1);
+				MineMessageReminderReceiver.scheduleReminder(context, -1,
+						MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 			}
 
 			// NOTE: We MUST not call stopSelf() directly, since we need to

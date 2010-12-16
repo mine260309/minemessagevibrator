@@ -3,6 +3,7 @@ package com.mine;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CallLog;
 
 public class MineMessageUtils {
 
@@ -82,5 +83,30 @@ public class MineMessageUtils {
 		}
 		MineLog.v("mms unread count = " + count);
 		return count;
+	}
+	
+	/**
+	 * Return the number of missed phone calls
+	 * 
+	 * @param context
+	 * @return missed phone calls
+	 */
+	synchronized public static int getMissedPhoneCalls(Context context) {
+		String queryString = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+CallLog.Calls.NEW+"=1";;
+		int ret = 0;
+		Cursor c = context.getContentResolver().
+			query(CallLog.Calls.CONTENT_URI, new String[]{"_id"}, 
+					queryString, null, null);
+		if (c != null) {
+			try {
+				if (c.moveToNext()) {
+					ret= c.getCount();
+				}
+			} finally {
+				c.close();
+			}
+		}
+		MineLog.v("getMissedPhoneCalls: " + ret);
+		return ret;
 	}
 }

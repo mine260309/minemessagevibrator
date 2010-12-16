@@ -17,6 +17,7 @@ public class MineTelephonyListenService extends Service {
 	private static final Object mStartingServiceSync = new Object();
 	private static PowerManager.WakeLock mStartingService;
 	public static final String ACTION_START_TELEPHONY_LISTEN = "com.mine.START_TELEPHONY_LISTEN";
+	public static final String ACTION_INCOMING_CALL_RECEIVED = "com.mine.INCOMING_CALL_RECEIVED";
 
 	private Context context;
 	private MineTelephonyListenServiceHandler mServiceHandler;
@@ -98,10 +99,11 @@ public class MineTelephonyListenService extends Service {
 
 		@Override
 		public void handleMessage(Message msg) {
-			MineLog.v("MineTelephonyListenServiceHandler: handleMessage()");
 			int serviceId = msg.arg1;
 			Intent intent = (Intent) msg.obj;
 			String action = intent.getAction();
+			MineLog.v("MineTelephonyListenServiceHandler: handleMessage() " 
+					+ action);
 
 			if (action.equals(ACTION_START_TELEPHONY_LISTEN)) {
 				TelephonyManager tm = (TelephonyManager) context
@@ -109,6 +111,11 @@ public class MineTelephonyListenService extends Service {
 				tm.listen(phoneStateListener,
 						PhoneStateListener.LISTEN_CALL_STATE);
 				MineLog.v("set telephony listener......");
+			}
+			else if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
+				// TODO: add preference check here!!
+				MineMessageReminderReceiver.scheduleReminder(context, 0,
+						MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL);
 			}
 			// NOTE: We MUST not call stopSelf() directly, since we need to
 			// make sure the wake lock acquired by AlertReceiver is released.
@@ -120,6 +127,11 @@ public class MineTelephonyListenService extends Service {
 		public void onCallStateChanged(int state, String incomingNumber) {
 			MineLog.v("onCallStateChanged: " + state + ", number: "
 					+ incomingNumber);
+			if (state == TelephonyManager.CALL_STATE_RINGING){
+				Intent intent = new Intent(ACTION_INCOMING_CALL_RECEIVED);
+				intent.setClass(context, MineTelephonyListenService.class);
+				beginStartingService(context, intent);
+			}
 		}
 	};
 }
