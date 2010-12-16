@@ -15,7 +15,8 @@ public class MineMessageReminderService extends Service {
 
 	private static final Object mStartingServiceSync = new Object();
 	public static final String ACTION_REMIND = "com.mine.ACTION_REMIND";
-	public static final String UNREAD_NUMBER = "com.mine.UNREAD";
+	public static final String EXTRA_UNREAD_NUMBER = "com.mine.UNREAD";
+	public static final String EXTRA_REMINDER_TYPE = "com.mine.REMINDER_TYPE";
 
 	private static PowerManager.WakeLock mStartingService;
 
@@ -25,7 +26,6 @@ public class MineMessageReminderService extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -131,7 +131,7 @@ public class MineMessageReminderService extends Service {
 			// Case 3: unread message number is not changing,
 			// -> keep reminding;
 
-			int previousUnreadNumber = intent.getIntExtra(UNREAD_NUMBER, -1);
+			int previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
 			if (previousUnreadNumber == -1) {
 				MineLog.e("Error getting unread number from intent!");
 				previousUnreadNumber = 1; // set to 1 to simulate we have 1
@@ -142,15 +142,18 @@ public class MineMessageReminderService extends Service {
 
 			// TODO: maybe I can optimize the code
 			if (currentUnreadNumber < previousUnreadNumber) {
-				MineMessageReminderReceiver.cancelReminder(context);
+				MineMessageReminderReceiver.cancelReminder(context,
+						MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 			} else {
 				if (MineVibrationToggler.GetReminderEnabled(context)) {
 					// Check if reminder is still enabled or not
 					MineMessageVibrator.notifyReminder(context);
 					MineMessageReminderReceiver.scheduleReminder(context,
-							currentUnreadNumber);
+							currentUnreadNumber,
+							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 				} else {
-					MineMessageReminderReceiver.cancelReminder(context);
+					MineMessageReminderReceiver.cancelReminder(context,
+							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 				}
 			}
 		}

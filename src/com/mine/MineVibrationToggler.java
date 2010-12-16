@@ -96,7 +96,8 @@ public class MineVibrationToggler {
 		editor.commit();
 
 		if (!enable) {
-			MineMessageReminderReceiver.cancelReminder(context);
+			MineMessageReminderReceiver.cancelReminder(context,
+					MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 		}
 		SetMessageReceiver(context);
 	}
