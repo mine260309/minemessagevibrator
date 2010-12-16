@@ -12,23 +12,22 @@ public class MineReminderSoundCheckBoxPreference extends CheckBoxPreference {
 		context = c;
 	}
 
-	public MineReminderSoundCheckBoxPreference(Context c,
-			AttributeSet attrs) {
+	public MineReminderSoundCheckBoxPreference(Context c, AttributeSet attrs) {
 		super(c, attrs);
 		context = c;
 	}
 
-	public MineReminderSoundCheckBoxPreference(Context c,
-			AttributeSet attrs, int defStyle) {
+	public MineReminderSoundCheckBoxPreference(Context c, AttributeSet attrs,
+			int defStyle) {
 		super(c, attrs, defStyle);
 		context = c;
 	}
-	
+
 	@Override
 	protected void onClick() {
-	    super.onClick();
-	    MineVibrationToggler.EnableReminderSound(context, isChecked());
-	    
+		super.onClick();
+		MineVibrationToggler.EnableReminderSound(context, isChecked());
+
 		MineVibrationSetting.AdjustPreference();
 	}
 }
