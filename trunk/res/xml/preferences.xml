@@ -92,6 +92,17 @@
 
 </PreferenceCategory>
 
+
+<PreferenceCategory android:title="@string/pref_reminder_items_catagory">
+<com.mine.MineReminderMissedPhoneCallCheckbox
+	android:key="@string/pref_reminder_item_missed_call_key"
+	android:title="@string/pref_reminder_item_missed_call_title"
+	android:summary="@string/pref_reminder_item_missed_call_summary"
+	android:dependency="@string/pref_reminder_enable_key"
+/>
+</PreferenceCategory>
+
+
 <PreferenceCategory android:title="@string/pref_misc_catagory">
 
 <com.mine.MineAppAutoEnableCheckbox 

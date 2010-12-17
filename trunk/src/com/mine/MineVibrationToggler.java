@@ -406,6 +406,19 @@ public class MineVibrationToggler {
 	}
 
 	public static boolean GetMissedPhoneCallReminderEnabled(Context context) {
-		return true;
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context
+					.getString(R.string.pref_reminder_item_missed_call_key), false);
 	}
+	
+	public static void SetMissedPhoneCallReminderEnabled(Context context, boolean enable) {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(context.getString(R.string.pref_reminder_item_missed_call_key),
+				enable);
+		editor.commit();
+	}
+	
 }
