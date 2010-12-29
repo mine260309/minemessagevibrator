@@ -2,15 +2,20 @@ package com.mine;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MineVibrationSetting extends PreferenceActivity {
+public class MineVibrationSetting extends PreferenceActivity
+	implements ServiceConnection
+{
 	public static final String ACTION_UPDATE_PREF_VIEW = "com.mine.UPDATE_PREF_VIEW";
 
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
@@ -46,9 +51,9 @@ public class MineVibrationSetting extends PreferenceActivity {
 		MineLog.v("Send update pref view intent");
 		context.sendBroadcast(intent);
 
-		Intent intent2 = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
-		intent2.setClass(context, MineTelephonyListenService.class);
-		MineTelephonyListenService.beginStartingService(context, intent2);
+//		Intent intent2 = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
+//		intent2.setClass(context, MineTelephonyListenService.class);
+//		MineTelephonyListenService.beginStartingService(context, intent2);
 	}
 
 	@Override
@@ -164,5 +169,17 @@ public class MineVibrationSetting extends PreferenceActivity {
 		// InitAdjustPreferenceCalled = true;
 		MineVibrationToggler.SetUpdateViewReceiverEnable(context, false);
 		AdjustPreference();
+	}
+
+	@Override
+	public void onServiceConnected(ComponentName name, IBinder service) {
+		MineLog.v("Conntect to service "+name);
+		
+	}
+
+	@Override
+	public void onServiceDisconnected(ComponentName name) {
+		MineLog.v("Disconntect to service "+name);
+		
 	}
 }
