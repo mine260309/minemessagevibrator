@@ -3,6 +3,7 @@ package com.mine;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -13,6 +14,10 @@ import android.os.Process;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+/**
+ * TODO: make this service a real listener service, register listener
+ * in onCreate, and delete it in onDestroy
+ * */
 public class MineTelephonyListenService extends Service {
 	private static final Object mStartingServiceSync = new Object();
 	private static PowerManager.WakeLock mStartingService;
@@ -23,10 +28,23 @@ public class MineTelephonyListenService extends Service {
 	private MineTelephonyListenServiceHandler mServiceHandler;
 	private Looper mServiceLooper;
 
+	private final IBinder binder = new ServiceBinder(this);
+	public static class ServiceBinder extends Binder {
+		
+		private final MineTelephonyListenService service;
+		
+		public ServiceBinder(MineTelephonyListenService service) {
+			this.service = service;
+		}
+		
+		public MineTelephonyListenService getService() {
+			return service;
+		}
+	}
+	
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
+		return binder;
 	}
 
 	@Override
@@ -38,6 +56,7 @@ public class MineTelephonyListenService extends Service {
 		context = getApplicationContext();
 		mServiceLooper = thread.getLooper();
 		mServiceHandler = new MineTelephonyListenServiceHandler(mServiceLooper);
+		
 	}
 
 	@Override

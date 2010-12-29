@@ -390,9 +390,6 @@ public class MineVibrationToggler {
 		editor.putBoolean(context.getString(R.string.pref_app_auto_enable_key),
 				enable);
 		editor.commit();
-		// if (enable) {
-		// EnableAppAuto(context);
-		// }
 		if (!enable) {
 			DisableAppAuto(context);
 		}
