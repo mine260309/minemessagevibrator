@@ -29,14 +29,15 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 	@Override
 	protected void onClick() {
 		super.onClick();
-		//MineVibrationToggler.SetMissedPhoneCallReminderEnabled(context, isChecked());
-		//MineVibrationSetting.AdjustPreference();
+		Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
+		intent.setClass(context, MineTelephonyListenService.class);
+		
 		if(isChecked()) {
-			Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
-			intent.setClass(context, MineTelephonyListenService.class);
 			context.startService(intent);
 			context.bindService(intent, (ServiceConnection) context, 0);
 		}
+		else {
+			context.stopService(intent);
+		}
 	}
-
 }
