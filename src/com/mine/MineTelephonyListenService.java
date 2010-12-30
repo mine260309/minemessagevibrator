@@ -20,7 +20,8 @@ import android.telephony.TelephonyManager;
  * */
 public class MineTelephonyListenService extends Service {
 	private static final Object mStartingServiceSync = new Object();
-	private static PowerManager.WakeLock mStartingService;
+//	private static PowerManager.WakeLock mStartingService;
+	private static PowerManager.WakeLock mWakeLock;
 	public static final String ACTION_START_TELEPHONY_LISTEN = "com.mine.START_TELEPHONY_LISTEN";
 	public static final String ACTION_INCOMING_CALL_RECEIVED = "com.mine.INCOMING_CALL_RECEIVED";
 
@@ -57,6 +58,11 @@ public class MineTelephonyListenService extends Service {
 		mServiceLooper = thread.getLooper();
 		mServiceHandler = new MineTelephonyListenServiceHandler(mServiceLooper);
 		
+		TelephonyManager tm = (TelephonyManager) context
+			.getSystemService(Context.TELEPHONY_SERVICE);
+		tm.listen(phoneStateListener,
+				PhoneStateListener.LISTEN_CALL_STATE);
+		MineLog.v("Register telephony listener......");
 	}
 
 	@Override
@@ -73,13 +79,42 @@ public class MineTelephonyListenService extends Service {
 	public void onDestroy() {
 		MineLog.v("MineTelephonyListenService.onDestroy()");
 		mServiceLooper.quit();
+		TelephonyManager tm = (TelephonyManager) context
+			.getSystemService(Context.TELEPHONY_SERVICE);
+		tm.listen(phoneStateListener,
+			PhoneStateListener.LISTEN_NONE);
+		MineLog.v("Unregister telephony listener......");
+		releaseLock();
 	}
 
+	public static void acquireLock(Context context) {
+		synchronized (mStartingServiceSync) {
+			if (mWakeLock == null) {
+				PowerManager pm = (PowerManager) context
+					.getSystemService(Context.POWER_SERVICE);
+				mWakeLock = pm.newWakeLock(
+						PowerManager.PARTIAL_WAKE_LOCK, MineLog.LOGTAG
+						+ ".TelephonyListenService");
+				mWakeLock.setReferenceCounted(false);
+			}
+			mWakeLock.acquire();
+			MineLog.v("acquire Wake Lock for TelephonyListenService");
+		}
+	}
+	public static void releaseLock() {
+		synchronized (mStartingServiceSync) {
+			if (mWakeLock != null) {
+				mWakeLock.release();
+				mWakeLock = null;
+				MineLog.v("release Wake Lock for TelephonyListenService");
+			}
+		}
+	}
 	/**
 	 * Start the service to process the current event notifications, acquiring
 	 * the wake lock before returning to ensure that the service will run.
 	 */
-	public static void beginStartingService(Context context, Intent intent) {
+/*	public static void beginStartingService(Context context, Intent intent) {
 		synchronized (mStartingServiceSync) {
 			MineLog.v("MineTelephonyListenService.beginStartingService()");
 			if (mStartingService == null) {
@@ -95,12 +130,12 @@ public class MineTelephonyListenService extends Service {
 			context.startService(intent);
 		}
 	}
-
+*/
 	/**
 	 * Called back by the service when it has finished processing notifications,
 	 * releasing the wake lock if the service is now stopping.
 	 */
-	public static void finishStartingService(Service service, int startId) {
+/*	public static void finishStartingService(Service service, int startId) {
 		synchronized (mStartingServiceSync) {
 			MineLog.v("MineTelephonyListenService.finishStartingService()");
 			if (mStartingService != null) {
@@ -110,6 +145,7 @@ public class MineTelephonyListenService extends Service {
 			}
 		}
 	}
+*/
 
 	private final class MineTelephonyListenServiceHandler extends Handler {
 		public MineTelephonyListenServiceHandler(Looper looper) {
@@ -118,20 +154,13 @@ public class MineTelephonyListenService extends Service {
 
 		@Override
 		public void handleMessage(Message msg) {
-			int serviceId = msg.arg1;
+			//int serviceId = msg.arg1;
 			Intent intent = (Intent) msg.obj;
 			String action = intent.getAction();
 			MineLog.v("MineTelephonyListenServiceHandler: handleMessage() " 
 					+ action);
 
-			if (action.equals(ACTION_START_TELEPHONY_LISTEN)) {
-				TelephonyManager tm = (TelephonyManager) context
-						.getSystemService(Context.TELEPHONY_SERVICE);
-				tm.listen(phoneStateListener,
-						PhoneStateListener.LISTEN_CALL_STATE);
-				MineLog.v("set telephony listener......");
-			}
-			else if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
+			if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
 				// TODO: add preference check here!!
 				if (MineVibrationToggler.GetReminderEnabled(context) &&
 						MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
@@ -139,9 +168,7 @@ public class MineTelephonyListenService extends Service {
 						MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL);
 				}
 			}
-			// NOTE: We MUST not call stopSelf() directly, since we need to
-			// make sure the wake lock acquired by AlertReceiver is released.
-			finishStartingService(MineTelephonyListenService.this, serviceId);
+			releaseLock();
 		}
 	}
 
@@ -152,7 +179,8 @@ public class MineTelephonyListenService extends Service {
 			if (state == TelephonyManager.CALL_STATE_RINGING){
 				Intent intent = new Intent(ACTION_INCOMING_CALL_RECEIVED);
 				intent.setClass(context, MineTelephonyListenService.class);
-				beginStartingService(context, intent);
+				MineTelephonyListenService.acquireLock(context);
+				context.startService(intent);
 			}
 		}
 	};
