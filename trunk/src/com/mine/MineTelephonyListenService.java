@@ -3,6 +3,7 @@ package com.mine;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -14,10 +15,6 @@ import android.os.Process;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-/**
- * TODO: make this service a real listener service, register listener
- * in onCreate, and delete it in onDestroy
- * */
 public class MineTelephonyListenService extends Service {
 	private static final Object mStartingServiceSync = new Object();
 //	private static PowerManager.WakeLock mStartingService;
@@ -184,4 +181,19 @@ public class MineTelephonyListenService extends Service {
 			}
 		}
 	};
+	
+	public static void startTelephonyListener(Context context) {
+		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
+		intent.setClass(context, MineTelephonyListenService.class);
+
+		context.startService(intent);
+		context.bindService(intent, (ServiceConnection) context, 0);
+	}
+	
+	public static void stopTelephonyListener(Context context) {
+		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
+		intent.setClass(context, MineTelephonyListenService.class);
+
+		context.stopService(intent);
+	}
 }

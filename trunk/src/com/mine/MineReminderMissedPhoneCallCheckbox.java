@@ -1,8 +1,6 @@
 package com.mine;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.preference.CheckBoxPreference;
 import android.util.AttributeSet;
 
@@ -29,6 +27,13 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 	@Override
 	protected void onClick() {
 		super.onClick();
+		if (isChecked()) {
+			MineTelephonyListenService.startTelephonyListener(context);
+		}
+		else {
+			MineTelephonyListenService.stopTelephonyListener(context);
+		}
+		/*
 		Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
 		intent.setClass(context, MineTelephonyListenService.class);
 		
@@ -38,6 +43,6 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 		}
 		else {
 			context.stopService(intent);
-		}
+		}*/
 	}
 }

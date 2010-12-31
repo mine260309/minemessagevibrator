@@ -135,15 +135,6 @@ public class MineVibrationToggler {
 				.getString(R.string.pref_vibrate_enable_key), false);
 	}
 
-	// public static boolean GetReminderVibrateEnabled(Context context) {
-	// return GetVibrationEnabled(context) && GetReminderEnabled(context);
-	// SharedPreferences settings =
-	// PreferenceManager.getDefaultSharedPreferences(context);
-	// return
-	// settings.getBoolean(context.getString(R.string.pref_reminder_vibrate_enable_key),
-	// false);
-	// }
-
 	public static boolean GetReminderSoundEnabled(Context context) {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(context);
