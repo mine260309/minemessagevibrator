@@ -7,12 +7,28 @@ import android.media.AudioManager;
 
 public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 
+	private final String ACTION_RINGER_MODE_CHANGED = "android.media.RINGER_MODE_CHANGED";
+	private final String ACTION_BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
+
 	@Override
 	public void onReceive(Context context, Intent i) {
-		// TODO Auto-generated method stub
-		int newMode = i.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
-		MineLog.v("Receive New Ringer Mode" + newMode);
-		handleNewRingerMode(context, newMode);
+		
+		if (ACTION_RINGER_MODE_CHANGED.equals(i.getAction())) {
+			int newMode = i.getIntExtra(AudioManager.EXTRA_RINGER_MODE, -1);
+			MineLog.v("Receive New Ringer Mode" + newMode);
+			handleNewRingerMode(context, newMode);
+		}
+		else if (ACTION_BOOT_COMPLETE.equals(i.getAction())) {
+			MineLog.v("Receive BOOT_COMPLETE intent");
+			if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context))
+			{
+				MineLog.v("Start Telephony Listener automatically");
+				MineTelephonyListenService.startTelephonyListener(context);
+			}
+			else {
+				MineLog.v("Don't auto start Telephony Listener");
+			}
+		}
 	}
 
 	private void handleNewRingerMode(Context context, int newMode) {

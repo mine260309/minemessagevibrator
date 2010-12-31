@@ -42,6 +42,8 @@
       <intent-filter>
         <action
           android:name="android.media.RINGER_MODE_CHANGED" />
+        <action 
+          android:name="android.intent.action.BOOT_COMPLETED" />
       </intent-filter>
     </receiver>
 
