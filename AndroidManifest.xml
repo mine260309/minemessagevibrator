@@ -3,13 +3,16 @@
       package="com.mine"
       android:versionCode="8" android:versionName="1.07">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".MineVibrationSetting"
+    
+        <activity android:name=".MineVibrationTabView"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MineVibrationSetting" 
+                  android:label="@string/app_name" />
     <receiver
       android:name=".MineMessageReceiver">
       <intent-filter>
@@ -52,7 +55,12 @@
     <service
       android:name=".MineMessageReminderService" />
     <service
-      android:name=".MineTelephonyListenService" />
+      android:name=".MineTelephonyListenService" >
+      <intent-filter>
+        <action android:name="com.mine.START_TELEPHONY_LISTEN" />
+        <action android:name="com.mine.INCOMING_CALL_RECEIVED" />
+      </intent-filter>
+    </service>
     
     <receiver android:name=".MineMessageVibratorWidget" android:label="@string/widget_name">
         <intent-filter>
@@ -62,6 +70,21 @@
         <meta-data android:name="android.appwidget.provider"
                    android:resource="@xml/widget" />
     </receiver>
+
+        <!-- The application's publisher ID assigned by AdMob -->
+        <meta-data android:value="a14d214ef2c8a68" android:name="ADMOB_PUBLISHER_ID" />
+        <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" /> 
+        <!-- AdMobActivity definition -->
+        <activity android:name="com.admob.android.ads.AdMobActivity"
+          android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+          android:configChanges="orientation|keyboard|keyboardHidden" />
+        <!-- Track Market installs -->          
+        <receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
+          android:exported="true">
+            <intent-filter>
+               <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
 </application>
 
   <uses-permission
@@ -76,6 +99,11 @@
     android:name="android.permission.READ_SMS" />
   <uses-permission
     android:name="android.permission.READ_CONTACTS" />
-<uses-sdk android:minSdkVersion="3"></uses-sdk>
-<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  
+  <!-- AdMob SDK requires Internet permission -->
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-sdk android:minSdkVersion="3"></uses-sdk>
 </manifest> 
