@@ -1,5 +1,8 @@
 package com.mine;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 
@@ -32,14 +35,16 @@ public class MineVibrationTabView extends TabActivity {
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
-	}
-	
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		//AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} ); 
-		AdView adview = (AdView)findViewById(R.id.ad);
-		adview.requestFreshAd();
+		
+		Timer timer = new Timer();
+		TimerTask tt = new TimerTask() {
+			public void run() {
+				//AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} );
+				AdView adview = (AdView)findViewById(R.id.ad);
+				adview.requestFreshAd();
+			}
+		};
+		timer.schedule(tt, 3000);
 	}
 	
 	public static Context getContext() {

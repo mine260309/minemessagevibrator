@@ -93,14 +93,15 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.08:\n
+1) Add Reminder for missed phone calls, check it in Additional Reminders!\n
+2) Add advertisement.\n
+\n
+Histories:\n
 1.07:\n 
 1) When Vibrate/Reminder is disabled and \"Auto Enable\" is activated, make it possible to edit vibrate/reminder pattern;\n
 2) Verified working on Android 2.3 emulator;\n
 3) Add Donate button, donate if you like this app :)\n
-Special Note:\n
-If you find it vibrate randomly without message, probably it\'s downloading an MMS, check it in you Message Application\n
-\n
-Histories:\n
 1.06: \n
 1) Widgets does NOT toggles Reminder any more, only toggles Vibrate;\n
 2) Merge the Reminder Vibration option into Message Vibration;\n

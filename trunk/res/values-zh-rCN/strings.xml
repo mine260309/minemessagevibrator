@@ -50,6 +50,10 @@
 <string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
 <string name="pref_reminder_wakelock_enable_summary_off">取消强制唤醒</string>
 
+<!--  Reminder Itmes -->
+<string name="pref_reminder_items_catagory">其它提醒功能</string>
+<string name="pref_reminder_item_missed_call_title">未接来电提醒</string>
+<string name="pref_reminder_item_missed_call_summary">假如有未接来电，每隔一段时间会提醒一下</string>
 
 <!-- Misc preference -->
 <string name="pref_misc_catagory">其它</string>
@@ -86,14 +90,15 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
+1.08:\n
+1) 添加了未接来电提醒,在\"其它提醒功能\"中启用它吧!\n
+2) 添加了admob广告.\n
+\n
+历史更新:\n
 1.07:\n
 1) 当震动和提醒被禁用、而“自动启用震动和提醒”被激活的时候，也可以设置震动和提醒模式;\n
 2) 在Android 2.3模拟器上验证功能正常;\n
 3) 添加了一个Donate按钮,如果你喜欢这个小程序,捐赠它的开发者吧:)\n
-特别说明:\n
-有的时候如果你发现只震动而没有短信，可能是因为收到了正在下载中的彩信，请去信息里查阅\n
-\n
-历史更新:\n
 1.06:\n 
 1) 桌面小部件仅切换震动,不再切换提醒;\n
 2) 合并短信震动和提醒震动设置;\n
