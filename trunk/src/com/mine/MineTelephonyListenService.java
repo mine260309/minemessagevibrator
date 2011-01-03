@@ -184,16 +184,28 @@ public class MineTelephonyListenService extends Service {
 	
 	public static void startTelephonyListener(Context context) {
 		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
-		intent.setClass(context, MineTelephonyListenService.class);
-
-		context.startService(intent);
-		context.bindService(intent, (ServiceConnection) context, 0);
+		Context appContext = MineVibrationTabView.getContext();
+		if (appContext != null) {
+			appContext.startService(intent);
+			appContext.bindService(intent, (ServiceConnection) context, 0);
+		}
+		else {
+			MineLog.v("appContext is null, start service only");
+			context.startService(intent);
+		}
 	}
 	
 	public static void stopTelephonyListener(Context context) {
 		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
-		intent.setClass(context, MineTelephonyListenService.class);
-
-		context.stopService(intent);
+		Context appContext = MineVibrationTabView.getContext();
+		if (appContext != null) {
+			intent.setClass(appContext, MineTelephonyListenService.class);
+			appContext.stopService(intent);
+		}
+		else {
+			intent.setClass(context, MineTelephonyListenService.class);
+			context.stopService(intent);
+			MineLog.v("appContext is null, still stop service");
+		}
 	}
 }

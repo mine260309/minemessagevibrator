@@ -3,6 +3,7 @@ package com.mine;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -20,7 +21,8 @@ public class MineVibrationSetting extends PreferenceActivity
 
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
-	private static MineVibrationSetting context;
+	private static Context context;
+	private static MineVibrationSetting prefContext;
 
 	// flag indicate InitAdjustPreference is called
 	// private static boolean InitAdjustPreferenceCalled = false;
@@ -29,7 +31,9 @@ public class MineVibrationSetting extends PreferenceActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = this;
+		context = MineVibrationTabView.getContext();
+		//context = this;
+		prefContext = this;
 		if (MineVibrationToggler.IsUpgraded(this)) {
 			// There is an upgrade, show upgrade dialog
 			showDialog(UPGRADED_RUN_DIALOG_ID);
@@ -39,26 +43,22 @@ public class MineVibrationSetting extends PreferenceActivity
 			showDialog(FIRST_TIME_RUN_DIALOG_ID);
 		}
 		addPreferencesFromResource(R.xml.preferences);
-		
-		Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
-		intent.setClass(context, MineTelephonyListenService.class);
-		bindService(intent, (ServiceConnection) context, 0);
 	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		// Send intent to update the preference view
-		MineVibrationToggler.SetUpdateViewReceiverEnable(context, true);
+		MineVibrationToggler.SetUpdateViewReceiverEnable(prefContext, true);
 		Intent intent = new Intent(ACTION_UPDATE_PREF_VIEW);
 		MineLog.v("Send update pref view intent");
-		context.sendBroadcast(intent);
+		prefContext.sendBroadcast(intent);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		unbindService(this);
+		context.unbindService(prefContext);
 	}
 
 	@Override
@@ -116,11 +116,11 @@ public class MineVibrationSetting extends PreferenceActivity
 	public static void AdjustPreference() {
 
 		// re-adjust the contents based on the logic
-		Preference vibPref = context.findPreference(context
+		Preference vibPref = prefContext.findPreference(context
 				.getString(R.string.pref_vibrate_enable_key));
-		Preference remPref = context.findPreference(context
+		Preference remPref = prefContext.findPreference(context
 				.getString(R.string.pref_reminder_enable_key));
-		Preference remSoundPref = context.findPreference(context
+		Preference remSoundPref = prefContext.findPreference(context
 				.getString(R.string.pref_reminder_sound_enable_key));
 
 		if (vibPref == null || remPref == null || remSoundPref == null) {
@@ -174,8 +174,20 @@ public class MineVibrationSetting extends PreferenceActivity
 		// InitAdjustPreferenceCalled = true;
 		MineVibrationToggler.SetUpdateViewReceiverEnable(context, false);
 		AdjustPreference();
+		PostInitServices();
 	}
 
+	/** this function is called to initialize necessary services if not started */
+	private static void PostInitServices() {
+		// check the Telephony Listener
+		if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
+			MineTelephonyListenService.startTelephonyListener(prefContext);
+		}
+		else {
+			Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
+			context.bindService(intent, (ServiceConnection) prefContext, 0);
+		}
+	}
 
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		MineLog.v("Conntect to service "+name);
