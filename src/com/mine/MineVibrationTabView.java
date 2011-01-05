@@ -10,6 +10,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+//import android.view.View;
 import android.widget.TabHost;
 
 public class MineVibrationTabView extends TabActivity {
@@ -35,17 +36,23 @@ public class MineVibrationTabView extends TabActivity {
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
+//		AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} );
 
-/*		Timer timer = new Timer();
+/*
+		Timer timer = new Timer();
 		TimerTask tt = new TimerTask() {
 			public void run() {
-				//AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} );
+				AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} );
 				AdView adview = (AdView)findViewById(R.id.ad);
 				adview.requestFreshAd();
+				MineLog.v("keywords: " + adview.getKeywords()+", hasAd: "+adview.hasAd());
+				if( !adview.hasAd() ) {
+					adview.setVisibility(View.VISIBLE);
+				}
 			}
 		};
 		timer.schedule(tt, 3000);
-	*/
+*/
 	}
 	public static Context getContext() {
 		return context;

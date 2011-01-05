@@ -14,11 +14,20 @@
                     android:visibility="visible"  
                     myapp:backgroundColor="#000000"
                     myapp:primaryTextColor="#FFFFFF"
+                    myapp:secondaryTextColor="#CCCCCC" />
+                    
+            <!-- com.admob.android.ads.AdView android:id="@+id/ad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="visible"  
+                    myapp:backgroundColor="#000000"
+                    myapp:primaryTextColor="#FFFFFF"
                     myapp:secondaryTextColor="#CCCCCC"
                     myapp:keywords="sms mms vibrate reminder tool missed phone call" 
                     myapp:testing="false" 
                     myapp:refreshInterval="60"
-                    myapp:isGoneWithoutAd="false" />
+                    myapp:isGoneWithoutAd="false" / -->
 
             <TabWidget android:id="@android:id/tabs"
                     android:layout_width="fill_parent" android:layout_height="1dp"
