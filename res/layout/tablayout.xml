@@ -8,14 +8,22 @@
     <LinearLayout android:orientation="vertical"
             android:layout_width="fill_parent" android:layout_height="fill_parent">
             <com.admob.android.ads.AdView android:id="@+id/ad"
-                    android:layout_width="fill_parent" android:layout_height="wrap_content"
-                    myapp:backgroundColor="#000000" myapp:primaryTextColor="#FFFFFF"
-                    myapp:secondaryTextColor="#CCCCCC" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="visible"  
+                    myapp:backgroundColor="#000000"
+                    myapp:primaryTextColor="#FFFFFF"
+                    myapp:secondaryTextColor="#CCCCCC"
+                    myapp:keywords="sms mms vibrate reminder tool missed phone call" 
+                    myapp:testing="false" 
+                    myapp:refreshInterval="60"
+                    myapp:isGoneWithoutAd="false" />
 
             <TabWidget android:id="@android:id/tabs"
                     android:layout_width="fill_parent" android:layout_height="1dp"
                     android:visibility="invisible" />
-
+                    
             <FrameLayout android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent" android:layout_height="fill_parent"
                     android:padding="1dp" />

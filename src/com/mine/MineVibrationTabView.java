@@ -1,10 +1,10 @@
 package com.mine;
 
-import java.util.Timer;
-import java.util.TimerTask;
+//import java.util.Timer;
+//import java.util.TimerTask;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
+//import com.admob.android.ads.AdManager;
+//import com.admob.android.ads.AdView;
 
 import android.app.TabActivity;
 import android.content.Context;
@@ -35,8 +35,8 @@ public class MineVibrationTabView extends TabActivity {
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
-		
-		Timer timer = new Timer();
+
+/*		Timer timer = new Timer();
 		TimerTask tt = new TimerTask() {
 			public void run() {
 				//AdManager.setTestDevices( new String[] {AdManager.TEST_EMULATOR} );
@@ -45,8 +45,8 @@ public class MineVibrationTabView extends TabActivity {
 			}
 		};
 		timer.schedule(tt, 3000);
+	*/
 	}
-	
 	public static Context getContext() {
 		return context;
 	}
