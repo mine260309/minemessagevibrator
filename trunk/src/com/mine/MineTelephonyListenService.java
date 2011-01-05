@@ -187,7 +187,9 @@ public class MineTelephonyListenService extends Service {
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
-			appContext.bindService(intent, (ServiceConnection) context, 0);
+			if (appContext.bindService(intent, (ServiceConnection) context, 0)) {
+				((MineVibrationSetting)context).telephonyListenServiceBound = true;
+			}
 		}
 		else {
 			MineLog.v("appContext is null, start service only");

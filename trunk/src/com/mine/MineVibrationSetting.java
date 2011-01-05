@@ -23,6 +23,10 @@ public class MineVibrationSetting extends PreferenceActivity
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
 	private static Context context;
 	private static MineVibrationSetting prefContext;
+	
+	/** flag that the service is bound or not */
+	public boolean telephonyListenServiceBound; 
+
 
 	// flag indicate InitAdjustPreference is called
 	// private static boolean InitAdjustPreferenceCalled = false;
@@ -43,6 +47,7 @@ public class MineVibrationSetting extends PreferenceActivity
 			showDialog(FIRST_TIME_RUN_DIALOG_ID);
 		}
 		addPreferencesFromResource(R.xml.preferences);
+		telephonyListenServiceBound = false;
 	}
 
 	@Override
@@ -58,7 +63,10 @@ public class MineVibrationSetting extends PreferenceActivity
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		context.unbindService(prefContext);
+		if (telephonyListenServiceBound) {
+			context.unbindService(prefContext);
+			telephonyListenServiceBound = false;
+		}
 	}
 
 	@Override
@@ -185,7 +193,9 @@ public class MineVibrationSetting extends PreferenceActivity
 		}
 		else {
 			Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
-			context.bindService(intent, (ServiceConnection) prefContext, 0);
+			if (context.bindService(intent, (ServiceConnection) prefContext, 0)){
+				((MineVibrationSetting)prefContext).telephonyListenServiceBound = true;
+			}
 		}
 	}
 
