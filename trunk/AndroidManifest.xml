@@ -85,6 +85,18 @@
                <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
+
+    <!-- AdWhirl -->
+    <activity android:name="com.admob.android.ads.AdMobActivity" 
+              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+              android:configChanges="orientation|keyboard|keyboardHidden"/>
+    <activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+              android:theme="@android:style/Theme.Translucent.NoTitleBar"/>  
+    <activity android:name="com.millennialmedia.android.VideoPlayer"
+              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+              android:configChanges="keyboardHidden|orientation|keyboard" />
+
+    <meta-data android:value="675b69cf9d5a4325a9994d03f18b98a0" android:name="ADWHIRL_KEY" />
 </application>
 
   <uses-permission
@@ -102,8 +114,9 @@
   <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
   
-  <!-- AdMob SDK requires Internet permission -->
+  <!-- AdWhirl SDK requires Internet permission -->
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
   <uses-sdk android:minSdkVersion="3"></uses-sdk>
 </manifest> 

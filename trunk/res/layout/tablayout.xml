@@ -7,14 +7,18 @@
 
     <LinearLayout android:orientation="vertical"
             android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <com.admob.android.ads.AdView android:id="@+id/ad"
+                <com.adwhirl.AdWhirlLayout
+                    android:id="@+id/adwhirl_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            <!-- com.admob.android.ads.AdView android:id="@+id/ad"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:visibility="visible"  
                     myapp:backgroundColor="#000000"
                     myapp:primaryTextColor="#FFFFFF"
-                    myapp:secondaryTextColor="#CCCCCC" />
+                    myapp:secondaryTextColor="#CCCCCC" / -->
                     
             <!-- com.admob.android.ads.AdView android:id="@+id/ad"
                     android:layout_width="fill_parent"
