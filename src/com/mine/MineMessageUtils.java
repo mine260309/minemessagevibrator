@@ -109,4 +109,49 @@ public class MineMessageUtils {
 		MineLog.v("getMissedPhoneCalls: " + ret);
 		return ret;
 	}
+	
+	/**
+	 * Return the number of missed phone calls
+	 * 
+	 * @param context
+	 * @return missed phone calls
+	 */
+	synchronized public static int getUnreadGmails(Context context) {
+		int ret = 0;
+		GmailAccount = "mine260309@gmail.com";
+		Cursor c = context.getContentResolver().query(
+				Uri.withAppendedPath(Gmail.LABELS_URI, GmailAccount), LABEL_PROJECTION, 
+				null, null, null);
+		if (c != null) {
+			try {
+				while (c.moveToNext()) {
+					String canonicalName = c.getString(0);
+					if (UNSEEN.equals(canonicalName)) {
+						ret = c.getInt(1);						
+					}
+				}
+			} finally {
+				c.close();
+			}
+		}
+		MineLog.v("getUnreadGmails: " + ret);
+		return ret;
+	}
+
+    private static final class Gmail {
+    	public static final String AUTHORITY = "gmail-ls";
+	    public static final String AUTHORITY_PLUS_LABELS = "content://" + AUTHORITY + "/labels/";
+	    public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);			
+    }
+    private static final class LabelColumns {    	
+        public static final String CANONICAL_NAME = "canonicalName";
+        public static final String NAME = "name";
+        public static final String NUM_CONVERSATIONS = "numConversations";
+        public static final String NUM_UNREAD_CONVERSATIONS = "numUnreadConversations";    
+    }
+    private static String[] LABEL_PROJECTION = {
+        LabelColumns.CANONICAL_NAME,
+        LabelColumns.NUM_UNREAD_CONVERSATIONS};
+    private static final String UNSEEN = "^^unseen-^i";
+    private static String GmailAccount;
 }

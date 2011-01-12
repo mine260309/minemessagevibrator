@@ -16,6 +16,7 @@ public class MineMessageVibrator {
 	public static final int VIBRATE_REASON_SMS = 0;
 	public static final int VIBRATE_REASON_MMS = VIBRATE_REASON_SMS;
 	public static final int VIBRATE_REASON_REMINDER = 2;
+	public static final int VIBRATE_REASON_GMAIL = 3;
 
 	private static final String VIBRATE_MODE_SHORT = "Short";
 	private static final String VIBRATE_MODE_MIDDLE = "Middle";
@@ -36,17 +37,18 @@ public class MineMessageVibrator {
 	public static void notifySMS(Context context) {
 		MineLog.v("notifying SMS");
 		vibrate(context, VIBRATE_REASON_SMS);
-
-		// TODO: maybe I can use notification instead
 	}
 
 	public static void notifyMMS(Context context) {
 		MineLog.v("notifying MMS");
 		vibrate(context, VIBRATE_REASON_MMS);
-
-		// TODO: maybe I can use notification instead
 	}
 
+	public static void notifyGmail(Context context) {
+		MineLog.v("notifying Gmail");
+		vibrate(context, VIBRATE_REASON_GMAIL);
+	}
+	
 	public static void notifyReminder(Context context) {
 		MineLog.v("notifying reminder");
 		vibrate(context, VIBRATE_REASON_REMINDER);
@@ -144,7 +146,7 @@ public class MineMessageVibrator {
 			}
 		}
 		if (reason != VIBRATE_REASON_REMINDER) {
-			// If it's SMS or MMS vibration
+			// If it's SMS or MMS or Gmail vibration
 			pattern = settings.getString(context
 					.getString(R.string.pref_vibration_mode_key), "Middle");
 			if (pattern.equals(VIBRATE_MODE_SHORT)) {

@@ -400,13 +400,10 @@ public class MineVibrationToggler {
 					.getString(R.string.pref_reminder_item_missed_call_key), false);
 	}
 	
-	public static void SetMissedPhoneCallReminderEnabled(Context context, boolean enable) {
+	public static boolean GetUnreadGmailReminderEnabled(Context context) {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(context.getString(R.string.pref_reminder_item_missed_call_key),
-				enable);
-		editor.commit();
+		return settings.getBoolean(context
+					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
 	}
-	
 }
