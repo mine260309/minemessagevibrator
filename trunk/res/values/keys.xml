@@ -15,6 +15,7 @@
     <string name="pref_sms_vibrate_pattern_key">smsVibratePattern</string>
     <string name="pref_reminder_vibrate_pattern_key">reminderVibratePattern</string>
     <string name="pref_reminder_item_missed_call_key">reminderItemMissedCall</string>
+    <string name="pref_reminder_item_unread_gmail_key">reminderItemUnreadGmail</string>
     <string name="pref_app_auto_enable_key">appAutoEnable</string>
     
     <!-- Invisible settings -->

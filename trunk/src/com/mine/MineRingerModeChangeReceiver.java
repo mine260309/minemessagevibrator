@@ -25,8 +25,9 @@ public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 				MineLog.v("Start Telephony Listener automatically");
 				MineTelephonyListenService.startTelephonyListener(context);
 			}
-			else {
-				MineLog.v("Don't auto start Telephony Listener");
+			if (MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
+				MineLog.v("Start Gmail Watcher automatically");
+				MineTelephonyListenService.startGmailWatcher(context);
 			}
 		}
 	}

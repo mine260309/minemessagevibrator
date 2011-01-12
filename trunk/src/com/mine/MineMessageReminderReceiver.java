@@ -12,6 +12,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	public static final int REMINDER_TYPE_WHATEVER = 0x00;
 	public static final int REMINDER_TYPE_MESSAGE = 0x01;
 	public static final int REMINDER_TYPE_PHONECALL = 0x02;
+	public static final int REMINDER_TYPE_GMAIL = 0x03;
 	
 	private static PendingIntent reminderPendingIntent = null;
 	// private static final int reminderInterval = 10;//5*60; //reminder

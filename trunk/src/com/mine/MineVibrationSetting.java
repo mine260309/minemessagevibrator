@@ -188,10 +188,16 @@ public class MineVibrationSetting extends PreferenceActivity
 	/** this function is called to initialize necessary services if not started */
 	private static void PostInitServices() {
 		// check the Telephony Listener
+		boolean isServiceBind = false;
+		if (MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
+			MineTelephonyListenService.startGmailWatcher(prefContext);
+			isServiceBind = true;
+		}
 		if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
 			MineTelephonyListenService.startTelephonyListener(prefContext);
+			isServiceBind = true;
 		}
-		else {
+		if(!isServiceBind) {
 			Intent intent = new Intent(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
 			if (context.bindService(intent, (ServiceConnection) prefContext, 0)){
 				((MineVibrationSetting)prefContext).telephonyListenServiceBound = true;

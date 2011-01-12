@@ -134,9 +134,13 @@ public class MineMessageReminderService extends Service {
 			// Fi
 
 			if (MineVibrationToggler.GetReminderEnabled(context)) {
-				int previousUnreadNumber = 0, missedPhoneCalls = 0, currentUnreadNumber = 0;
+				int previousUnreadNumber = 0, missedPhoneCalls = 0, 
+					currentUnreadNumber = 0, unreadGmails = 0;
 				if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
 					missedPhoneCalls = MineMessageUtils.getMissedPhoneCalls(context);
+				}
+				if (MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
+					unreadGmails = MineMessageUtils.getUnreadGmails(context);
 				}
 				previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
 				if (previousUnreadNumber == -1) {
@@ -149,8 +153,9 @@ public class MineMessageReminderService extends Service {
 				boolean isUnreadMessageDecreasing = currentUnreadNumber < previousUnreadNumber;
 				
 				MineLog.v("unread messages: "+currentUnreadNumber +
-						", missed calls: "+missedPhoneCalls);
-				if(missedPhoneCalls > 0 || !isUnreadMessageDecreasing) {
+						", missed calls: "+missedPhoneCalls +
+						", unread gmails: " +unreadGmails);
+				if(missedPhoneCalls > 0 || unreadGmails > 0 || !isUnreadMessageDecreasing) {
 					MineMessageVibrator.notifyReminder(context);
 					MineMessageReminderReceiver.scheduleReminder(context,
 							currentUnreadNumber,
@@ -165,39 +170,6 @@ public class MineMessageReminderService extends Service {
 				MineMessageReminderReceiver.cancelReminder(context,
 						MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 			}
-			
-			/*
-			int reminderType = intent.getIntExtra(EXTRA_REMINDER_TYPE, 
-					MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
-			int previousUnreadNumber = 0, missedPhoneCalls = 0, currentUnreadNumber = 0;
-			if (reminderType == MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE) {
-				previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
-			}
-			if (previousUnreadNumber == -1) {
-				MineLog.e("Error getting unread number from intent!");
-				previousUnreadNumber = 1; // set to 1 to simulate we have 1
-											// unread previously
-			}
-			currentUnreadNumber = MineMessageUtils
-					.getUnreadMessagesCount(context);
-			missedPhoneCalls = MineMessageUtils.getMissedPhoneCalls(context);
-
-			// TODO: maybe I can optimize the code
-			if (currentUnreadNumber < previousUnreadNumber) {
-				MineMessageReminderReceiver.cancelReminder(context,
-						MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
-			} else {
-				if (MineVibrationToggler.GetReminderEnabled(context)) {
-					// Check if reminder is still enabled or not
-					MineMessageVibrator.notifyReminder(context);
-					MineMessageReminderReceiver.scheduleReminder(context,
-							currentUnreadNumber,
-							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
-				} else {
-					MineMessageReminderReceiver.cancelReminder(context,
-							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
-				}
-			}*/
 		}
 	}
 }
