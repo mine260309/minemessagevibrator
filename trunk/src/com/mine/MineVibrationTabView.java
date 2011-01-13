@@ -66,7 +66,7 @@ public class MineVibrationTabView extends TabActivity implements AdWhirlInterfac
 	public static Context getContext() {
 		return context;
 	}
-	@Override
+	
 	public void adWhirlGeneric() {
 	    MineLog.e("In adWhirlGeneric()");
 	}
