@@ -1,5 +1,7 @@
 package com.mine;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -110,6 +112,21 @@ public class MineMessageUtils {
 		return ret;
 	}
 	
+	public static String getGmailAccount(Context context) {
+		if (GmailAccount == null) {
+			AccountManager am = AccountManager.get(context);
+			Account[] accounts = am.getAccountsByType(Gmail.TYPE);
+			if (accounts.length > 0) {
+				GmailAccount = accounts[0].name;
+			}
+			else {
+				MineLog.v("Unable to get gmail account!");
+				GmailAccount = null;
+			}
+		}
+		return GmailAccount;
+	}
+	
 	/**
 	 * Return the number of missed phone calls
 	 * 
@@ -118,7 +135,7 @@ public class MineMessageUtils {
 	 */
 	synchronized public static int getUnreadGmails(Context context) {
 		int ret = 0;
-		GmailAccount = "mine260309@gmail.com";
+		getGmailAccount(context);
 		Cursor c = context.getContentResolver().query(
 				Uri.withAppendedPath(Gmail.LABELS_URI, GmailAccount), LABEL_PROJECTION, 
 				null, null, null);
@@ -134,14 +151,15 @@ public class MineMessageUtils {
 				c.close();
 			}
 		}
-		MineLog.v("getUnreadGmails: " + ret);
+		MineLog.v("Gmail account: " + GmailAccount + ", getUnreadGmails: " + ret);
 		return ret;
 	}
 
     private static final class Gmail {
     	public static final String AUTHORITY = "gmail-ls";
 	    public static final String AUTHORITY_PLUS_LABELS = "content://" + AUTHORITY + "/labels/";
-	    public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);			
+	    public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);
+	    public static final String TYPE = "com.google";
     }
     private static final class LabelColumns {    	
         public static final String CANONICAL_NAME = "canonicalName";
@@ -153,5 +171,5 @@ public class MineMessageUtils {
         LabelColumns.CANONICAL_NAME,
         LabelColumns.NUM_UNREAD_CONVERSATIONS};
     private static final String UNSEEN = "^^unseen-^i";
-    private static String GmailAccount;
+    private static String GmailAccount = null;
 }
