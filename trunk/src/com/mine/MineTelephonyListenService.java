@@ -132,10 +132,13 @@ public class MineTelephonyListenService extends Service {
 		@Override
 		public void handleMessage(Message msg) {
 			//int serviceId = msg.arg1;
-			Intent intent = (Intent) msg.obj;
-			String action = intent.getAction();
 			MineLog.v("MineTelephonyListenServiceHandler: handleMessage() " 
-					+ action);
+					+ msg);
+			Intent intent = (Intent) msg.obj;
+			if (intent == null) {
+				return;
+			}
+			String action = intent.getAction();
 
 			if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
 				if (MineVibrationToggler.GetReminderEnabled(context) &&

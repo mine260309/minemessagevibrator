@@ -12,7 +12,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	public static final int REMINDER_TYPE_WHATEVER = 0x00;
 	public static final int REMINDER_TYPE_MESSAGE = 0x01;
 	public static final int REMINDER_TYPE_PHONECALL = 0x02;
-	public static final int REMINDER_TYPE_GMAIL = 0x03;
+	public static final int REMINDER_TYPE_GMAIL = 0x04;
 	
 	private static PendingIntent reminderPendingIntent = null;
 	// private static final int reminderInterval = 10;//5*60; //reminder
@@ -108,6 +108,14 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 					+ " seconds");
 			reminderEnableState |= type;
 		}
+		else if (type == REMINDER_TYPE_GMAIL) {
+			MineLog
+			.v("MineMessageReminderReceiver: scheduled reminder notification " +
+				"for unread gmails in "
+				+ reminderIntervalSeconds
+				+ " seconds");
+			reminderEnableState |= type;
+		}
 		else if (type == REMINDER_TYPE_WHATEVER){
 			MineLog
 				.v("MineMessageReminderReceiver: scheduled reminder notification " +
@@ -140,11 +148,15 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		if (reminderPendingIntent != null) {
 			MineLog.v("cancelReminder() for type: " + type);
 
+			// TODO: stupid code here! Need to clean up the reminder type...
 			if (type == REMINDER_TYPE_MESSAGE) {
 				reminderEnableState &= (~type);
 			}
 			else if (type == REMINDER_TYPE_PHONECALL) {
 				reminderEnableState &= (~type);
+			}
+			else if (type == REMINDER_TYPE_GMAIL) {
+				reminderEnableState &= (~type);				
 			}
 			else if (type == REMINDER_TYPE_WHATEVER) {
 				reminderEnableState &= type;
