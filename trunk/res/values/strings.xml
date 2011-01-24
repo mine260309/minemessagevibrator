@@ -12,10 +12,9 @@
 <string name="disable_vibration_info">Disable Message Vibration</string>
 <string name="pref_title">Mine Message Vibration Configuration</string>
 <string name="pref_reminder_interval">Reminder Interval</string>
-<string name="pref_vibrate_enable_title">Enable Message Vibration</string>
+<string name="pref_vibrate_enable_title">Enable Vibration</string>
 <string name="pref_vibrate_enable_summary_on">Message Vibration is Enabled</string>
 <string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
-<string name="pref_email_title">E-Mail the Developer</string>
 <string name="pref_reminder_interval_title">Reminder Interval</string>
 <string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
 
@@ -56,8 +55,8 @@
 <string name="pref_reminder_items_catagory">Additional Reminders</string>
 <string name="pref_reminder_item_missed_call_title">Missed Incoming Calls</string>
 <string name="pref_reminder_item_missed_call_summary">Reminder for Missed Incoming Phone Calls</string>
-<string name="pref_reminder_item_unread_gmail_title">Unread Gmails</string>
-<string name="pref_reminder_item_unread_gmail_summary">Reminder for Unread Gmails</string>
+<string name="pref_reminder_item_unread_gmail_title">Unread GMails</string>
+<string name="pref_reminder_item_unread_gmail_summary">Reminder for Unread GMails</string>
 
 <!-- Misc preference -->
 <string name="pref_misc_catagory">Misc</string>
@@ -73,6 +72,9 @@
 <string name="pref_donate_no_button">No,thanks</string>
 <string name="pref_donate_summary">If you like this app, please donate~</string>
 <string name="pref_donate_message">Would you like to donate this app?</string>
+
+<string name="pref_email_title">Feedback (email)</string>
+<string name="pref_email_summary">Issues, Suggestions? Send me email~</string>
 
 <!-- First time run help message -->
 <string name="first_run_dialog_title">First Time Run Help</string>

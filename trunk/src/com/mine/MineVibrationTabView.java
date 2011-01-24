@@ -6,9 +6,6 @@ package com.mine;
 //import com.admob.android.ads.AdManager;
 //import com.admob.android.ads.AdView;
 
-import com.adwhirl.AdWhirlLayout;
-//import com.adwhirl.AdWhirlTargeting;
-import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 
 import android.app.TabActivity;
 import android.content.Context;
@@ -17,7 +14,7 @@ import android.os.Bundle;
 //import android.view.View;
 import android.widget.TabHost;
 
-public class MineVibrationTabView extends TabActivity implements AdWhirlInterface {
+public class MineVibrationTabView extends TabActivity {
 
 	private static MineVibrationTabView context;
 	@Override
@@ -57,11 +54,6 @@ public class MineVibrationTabView extends TabActivity implements AdWhirlInterfac
 		};
 		timer.schedule(tt, 3000);
 */
-
-	    AdWhirlLayout adWhirlLayout = (AdWhirlLayout) findViewById(R.id.adwhirl_layout);
-	    adWhirlLayout.setAdWhirlInterface(this);
-	    adWhirlLayout.setMaxWidth(320);
-	    adWhirlLayout.setMaxHeight(52);
 	}
 	public static Context getContext() {
 		return context;
