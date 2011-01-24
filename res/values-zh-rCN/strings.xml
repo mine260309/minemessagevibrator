@@ -10,10 +10,9 @@
     <string name="disable_vibration_info">取消短信震动</string>
     <string name="pref_title">Mine短信震动设置</string>
     <string name="pref_reminder_interval">提醒间隔</string>
-    <string name="pref_vibrate_enable_title">设置短信震动</string>
+    <string name="pref_vibrate_enable_title">设置震动</string>
     <string name="pref_vibrate_enable_summary_on">短信震动设置成功</string>
     <string name="pref_vibrate_enable_summary_off">短信震动设置取消</string>
-    <string name="pref_email_title">发E-Mail给开发者</string>
     <string name="pref_reminder_interval_title">提醒间隔</string>
     <string name="pref_reminder_interval_dialogTitle">提醒间隔 (分钟)</string>
 
@@ -54,6 +53,8 @@
 <string name="pref_reminder_items_catagory">其它提醒功能</string>
 <string name="pref_reminder_item_missed_call_title">未接来电提醒</string>
 <string name="pref_reminder_item_missed_call_summary">假如有未接来电，每隔一段时间会提醒一下</string>
+<string name="pref_reminder_item_unread_gmail_title">未读GMail</string>
+<string name="pref_reminder_item_unread_gmail_summary">未读GMail提醒</string>
 
 <!-- Misc preference -->
 <string name="pref_misc_catagory">其它</string>
@@ -68,6 +69,9 @@
 <string name="pref_donate_no_button">不了,谢谢</string>
 <string name="pref_donate_summary">如果你喜欢这个软件，请捐赠开发者~</string>
 <string name="pref_donate_message">您愿意为这个小软件捐赠吗?</string>
+
+<string name="pref_email_title">邮件反馈</string>
+<string name="pref_email_summary">报告问题?提建议?请给我发邮件~</string>
 
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>

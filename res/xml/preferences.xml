@@ -127,5 +127,10 @@
 	android:summary="@string/pref_donate_summary"
 />
 
+<com.mine.MineFeedbackPreference
+    android:title="@string/pref_email_title"
+    android:summary="@string/pref_email_summary"
+/>
+
 </PreferenceCategory>
 </PreferenceScreen>
