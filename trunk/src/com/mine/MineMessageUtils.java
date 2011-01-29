@@ -151,7 +151,7 @@ public class MineMessageUtils {
 				c.close();
 			}
 		}
-		MineLog.v("Gmail account: " + GmailAccount + ", getUnreadGmails: " + ret);
+		MineLog.v("Gmail account: secret, getUnreadGmails: " + ret);
 		return ret;
 	}
 
