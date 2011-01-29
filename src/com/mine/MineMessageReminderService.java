@@ -45,9 +45,13 @@ public class MineMessageReminderService extends Service {
 		MineLog.v("MineMessageReminderService.onStart()");
 
 		Message msg = mServiceHandler.obtainMessage();
-		msg.arg1 = startId;
-		msg.obj = intent;
-		mServiceHandler.sendMessage(msg);
+		if (msg != null) {
+			msg.arg1 = startId;
+			msg.obj = intent;
+			mServiceHandler.sendMessage(msg);
+		} else {
+			MineLog.v("Error obtain message!");
+		}
 	}
 
 	@Override
@@ -100,9 +104,17 @@ public class MineMessageReminderService extends Service {
 		@Override
 		public void handleMessage(Message msg) {
 			MineLog.v("MineMessageReminderService: handleMessage()");
-
-			int serviceId = msg.arg1;
+			
+			if (msg == null) {
+				MineLog.e("receive null msg");
+				return;
+			}
 			Intent intent = (Intent) msg.obj;
+			if (intent == null) {
+				return;
+			}
+			
+			int serviceId = msg.arg1;
 			String action = intent.getAction();
 
 			if (ACTION_REMIND.equals(action)) {

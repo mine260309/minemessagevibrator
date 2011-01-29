@@ -46,9 +46,13 @@ public class MineMessageReceiverService extends Service {
 		MineLog.v("MineMessageReceiverService.onStart()");
 
 		Message msg = mServiceHandler.obtainMessage();
-		msg.arg1 = startId;
-		msg.obj = intent;
-		mServiceHandler.sendMessage(msg);
+		if (msg != null) {
+			msg.arg1 = startId;
+			msg.obj = intent;
+			mServiceHandler.sendMessage(msg);
+		} else {
+			MineLog.v("Error obtain message!");
+		}
 	}
 
 	@Override
@@ -101,9 +105,17 @@ public class MineMessageReceiverService extends Service {
 		@Override
 		public void handleMessage(Message msg) {
 			MineLog.v("MineMessageReceiverService: handleMessage()");
-
-			int serviceId = msg.arg1;
+			
+			if (msg == null) {
+				MineLog.e("receive null msg");
+				return;
+			}
 			Intent intent = (Intent) msg.obj;
+			if (intent == null) {
+				return;
+			}
+			
+			int serviceId = msg.arg1;
 			String action = intent.getAction();
 			String dataType = intent.getType();
 

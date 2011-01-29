@@ -3,7 +3,6 @@ package com.mine;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Binder;
@@ -83,14 +82,21 @@ public class MineTelephonyListenService extends Service {
 		}
 	}
 
+	private void handleCommand(Intent intent, int startId) {
+		Message msg = mServiceHandler.obtainMessage();
+		if (msg != null) {
+			msg.arg1 = startId;
+			msg.obj = intent;
+			mServiceHandler.sendMessage(msg);
+		} else {
+			MineLog.v("Error obtain message!");
+		}
+	}
+	
 	@Override
 	public void onStart(Intent intent, int startId) {
 		MineLog.v("MineTelephonyListenService.onStart()");
-
-		Message msg = mServiceHandler.obtainMessage();
-		msg.arg1 = startId;
-		msg.obj = intent;
-		mServiceHandler.sendMessage(msg);
+		handleCommand(intent, startId);
 	}
 
 	@Override
@@ -100,6 +106,16 @@ public class MineTelephonyListenService extends Service {
 		releaseLock();
 	}
 
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		MineLog.v("MineTelephonyListenService.onStartCommand()");
+
+		handleCommand(intent, startId);
+	    // We want this service to continue running until it is explicitly
+	    // stopped, so return sticky.
+	    return START_STICKY;
+	}
+	
 	public static void acquireLock(Context context) {
 		synchronized (mStartingServiceSync) {
 			if (mWakeLock == null) {
@@ -134,6 +150,10 @@ public class MineTelephonyListenService extends Service {
 			//int serviceId = msg.arg1;
 			MineLog.v("MineTelephonyListenServiceHandler: handleMessage() " 
 					+ msg);
+			if (msg == null) {
+				MineLog.e("receive null msg");
+				return;
+			}
 			Intent intent = (Intent) msg.obj;
 			if (intent == null) {
 				return;
@@ -237,9 +257,6 @@ public class MineTelephonyListenService extends Service {
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
-			if (appContext.bindService(intent, (ServiceConnection) context, 0)) {
-				((MineVibrationSetting)context).telephonyListenServiceBound = true;
-			}
 		}
 		else {
 			MineLog.v("appContext is null, start telephony listener only");
@@ -253,14 +270,9 @@ public class MineTelephonyListenService extends Service {
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
-			//appContext.sendBroadcast(intent);
-			//intent.setClass(appContext, MineTelephonyListenService.class);
-			//appContext.stopService(intent);
 		}
 		else {
 			context.startService(intent);
-			//intent.setClass(context, MineTelephonyListenService.class);
-			//context.stopService(intent);
 			MineLog.v("appContext is null, still stop telephony listener");
 		}
 	}
@@ -270,9 +282,6 @@ public class MineTelephonyListenService extends Service {
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
-			if (appContext.bindService(intent, (ServiceConnection) context, 0)) {
-				((MineVibrationSetting)context).telephonyListenServiceBound = true;
-			}
 		}
 		else {
 			MineLog.v("appContext is null, start gmail watcher only");
