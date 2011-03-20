@@ -13,7 +13,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	public static final int REMINDER_TYPE_MESSAGE = 0x01;
 	public static final int REMINDER_TYPE_PHONECALL = 0x02;
 	public static final int REMINDER_TYPE_GMAIL = 0x04;
-	
+	private static final Object mReminderSync = new Object();
+
 	private static PendingIntent reminderPendingIntent = null;
 	// private static final int reminderInterval = 10;//5*60; //reminder
 	// interval, in seconds
@@ -54,10 +55,6 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			.GetReminderInterval(context);
 		long triggerTime = System.currentTimeMillis()
 			+ (reminderIntervalSeconds * 1000);
-
-		if (reminderPendingIntent != null) {
-			cancelReminder(context, type);
-		}
 
 		if (type == REMINDER_TYPE_MESSAGE) {
 			int unreadNumber = 0;
@@ -130,11 +127,13 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		}
 
 		reminderIntent.putExtra(MineMessageReminderService.EXTRA_REMINDER_TYPE, type);
-		
-		reminderPendingIntent = PendingIntent.getBroadcast(context, 0,
-				reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-		am.set(AlarmManager.RTC, triggerTime, reminderPendingIntent);
+		synchronized (mReminderSync) {
+			reminderPendingIntent = PendingIntent.getBroadcast(context, 0,
+					reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+	
+			am.set(AlarmManager.RTC, triggerTime, reminderPendingIntent);
+		}
 		acquireWakeLockIfNeeded(context);
 	}
 
@@ -145,6 +144,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	 * @param type the reminder type
 	 */
 	public static void cancelReminder(Context context, int type) {
+		synchronized (mReminderSync) {
 		if (reminderPendingIntent != null) {
 			MineLog.v("cancelReminder() for type: " + type);
 
@@ -183,6 +183,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			else {
 				MineLog.e("cancelReminder() Error status!");
 			}
+		}
 		}
 	}
 

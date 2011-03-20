@@ -17,6 +17,7 @@
 <string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
 <string name="pref_reminder_interval_title">Reminder Interval</string>
 <string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
+<string name="dialog_preview_vibrate_pattern">Preview Pattern</string>
 
 <!-- Vibration mode preference -->
 <string name="pref_vibration_mode_title">Vibration Mode</string>

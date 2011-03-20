@@ -58,8 +58,4 @@ public class MineVibrationTabView extends TabActivity {
 	public static Context getContext() {
 		return context;
 	}
-	
-	public void adWhirlGeneric() {
-	    MineLog.e("In adWhirlGeneric()");
-	}
 }

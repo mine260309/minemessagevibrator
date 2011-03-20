@@ -53,6 +53,13 @@ public class MineMessageVibrator {
 		MineLog.v("notifying reminder");
 		vibrate(context, VIBRATE_REASON_REMINDER);
 	}
+	
+	// This function is used in preview of custom vibrate pattern
+	public static void vibrate(Context context, long[] pattern) {
+		Vibrator v = (Vibrator) context
+			.getSystemService(Context.VIBRATOR_SERVICE);
+		v.vibrate(pattern, -1);
+	}
 
 	private static void vibrate(Context context, int reason) {
 		// If the phone is in silent mode, do not vibrate
