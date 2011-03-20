@@ -98,13 +98,16 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.09.2:\n
+1) Add preview of custom vibrate pattern\n
+2) May fix some force closing issues...\n
+\n
+Histories:\n
 1.09.1: Try to fix force closing issue\n
 1.09:\n
 1) Add GMail Vibrate &amp; Reminder\n
 2) Add Feedback via Email button\n
 If you have any problems or suggestions, please email me. Otherwise I\'m not able to contact you.\n
-\n
-Histories:\n
 1.08:\n
 1) Add Reminder for missed phone calls, check it in Additional Reminders!\n
 2) Add advertisement\n
