@@ -1,5 +1,7 @@
 package com.mine;
 
+import java.lang.reflect.Field;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -88,13 +90,11 @@ public class CustomVibrateListPreference extends ListPreference {
 											.SetVibratePatternbyReason(context,
 													vibrate_reason, new_pattern);
 
-									Toast
-											.makeText(
-													context,
-													context
-															.getString(R.string.pref_vibrate_pattern_ok),
-													Toast.LENGTH_SHORT).show();
-
+									Toast.makeText(
+										context,
+										context.getString(
+												R.string.pref_vibrate_pattern_ok),
+												Toast.LENGTH_SHORT).show();
 								} else {
 
 									/*
@@ -103,14 +103,62 @@ public class CustomVibrateListPreference extends ListPreference {
 									 * last good value).
 									 */
 
-									Toast
-											.makeText(
-													context,
-													context
-															.getString(R.string.pref_vibrate_pattern_bad),
-													Toast.LENGTH_SHORT).show();
+									Toast.makeText(
+										context,
+										context.getString(
+												R.string.pref_vibrate_pattern_bad),
+												Toast.LENGTH_SHORT).show();
 								}
+								try  
+								{
+									Field field = dialog.getClass()  
+										.getSuperclass().getDeclaredField(  
+										"mShowing");  
+									field.setAccessible(true);  
+									// 将mShowing变量设为false，表示对话框已关闭  
+									field.set(dialog, true);  
+									dialog.dismiss();  
+								}  
+								catch (Exception e)  
+								{  
+								} 
 							}
-						}).show();
+						})
+				.setNeutralButton(R.string.dialog_preview_vibrate_pattern, 
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+							int whichButton) {
+
+							String new_pattern = et.getText().toString();
+							long[] pattern = MineVibrationToggler.
+								parseVibratePattern(new_pattern);
+							if (pattern != null) {
+								// add preview vibrate pattern code
+								MineLog.v("Preview pattern...");
+								MineMessageVibrator.vibrate(context, pattern);
+							} else {
+								Toast.makeText(
+									context,
+									context.getString(
+										R.string.pref_vibrate_pattern_bad),
+										Toast.LENGTH_SHORT).show();
+							}
+							try  
+							{
+								Field field = dialog.getClass()  
+									.getSuperclass().getDeclaredField(  
+									"mShowing");  
+								field.setAccessible(true);  
+								// 将mShowing变量设为false，表示对话框已关闭  
+								field.set(dialog, false);  
+								dialog.dismiss();  
+							}  
+							catch (Exception e)  
+							{  
+							} 
+						}
+					}
+				)
+				.show();
 	}
 }

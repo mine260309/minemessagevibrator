@@ -15,6 +15,7 @@
     <string name="pref_vibrate_enable_summary_off">短信震动设置取消</string>
     <string name="pref_reminder_interval_title">提醒间隔</string>
     <string name="pref_reminder_interval_dialogTitle">提醒间隔 (分钟)</string>
+    <string name="dialog_preview_vibrate_pattern">震动预览</string>
 
     <!-- Vibration mode preference -->
     <string name="pref_vibration_mode_title">震动模式</string>
