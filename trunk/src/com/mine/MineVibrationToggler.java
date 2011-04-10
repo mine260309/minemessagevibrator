@@ -20,6 +20,7 @@
 package com.mine;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -220,12 +221,48 @@ public class MineVibrationToggler {
 	}
 
 	public static boolean ShallNotify(Context context) {
+		// If phone is in silent mode, don't notify
 		int notifyMode = GetPhoneRingerState(context);
 		if (notifyMode == AudioManager.RINGER_MODE_SILENT) {
 			MineLog.v("phone is in silent mode");
 			return false;
+		} else {
+			MineLog.v("phone is in mode: " + notifyMode);
 		}
-		MineLog.v("phone is in mode: " + notifyMode);
+		
+		// If user set bed time, and the time is in bedtime, don't notify
+		boolean isInBedTime = false;
+		if (GetReminderBedtimeEnabled(context)) {
+			Calendar c = Calendar.getInstance();
+			int curHour = c.get(Calendar.HOUR_OF_DAY);
+			int curMin = c.get(Calendar.MINUTE);
+			int[] bedTime = new int[4];
+			GetReminderBedtimeTime(context, bedTime);
+			int hourFrom = bedTime[0];
+			int minFrom = bedTime[1];
+			int hourTo = bedTime[2];
+			int minTo = bedTime[3];
+
+			// Calculate the bedtime interval from startTime
+			// and compare the current interval from startTime
+			// if the current interval is smaller, then we're in bedtime!
+			int timeIntervalHour;
+			if (hourFrom == hourTo && minFrom>minTo) {
+				timeIntervalHour = 24;
+			} else {
+				timeIntervalHour = (hourFrom>hourTo)?
+					(hourTo+24-hourFrom):(hourTo-hourFrom);
+			}
+			int timeIntervalMin = timeIntervalHour*60 + minTo-minFrom;
+			int curIntervalHour = (hourFrom>curHour)?
+					(curHour+24-hourFrom):(curHour-hourFrom);
+			int curIntervalMin = curIntervalHour*60 +curMin-minFrom;
+			if ( (curIntervalMin>=0) && (curIntervalMin < timeIntervalMin)) {
+				isInBedTime = true;
+			}
+			MineLog.v("In bed time? " + isInBedTime);
+			return !isInBedTime;
+		}
 		return true;
 	}
 
@@ -424,5 +461,61 @@ public class MineVibrationToggler {
 				.getDefaultSharedPreferences(context);
 		return settings.getBoolean(context
 					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
+	}
+	
+	public static boolean GetReminderBedtimeEnabled(Context context) {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context
+				.getString(R.string.pref_reminder_bedtime_enable_key), false);
+	}
+
+	public static String GetReminderBedtimeTime(Context context) {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return settings.getString(context.getString(
+				R.string.pref_reminder_bedtime_time), "");
+	}
+
+	public static void GetReminderBedtimeTime(Context context, int[] bedTime) {
+		String timePref = MineVibrationToggler.GetReminderBedtimeTime(context);
+		String[] prefs = timePref.split(":");
+		int hourFrom, minFrom, hourTo, minTo;
+		if ( prefs.length == 4) {
+			// we get the correct time preference
+			try {
+				hourFrom = Integer.parseInt(prefs[0]);
+				minFrom = Integer.parseInt(prefs[1]);
+				hourTo = Integer.parseInt(prefs[2]);
+				minTo = Integer.parseInt(prefs[3]);				
+			} catch (NumberFormatException ex) {
+				MineLog.e("Error: unable to parse: " + timePref);
+				hourFrom = 0;
+				minFrom = 0;
+				hourTo = 8;
+				minTo = 0;
+			}
+		} else {
+			// default time is 00:00 to 08:00
+			MineLog.e("Error: timePref has invalid format: " + timePref);
+			hourFrom = 0;
+			minFrom = 0;
+			hourTo = 8;
+			minTo = 0;
+		}
+		bedTime[0]=hourFrom;
+		bedTime[1] = minFrom;
+		bedTime[2] = hourTo;
+		bedTime[3] = minTo;
+	}
+	
+	public static void SetReminderBedtimeTime(Context context, String time) {
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(context.getString(
+				R.string.pref_reminder_bedtime_time),
+				time);
+		editor.commit();
 	}
 }
