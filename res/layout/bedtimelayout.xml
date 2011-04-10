@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/bedtimelayout" 
+    >
+
+<TextView android:text="@string/TextViewBedTimeFrom" 
+        android:id="@+id/TextViewBedTimeFrom"
+        android:textColor="#FFFFFFFF" 
+        android:textSize="27sp"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content">
+</TextView>
+<TimePicker android:id="@+id/TimePickerBedTimeFrom" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content">
+</TimePicker>
+<TextView android:text="@string/TextViewBedTimeTo"
+        android:id="@+id/TextViewBedTimeTo" 
+        android:textColor="#FFFFFFFF"
+        android:textSize="27sp"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content">
+</TextView>
+<TimePicker android:id="@+id/TimePickerBedTimeTo" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content">
+</TimePicker>
+
+</LinearLayout>

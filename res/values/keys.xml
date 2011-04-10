@@ -11,6 +11,8 @@
     <string name="pref_reminder_sound_enable_key">reminderSoundEnabled</string>
     <string name="pref_reminder_sound_key">reminderSound</string>
     <string name="pref_reminder_vibrate_enable_key">reminderVibrateEnabled</string>
+    <string name="pref_reminder_bedtime_enable_key">reminderBedtimeEnabled</string>
+    <string name="pref_reminder_bedtime_time">reminderBedtimeTime</string>
     <string name="pref_reminder_wakelock_enable_key">reminderWakeLockEnabled</string>
     <string name="pref_sms_vibrate_pattern_key">smsVibratePattern</string>
     <string name="pref_reminder_vibrate_pattern_key">reminderVibratePattern</string>

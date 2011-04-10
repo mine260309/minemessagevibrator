@@ -82,6 +82,20 @@
 >
 </ListPreference>
 
+<CheckBoxPreference
+    android:key="@string/pref_reminder_bedtime_enable_key"
+    android:title="@string/pref_reminder_bedtime_title"
+    android:summary="@string/pref_reminder_bedtime_summary"
+    android:dependency="@string/pref_reminder_enable_key"
+/>
+
+<com.mine.MineTimePickerPreference
+    android:key="@string/pref_reminder_bedtime_time"
+    android:title="@string/pref_reminder_bedtime_time_title"
+    android:dialogLayout="@layout/bedtimelayout"
+    android:dependency="@string/pref_reminder_bedtime_enable_key"
+/>
+
 <CheckBoxPreference 
     android:key="@string/pref_reminder_wakelock_enable_key"
     android:title="@string/pref_reminder_wakelock_enable_title"

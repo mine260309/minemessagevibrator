@@ -122,7 +122,7 @@ public class MineMessageVibrator {
 				MineLog.v("phone in call, not vibrate");
 			}
 		} else {
-			MineLog.v("phone in silent mode, not vibrate");
+			MineLog.v("phone in silent mode or in bed time, not vibrate");
 		}
 	}
 
