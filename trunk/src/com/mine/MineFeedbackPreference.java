@@ -54,6 +54,13 @@ public class MineFeedbackPreference extends Preference {
 		emailIntent.setType("message/rfc822");
 		emailIntent.putExtra(Intent.EXTRA_EMAIL, EMAIL_ADDR);
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, EMAIL_SUBJECT);
+		String texts = "Device Information: " + android.os.Build.MODEL + " " +
+		   android.os.Build.DEVICE + " SDK " + 
+		   android.os.Build.VERSION.SDK +
+		   "\n*** If you don't want to share your device information," +
+		   " you can just delete this text :)\n";
+		emailIntent.putExtra(Intent.EXTRA_TEXT, texts);
+
 		try {
 		    context.startActivity(Intent.createChooser(emailIntent, "Feedback via email..."));
 		} catch (android.content.ActivityNotFoundException ex) {
