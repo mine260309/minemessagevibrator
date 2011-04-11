@@ -45,6 +45,16 @@
 <string name="pref_reminder_sound_title">提醒铃声</string>
 <string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
 
+<!-- Reminder bedtime preference -->
+<string name="pref_reminder_bedtime_title">夜间免打扰</string>
+<string name="pref_reminder_bedtime_summary">在夜间关闭震动和提醒</string>
+<string name="pref_reminder_bedtime_time_title">设置免打扰时间</string>
+<string name="pref_reminder_bedtime_time_summary">从 %1$s:%2$s 到 %3$s%4$s:%5$s关闭震动和提醒%6$s</string>
+<string name="pref_reminder_bedtime_time_summary_tomorrow">"第二天的 "</string>
+<string name="pref_reminder_bedtime_time_summary_areyousure">",你确定吗?!"</string>
+<string name="TextViewBedTimeFrom">从: </string>
+<string name="TextViewBedTimeTo">到: </string>
+
 <!--  WakeLock preference -->
 <string name="pref_reminder_wakelock_enable_title">强制唤醒提醒</string>
 <string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
@@ -95,11 +105,12 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
+1.10: 添加了夜间免打扰设置\n
+\n
+历史更新:\n
 1.09.2:\n
 1) 添加了自定义震动的预览\n
 2) 继续尝试修复崩溃问题...\n
-\n
-历史更新:\n
 1.09.1: 尝试修复程序崩溃问题\n
 1.09:\n
 1) 添加了GMail的震动和提醒\n
