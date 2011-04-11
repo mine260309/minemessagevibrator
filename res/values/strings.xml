@@ -51,6 +51,9 @@
 <string name="pref_reminder_bedtime_title">Bed Time</string>
 <string name="pref_reminder_bedtime_summary">NO Reminder during bed time</string>
 <string name="pref_reminder_bedtime_time_title">Set Bed Time</string>
+<string name="pref_reminder_bedtime_time_summary">Disable reminder from %1$s:%2$s to %3$s%4$s:%5$s%6$s</string>
+<string name="pref_reminder_bedtime_time_summary_tomorrow">"Tomorrow\'s "</string>
+<string name="pref_reminder_bedtime_time_summary_areyousure">" Are you sure?!"</string>
 <string name="TextViewBedTimeFrom">After: </string>
 <string name="TextViewBedTimeTo">And Before: </string>
 
@@ -105,11 +108,12 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.10：Add setting to disable reminder during bed time\n
+\n
+Histories:\n
 1.09.2:\n
 1) Add preview of custom vibrate pattern\n
 2) May fix some force closing issues...\n
-\n
-Histories:\n
 1.09.1: Try to fix force closing issue\n
 1.09:\n
 1) Add GMail Vibrate &amp; Reminder\n

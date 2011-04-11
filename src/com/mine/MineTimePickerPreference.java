@@ -1,6 +1,5 @@
 package com.mine;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.preference.DialogPreference;
@@ -43,22 +42,30 @@ public class MineTimePickerPreference extends DialogPreference
 	}
 	
 	private void updateSummary() {
-		String to = " to ";
+		// Summary:
+		// Disable reminder from %02d:%02d to  
+		// [Tomorrow's ]%02d:%02d[ Are you sure?!]
+		
+		String summaryFormat = context.getString
+			(R.string.pref_reminder_bedtime_time_summary);
+		String tomorrow = "";
+		String appendix = "";
+		String summary;
+		
 		if (mHourFrom > mHourTo || 
 			((mHourFrom==mHourTo)&& (mMinFrom > mMinTo)) ) {
-			to = " to Tomorrow's ";
+			tomorrow = context.getString(
+				R.string.pref_reminder_bedtime_time_summary_tomorrow);
 		}
-		String appendix = "";
 		int timeIntervalHour = (mHourFrom>=mHourTo)?
 				(mHourTo+24-mHourFrom):(mHourTo-mHourFrom);
 		if (timeIntervalHour >= 16) {// if user set more than 16 hour bed time
-			appendix = " Are you sure?!";
+			appendix = context.getString(
+				R.string.pref_reminder_bedtime_time_summary_areyousure);
 		}
-		String summary = new StringBuilder().append("Disable reminder from ")
-        	.append(pad(mHourFrom)).append(":")
-        	.append(pad(mMinFrom)).append(to)
-        	.append(pad(mHourTo)).append(":")
-        	.append(pad(mMinTo)).append(appendix).toString();
+		summary = String.format(summaryFormat, pad(mHourFrom),
+				pad(mMinFrom), tomorrow, pad(mHourTo), pad(mMinTo),
+				appendix);
 		setSummary(summary);
 	}
 	private void init() {
