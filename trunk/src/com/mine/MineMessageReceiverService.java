@@ -37,6 +37,12 @@ public class MineMessageReceiverService extends Service {
 	private static final String ACTION_MMS_RECEIVED = "android.provider.Telephony.WAP_PUSH_RECEIVED";
 	private static final String MMS_DATA_TYPE = "application/vnd.wap.mms-message";
 
+	// Below parameter are extract from android mms app
+	private static final String STATE = "state";
+	private  static final int STATE_SUCCESS = 1;
+	private static final int STATE_FAILED = 2;
+	private static final String ACTION_MMS_TRANSACTION_COMPLETED = "android.intent.action.TRANSACTION_COMPLETED_ACTION";
+
 	private static PowerManager.WakeLock mStartingService;
 
 	private Context context;
@@ -142,7 +148,17 @@ public class MineMessageReceiverService extends Service {
 				handleSmsReceived(intent);
 			} else if (ACTION_MMS_RECEIVED.equals(action)
 					&& MMS_DATA_TYPE.equals(dataType)) {
-				handleMmsReceived(intent);
+				//handleMmsReceived(intent);
+				MineLog.v("Received a mms, probably downloading...");
+			} else if (ACTION_MMS_TRANSACTION_COMPLETED.equals(action)) {
+				MineLog.v("ACTION_MMS_TRANSACTION_COMPLETED");
+				int state = intent.getIntExtra(STATE, STATE_FAILED);
+				if (state == STATE_SUCCESS) {
+					MineLog.v("TRANSACTION_COMPLETED and success");
+					handleMmsReceived(intent);
+				} else {
+					MineLog.v("TRANSACTION_COMPLETED but not success");
+				}
 			}
 
 			if (MineVibrationToggler.GetReminderEnabled(context)) {
