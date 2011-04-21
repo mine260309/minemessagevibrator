@@ -25,6 +25,10 @@
         <data
           android:mimeType="application/vnd.wap.mms-message" />
       </intent-filter>
+      <intent-filter>
+        <action
+          android:name="android.intent.action.TRANSACTION_COMPLETED_ACTION" />
+      </intent-filter>
     </receiver>
     
     <receiver android:name="MineUpdateViewReceiver">
