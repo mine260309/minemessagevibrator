@@ -30,15 +30,6 @@
 >
 </com.mine.MineReminderEnableCheckBoxPreference >
 
-<!-- CheckBoxPreference 
-    android:key="@string/pref_reminder_vibrate_enable_key"
-    android:title="@string/pref_reminder_vibrate_enable_title"
-    android:summaryOn="@string/pref_reminder_vibrate_enable_summary_on" 
-    android:summaryOff="@string/pref_reminder_vibrate_enable_summary_off"
-    android:dependency="@string/pref_vibrate_enable_key"
--->
-<!--  /CheckBoxPreference -->
-
 <com.mine.CustomVibrateListPreference
     android:key="@string/pref_reminder_vibration_mode_key"
     android:title="@string/pref_reminder_vibration_mode_title"
@@ -114,12 +105,79 @@
 	android:summary="@string/pref_reminder_item_missed_call_summary"
 	android:dependency="@string/pref_reminder_enable_key"
 />
+<PreferenceScreen
+    android:title="@string/pref_missed_call_notify_title"
+    android:key="pref_missed_call_notify"
+    android:summary="@string/pref_missed_call_notify_summary"
+    android:dependency="@string/pref_reminder_item_missed_call_key">
+	
+	<CheckBoxPreference
+        android:key="@string/pref_missed_call_notify_independent_key"
+        android:title="@string/pref_notify_independent_title"
+        android:summaryOn="@string/pref_missed_call_notify_independent_summary_on"
+        android:summaryOff="@string/pref_notify_independent_summary_off"
+	/>
+	
+	<com.mine.CustomVibrateListPreference
+	    android:key="@string/pref_missed_call_notify_vib_key"
+	    android:title="@string/pref_missed_call_notify_vib_title"
+	    android:entries="@array/pref_reminder_vibration_mode_entries"
+	    android:entryValues="@array/pref_reminder_vibration_mode_entries"
+	    android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
+	    android:defaultValue="@string/pref_reminder_vibration_mode_default"
+	    android:dependency="@string/pref_missed_call_notify_independent_key"
+	/>
+
+	<RingtonePreference
+	    android:key="@string/pref_missed_call_notify_sound_key"
+	    android:title="@string/pref_reminder_sound_title"
+	    android:ringtoneType="notification"
+	    android:showDefault="true"
+	    android:showSilent="true"
+	    android:defaultValue="content://settings/system/notification_sound"
+	    android:dependency="@string/pref_missed_call_notify_independent_key"
+	/>
+</PreferenceScreen>
+      
 <com.mine.MineReminderMissedPhoneCallCheckbox
     android:key="@string/pref_reminder_item_unread_gmail_key"
     android:title="@string/pref_reminder_item_unread_gmail_title"
     android:summary="@string/pref_reminder_item_unread_gmail_summary"
     android:dependency="@string/pref_reminder_enable_key"
 />
+<PreferenceScreen
+    android:title="@string/pref_unread_gmail_notify_title"
+    android:key="pref_unread_gmail_notify"
+    android:summary="@string/pref_unread_gmail_notify_summary"
+    android:dependency="@string/pref_reminder_item_unread_gmail_key">
+    
+    <CheckBoxPreference
+        android:key="@string/pref_unread_gmail_notify_independent_key"
+        android:title="@string/pref_notify_independent_title"
+        android:summaryOn="@string/pref_unread_gmail_notify_independent_summary_on"
+        android:summaryOff="@string/pref_notify_independent_summary_off"
+    />
+    
+    <com.mine.CustomVibrateListPreference
+        android:key="@string/pref_unread_gmail_notify_vib_key"
+        android:title="@string/pref_missed_call_notify_vib_title"
+        android:entries="@array/pref_reminder_vibration_mode_entries"
+        android:entryValues="@array/pref_reminder_vibration_mode_entries"
+        android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
+        android:defaultValue="@string/pref_reminder_vibration_mode_default"
+        android:dependency="@string/pref_unread_gmail_notify_independent_key"
+    />
+
+    <RingtonePreference
+        android:key="@string/pref_unread_gmail_notify_sound_key"
+        android:title="@string/pref_reminder_sound_title"
+        android:ringtoneType="notification"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="@string/pref_unread_gmail_notify_independent_key"
+    />
+</PreferenceScreen>
 </PreferenceCategory>
 
 
