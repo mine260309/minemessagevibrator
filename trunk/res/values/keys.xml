@@ -20,6 +20,13 @@
     <string name="pref_reminder_item_unread_gmail_key">reminderItemUnreadGmail</string>
     <string name="pref_app_auto_enable_key">appAutoEnable</string>
     
+    <string name="pref_missed_call_notify_independent_key">missedCallIndependent</string>
+    <string name="pref_missed_call_notify_vib_key">missedCallNotifyVib</string>
+    <string name="pref_missed_call_notify_sound_key">missedCallNotifySound</string>
+    <string name="pref_unread_gmail_notify_independent_key">unreadGmailIndependent</string>
+    <string name="pref_unread_gmail_notify_vib_key">unreadGmailNotifyVib</string>
+    <string name="pref_unread_gmail_notify_sound_key">unreadGmailNotifySound</string>
+    
     <!-- Invisible settings -->
     <string name="pref_app_auto_vib_reminder_enabled_key">appAutoVibReminderEnabled</string>
 </resources>

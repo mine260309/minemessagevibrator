@@ -139,7 +139,10 @@ public class MineTimePickerPreference extends DialogPreference
 	
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		super.getDialog().getCurrentFocus().clearFocus();
+		if ( super.getDialog() != null && 
+			 super.getDialog().getCurrentFocus()!=null ) {
+			super.getDialog().getCurrentFocus().clearFocus();
+		}
 		super.onClick(dialog, which);
 	}
 
