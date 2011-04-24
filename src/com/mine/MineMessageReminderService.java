@@ -163,7 +163,9 @@ public class MineMessageReminderService extends Service {
 			// Else
 			//   cancel reminder
 			// Fi
-
+			
+			int type = intent.getIntExtra(EXTRA_REMINDER_TYPE, 
+					MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 			if (MineVibrationToggler.GetReminderEnabled(context)) {
 				int previousUnreadNumber = 0, missedPhoneCalls = 0, 
 					currentUnreadNumber = 0, unreadGmails = 0;
@@ -183,14 +185,47 @@ public class MineMessageReminderService extends Service {
 					.getUnreadMessagesCount(context);
 				boolean isUnreadMessageDecreasing = currentUnreadNumber < previousUnreadNumber;
 				
+				// So if the unread/missed stuff changes, I need to handle a little
+				// priority: message > missed call > gmail
+				// if type is message, 
+				//    if there is unread message, keep type
+				//    if there is missed call, change type to missed call
+				//    if there is unread gmail, change type to unread gmail
+				// if type is missed call, the same...
 				MineLog.v("unread messages: "+currentUnreadNumber +
 						", missed calls: "+missedPhoneCalls +
-						", unread gmails: " +unreadGmails);
+						", unread gmails: " +unreadGmails +
+						", reminder type: " + type);
 				if(missedPhoneCalls > 0 || unreadGmails > 0 || !isUnreadMessageDecreasing) {
-					MineMessageVibrator.notifyReminder(context);
+					if (type == MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE) {
+						if (isUnreadMessageDecreasing) { // messages read
+							if (missedPhoneCalls > 0) {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL;
+							} else {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_GMAIL;
+							}
+						}
+					} else if (type == MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL) {
+						if (missedPhoneCalls == 0) { // user knows phone calls 
+							if (!isUnreadMessageDecreasing && currentUnreadNumber > 0) {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE;
+							} else {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_GMAIL;
+							}
+						}
+					} else if (type == MineMessageReminderReceiver.REMINDER_TYPE_GMAIL) {
+						if (unreadGmails == 0) {
+							if (!isUnreadMessageDecreasing && currentUnreadNumber > 0) {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE;
+							} else {
+								type = MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL;
+							}
+						}
+					}
+					MineMessageVibrator.notifyReminder(context, type);
 					MineMessageReminderReceiver.scheduleReminder(context,
 							currentUnreadNumber,
-							MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
+							type);
 				}
 				else {
 					MineMessageReminderReceiver.cancelReminder(context,

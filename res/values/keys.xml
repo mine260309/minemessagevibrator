@@ -23,9 +23,12 @@
     <string name="pref_missed_call_notify_independent_key">missedCallIndependent</string>
     <string name="pref_missed_call_notify_vib_key">missedCallNotifyVib</string>
     <string name="pref_missed_call_notify_sound_key">missedCallNotifySound</string>
+    <string name="pref_missed_call_vibrate_pattern_key">missedCallVibratePattern</string>
+    
     <string name="pref_unread_gmail_notify_independent_key">unreadGmailIndependent</string>
     <string name="pref_unread_gmail_notify_vib_key">unreadGmailNotifyVib</string>
     <string name="pref_unread_gmail_notify_sound_key">unreadGmailNotifySound</string>
+    <string name="pref_unread_gmail_vibrate_pattern_key">unreadGmailVibratePattern</string>
     
     <!-- Invisible settings -->
     <string name="pref_app_auto_vib_reminder_enabled_key">appAutoVibReminderEnabled</string>

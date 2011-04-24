@@ -51,9 +51,13 @@ public class CustomVibrateListPreference extends ListPreference {
 	}
 
 	private void getVibratePreferenceReason() {
-		if (getKey()
-				.equals(context.getString(R.string.pref_vibration_mode_key))) {
+		String key = getKey();
+		if (key.equals(context.getString(R.string.pref_vibration_mode_key))) {
 			vibrate_reason = MineMessageVibrator.VIBRATE_REASON_SMS;
+		} else if (key.equals(context.getString(R.string.pref_missed_call_notify_vib_key))) {
+			vibrate_reason = MineMessageVibrator.VIBRATE_REASON_REMINDER_MISSEDCALL;
+		} else if (key.equals(context.getString(R.string.pref_unread_gmail_notify_vib_key))) {
+			vibrate_reason = MineMessageVibrator.VIBRATE_REASON_REMINDER_GMAIL;
 		} else {
 			vibrate_reason = MineMessageVibrator.VIBRATE_REASON_REMINDER;
 		}
@@ -70,7 +74,7 @@ public class CustomVibrateListPreference extends ListPreference {
 
 		pattern = settings.getString(getKey(), this.getEntries()[1].toString());
 
-		MineLog.v("Get pattern of " + getKey() + ": " + pattern);
+		MineLog.v("Get pattern of " + getKey() + " : " + pattern);
 		if (positiveResult) {
 
 			if ("Custom".equals(pattern)) {
