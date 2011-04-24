@@ -32,11 +32,15 @@ public class MineMessageVibrator {
 	// private static final int MINE_MESSAGE_NOTIFICATION_ID = 0x1086;
 	// private static Notification smsNotify = null;
 	// private static Notification mmsNotify = null;
-	public static final int VIBRATE_REASON_SMS = 0;
+	public static final int VIBRATE_REASON_SMS = 1;
 	public static final int VIBRATE_REASON_MMS = VIBRATE_REASON_SMS;
-	public static final int VIBRATE_REASON_REMINDER = 2;
-	public static final int VIBRATE_REASON_GMAIL = 3;
-
+	public static final int VIBRATE_REASON_REMINDER = 0x80;
+	public static final int VIBRATE_REASON_GMAIL = 2;
+	public static final int VIBRATE_REASON_MISSEDCALL = 3;
+	public static final int VIBRATE_REASON_REMINDER_MESSAGE = 0x81;
+	public static final int VIBRATE_REASON_REMINDER_GMAIL = 0x82;
+	public static final int VIBRATE_REASON_REMINDER_MISSEDCALL = 0x83;
+	
 	private static final String VIBRATE_MODE_SHORT = "Short";
 	private static final String VIBRATE_MODE_MIDDLE = "Middle";
 	private static final String VIBRATE_MODE_LONG = "Long";
@@ -68,9 +72,24 @@ public class MineMessageVibrator {
 		vibrate(context, VIBRATE_REASON_GMAIL);
 	}
 	
-	public static void notifyReminder(Context context) {
-		MineLog.v("notifying reminder");
-		vibrate(context, VIBRATE_REASON_REMINDER);
+	public static void notifyReminder(Context context, int type) {
+		MineLog.v("notifying reminder, type: " + type);
+		int reason;
+		switch(type) {
+		case MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE:
+			reason = VIBRATE_REASON_REMINDER_MESSAGE;
+			break;
+		case MineMessageReminderReceiver.REMINDER_TYPE_GMAIL:
+			reason = VIBRATE_REASON_REMINDER_GMAIL;
+			break;
+		case MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL:
+			reason = VIBRATE_REASON_REMINDER_MISSEDCALL;
+			break;
+		default:
+			reason = VIBRATE_REASON_REMINDER;
+			break;
+		}
+		vibrate(context, reason);
 	}
 	
 	// This function is used in preview of custom vibrate pattern
@@ -88,7 +107,7 @@ public class MineMessageVibrator {
 					.getSystemService(Context.TELEPHONY_SERVICE);
 			if (mTM.getCallState() == TelephonyManager.CALL_STATE_IDLE) {
 				// Check whether we need to ring or vibrate, or both...
-				boolean needSound = (reason == VIBRATE_REASON_REMINDER)
+				boolean needSound = ((reason & VIBRATE_REASON_REMINDER) !=0)
 						&& MineVibrationToggler
 								.GetReminderSoundEnabled(context);
 				boolean needVibrate = MineVibrationToggler
@@ -105,7 +124,7 @@ public class MineMessageVibrator {
 					// Try and parse the user preference, use the default if it
 					// fails
 					Uri reminderSoundURI = Uri.parse(MineVibrationToggler
-							.GetReminderSoundString(context));
+							.GetReminderSoundString(context, reason));
 
 					n.sound = reminderSoundURI;
 					nm.notify(reason, n);
@@ -131,10 +150,24 @@ public class MineMessageVibrator {
 				.getDefaultSharedPreferences(context);
 		String pattern;
 		long[] pat = null;
-		if (reason == VIBRATE_REASON_REMINDER) {
-			pattern = settings.getString(context
-					.getString(R.string.pref_reminder_vibration_mode_key),
-					"Same as Message");
+		if ( (reason & VIBRATE_REASON_REMINDER) != 0 ) {
+			switch(reason&0x0F) {
+			case VIBRATE_REASON_GMAIL:
+				pattern = settings.getString(context
+						.getString(R.string.pref_unread_gmail_notify_vib_key),
+						VIBRATE_MODE_SAME_AS_MESSAGE);
+				break;
+			case VIBRATE_REASON_MISSEDCALL:
+				pattern = settings.getString(context
+						.getString(R.string.pref_missed_call_notify_vib_key),
+						VIBRATE_MODE_SAME_AS_MESSAGE);
+				break;
+			default:
+				pattern = settings.getString(context
+						.getString(R.string.pref_reminder_vibration_mode_key),
+						VIBRATE_MODE_SAME_AS_MESSAGE);
+			}
+
 			if (pattern.equals(VIBRATE_MODE_SAME_AS_MESSAGE)) {
 				reason = VIBRATE_REASON_SMS;
 			} else if (pattern.equals(VIBRATE_MODE_SHORT)) {
@@ -153,16 +186,11 @@ public class MineMessageVibrator {
 				pat = VibratePatternMultipleMiddle;
 				MineLog.v("Reminder Vibrate using pattern " + pattern);
 			} else if (pattern.equals(VIBRATE_MODE_CUSTOM)) {
-				pat = MineVibrationToggler
-						.parseVibratePattern(settings
-								.getString(
-										context
-												.getString(R.string.pref_reminder_vibrate_pattern_key),
-										context
-												.getString(R.string.pref_vibrate_pattern_default)));
+				pat = MineVibrationToggler.parseVibratePattern(
+						MineVibrationToggler.
+						GetVibratePatternbyReason(context, reason));
 				if (pat == null) {
-					MineLog
-							.e("Parse Custom Pattern Error, using defalt Middle");
+					MineLog.e("Parse Custom Pattern Error, using defalt Middle");
 					pat = VibratePatternMiddle;
 				}
 				MineLog.v("Vibrate using custom pattern " + pat.toString());
@@ -171,8 +199,8 @@ public class MineMessageVibrator {
 				reason = VIBRATE_REASON_SMS;
 			}
 		}
-		if (reason != VIBRATE_REASON_REMINDER) {
-			// If it's SMS or MMS or Gmail vibration
+		if ((reason & VIBRATE_REASON_REMINDER) == 0) {
+			// it's not a reminder
 			pattern = settings.getString(context
 					.getString(R.string.pref_vibration_mode_key), "Middle");
 			if (pattern.equals(VIBRATE_MODE_SHORT)) {
