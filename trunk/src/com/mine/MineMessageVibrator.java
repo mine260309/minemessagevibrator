@@ -148,21 +148,35 @@ public class MineMessageVibrator {
 	private static long[] GetVibratePattern(Context context, int reason) {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		String pattern;
+		String pattern="";
 		long[] pat = null;
+		boolean independent = false;
 		if ( (reason & VIBRATE_REASON_REMINDER) != 0 ) {
 			switch(reason&0x0F) {
 			case VIBRATE_REASON_GMAIL:
-				pattern = settings.getString(context
-						.getString(R.string.pref_unread_gmail_notify_vib_key),
-						VIBRATE_MODE_SAME_AS_MESSAGE);
+				independent = settings.getBoolean(context.getString
+						(R.string.pref_unread_gmail_notify_independent_key), false);
+				if (independent) {
+					MineLog.v("use indpendent vib mode for gmail");
+					pattern = settings.getString(context
+							.getString(R.string.pref_unread_gmail_notify_vib_key),
+							VIBRATE_MODE_SAME_AS_MESSAGE);
+				}
 				break;
 			case VIBRATE_REASON_MISSEDCALL:
-				pattern = settings.getString(context
-						.getString(R.string.pref_missed_call_notify_vib_key),
-						VIBRATE_MODE_SAME_AS_MESSAGE);
+				independent = settings.getBoolean(context.getString
+						(R.string.pref_missed_call_notify_independent_key), false);
+				if (independent) {
+					MineLog.v("use indpendent vib mode for missedcall");
+					pattern = settings.getString(context
+							.getString(R.string.pref_missed_call_notify_vib_key),
+							VIBRATE_MODE_SAME_AS_MESSAGE);
+				}
 				break;
 			default:
+				break;
+			}
+			if ("".equals(pattern)) {
 				pattern = settings.getString(context
 						.getString(R.string.pref_reminder_vibration_mode_key),
 						VIBRATE_MODE_SAME_AS_MESSAGE);

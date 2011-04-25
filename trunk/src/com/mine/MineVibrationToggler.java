@@ -366,18 +366,29 @@ public class MineVibrationToggler {
 	public static String GetVibratePatternbyReason(Context context, int reason) {
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		String key;
+		String key = "";
+		boolean independent = false;
 		if ((reason & MineMessageVibrator.VIBRATE_REASON_REMINDER) != 0) {
 			switch(reason & 0x0F) {
 			case MineMessageVibrator.VIBRATE_REASON_GMAIL:
-				key = context.getString(R.string.pref_unread_gmail_vibrate_pattern_key);
+				independent = settings.getBoolean(context.getString
+						(R.string.pref_unread_gmail_notify_independent_key), false);
+				if (independent) {
+					key = context.getString(R.string.pref_unread_gmail_vibrate_pattern_key);
+				}
 				break;
 			case MineMessageVibrator.VIBRATE_REASON_MISSEDCALL:
-				key = context.getString(R.string.pref_missed_call_vibrate_pattern_key);
+				independent = settings.getBoolean(context.getString
+						(R.string.pref_missed_call_notify_independent_key), false);
+				if (independent) {
+					key = context.getString(R.string.pref_missed_call_vibrate_pattern_key);
+				}
 				break;
 			default:
-				key = context.getString(R.string.pref_reminder_vibrate_pattern_key);
 				break;
+			}
+			if ("".equals(key)) {
+				key = context.getString(R.string.pref_reminder_vibrate_pattern_key);
 			}
 		}
 		else {
@@ -385,7 +396,7 @@ public class MineVibrationToggler {
 		}
 		String ret = settings.getString(key, context
 				.getString(R.string.pref_vibrate_pattern_default));
-		MineLog.v("Get vibrate pattern, reason: " + key +" pattern: "+ ret);
+		MineLog.v("Get vibrate pattern, reason: " +reason +" key: "+ key +" pattern: "+ ret);
 		return ret;
 	}
 
