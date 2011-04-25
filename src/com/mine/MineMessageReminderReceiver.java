@@ -51,8 +51,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 
 	/**
 	 * This will schedule a reminder notification to play in the future using
-	 * the system AlarmManager. The time till the reminder and number of
-	 * reminders is taken from user preferences.
+	 * the system AlarmManager.
 	 * 
 	 * @param context
 	 * @param currentUnreadCount
