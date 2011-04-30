@@ -120,9 +120,10 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
-1.10：Add setting to disable reminder during bed time\n
+1.11: Add independent reminders for missed calls and unread gmails\n
 \n
 Histories:\n
+1.10：Add setting to disable reminder during bed time\n
 1.09.2:\n
 1) Add preview of custom vibrate pattern\n
 2) May fix some force closing issues...\n
