@@ -67,6 +67,18 @@
 <string name="pref_reminder_item_unread_gmail_title">未读GMail</string>
 <string name="pref_reminder_item_unread_gmail_summary">未读GMail提醒</string>
 
+<string name="pref_missed_call_notify_title">未接来电提醒设置</string>
+<string name="pref_missed_call_notify_summary">为未接来电设置单独的提醒</string>
+<string name="pref_missed_call_notify_independent_summary_on">为未接来电设置单独的铃声和震动</string>
+
+<string name="pref_unread_gmail_notify_title">未读Gmail提醒设置</string>
+<string name="pref_unread_gmail_notify_summary">为未读Gmail设置单独的提醒</string>
+<string name="pref_unread_gmail_notify_independent_summary_on">为未读Gmail设置单独的铃声和震动</string>
+
+<string name="pref_notify_independent_summary_off">使用和短信相同的提醒铃声和震动</string>
+<string name="pref_missed_call_notify_vib_title">震动模式</string>
+<string name="pref_notify_independent_title">单独的提醒</string>
+
 <!-- Misc preference -->
 <string name="pref_misc_catagory">其它</string>
 <string name="pref_app_auto_enable_title">自动启用震动和提醒</string>
@@ -105,9 +117,10 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.10: 添加了夜间免打扰设置\n
+1.11: 可以为未接来电和未读Gmail设置单独的提醒\n
 \n
 历史更新:\n
+1.10: 添加了夜间免打扰设置\n
 1.09.2:\n
 1) 添加了自定义震动的预览\n
 2) 继续尝试修复崩溃问题...\n
