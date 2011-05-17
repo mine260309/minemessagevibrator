@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myapp="http://schemas.android.com/apk/res/com.mine"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@android:id/tabhost" android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
     <LinearLayout android:orientation="vertical"
             android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <!--   com.admob.android.ads.AdView android:id="@+id/ad"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:visibility="visible"  
-                    myapp:backgroundColor="#000000"
-                    myapp:primaryTextColor="#FFFFFF"
-                    myapp:secondaryTextColor="#CCCCCC" / -->
                     
-            <com.admob.android.ads.AdView android:id="@+id/ad"
+            <com.google.ads.AdView android:id="@+id/ad"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:visibility="visible"  
-                    myapp:backgroundColor="#000000"
-                    myapp:primaryTextColor="#FFFFFF"
-                    myapp:secondaryTextColor="#CCCCCC"
-                    myapp:refreshInterval="60"
-                    myapp:isGoneWithoutAd="false" />
+                    ads:adUnitId="a14d214ef2c8a68"
+                    ads:adSize="BANNER"
+                    ads:loadAdOnCreate="true" />
 
             <TabWidget android:id="@android:id/tabs"
                     android:layout_width="fill_parent" android:layout_height="1dp"

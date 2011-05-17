@@ -77,20 +77,9 @@
                    android:resource="@xml/widget" />
     </receiver>
 
-        <!-- The application's publisher ID assigned by AdMob -->
-        <meta-data android:value="a14d214ef2c8a68" android:name="ADMOB_PUBLISHER_ID" />
-        <meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" /> 
-        <!-- AdMobActivity definition -->
-        <activity android:name="com.admob.android.ads.AdMobActivity"
-          android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-          android:configChanges="orientation|keyboard|keyboardHidden" />
-        <!-- Track Market installs -->          
-        <receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
-          android:exported="true">
-            <intent-filter>
-               <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
+    <!-- AdMobActivity definition -->
+    <activity android:name="com.google.ads.AdActivity"
+          android:configChanges="keyboard|keyboardHidden|orientation" />
 </application>
 
   <uses-permission
@@ -111,7 +100,8 @@
   <uses-permission android:name="android.permission.GET_ACCOUNTS" />
    
   <!-- AdMob SDK requires Internet permission -->
-  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
   <uses-sdk android:minSdkVersion="5"></uses-sdk>
 </manifest> 
