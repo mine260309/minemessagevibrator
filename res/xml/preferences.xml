@@ -21,6 +21,12 @@
 >
 </com.mine.CustomVibrateListPreference>
 
+<CheckBoxPreference
+    android:key="@string/pref_dim_screen_enable_key"
+    android:title="@string/pref_dim_screen_enable_title" 
+    android:summary="@string/pref_dim_screen_enable_summary">
+</CheckBoxPreference>
+
 </PreferenceCategory>
 
 <PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
