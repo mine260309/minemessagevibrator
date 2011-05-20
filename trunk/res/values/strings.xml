@@ -23,6 +23,9 @@
 <string name="pref_vibration_mode_title">Vibration Mode</string>
 <string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
 
+<string name="pref_dim_screen_enable_title">Dim Screen</string>
+<string name="pref_dim_screen_enable_summary">Dim Screen for Received Message</string>
+
 <string name="pref_vibrate_pattern_help">Enter a custom vibrate pattern, in the format:\nOff,On,Off,On,etc, in milliseconds\n\nFor example:\n0,1000,500,1000\n0,500,200,500,200,500</string>
 <string name="pref_vibrate_pattern_title">Vibrate Pattern</string>
 <string name="pref_vibrate_pattern_summary">Set the vibration pattern</string>

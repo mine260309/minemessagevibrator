@@ -27,7 +27,6 @@ public class MineMessageReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO Auto-generated method stub
 		MineLog.v("Received a message");
 		intent.setClass(context, MineMessageReceiverService.class);
 		intent.putExtra("result", getResultCode());

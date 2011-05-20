@@ -21,6 +21,9 @@ package com.mine;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.widget.Toast;
@@ -54,9 +57,19 @@ public class MineFeedbackPreference extends Preference {
 		emailIntent.setType("message/rfc822");
 		emailIntent.putExtra(Intent.EXTRA_EMAIL, EMAIL_ADDR);
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, EMAIL_SUBJECT);
+		PackageManager pm = context.getPackageManager();
+        PackageInfo pi;
+		try {
+			pi = pm.getPackageInfo(context.getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			MineLog.v("Unable to get package info!");
+			pi = new PackageInfo(); // return a empty package info
+		}
+
 		String texts = "Device Information: " + android.os.Build.MODEL + " " +
 		   android.os.Build.DEVICE + " SDK " + 
-		   android.os.Build.VERSION.SDK +
+		   android.os.Build.VERSION.SDK + 
+		   ", Software version: " + pi.versionName +
 		   "\n*** If you don't want to share your device information," +
 		   " you can just delete this text :)\n";
 		emailIntent.putExtra(Intent.EXTRA_TEXT, texts);

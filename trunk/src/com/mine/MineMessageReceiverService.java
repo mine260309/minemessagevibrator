@@ -51,7 +51,6 @@ public class MineMessageReceiverService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -139,7 +138,7 @@ public class MineMessageReceiverService extends Service {
 			if (intent == null) {
 				return;
 			}
-			
+
 			int serviceId = msg.arg1;
 			String action = intent.getAction();
 			String dataType = intent.getType();
@@ -174,11 +173,13 @@ public class MineMessageReceiverService extends Service {
 		private void handleSmsReceived(Intent intent) {
 			MineLog.v("handling received sms");
 			MineMessageVibrator.notifySMS(context);
+			MineVibrationToggler.DimScreenForReceivedSMSIfNeeded(context);
 		}
 
 		private void handleMmsReceived(Intent intent) {
 			MineLog.v("handling received mms");
 			MineMessageVibrator.notifyMMS(context);
+			MineVibrationToggler.DimScreenForReceivedSMSIfNeeded(context);
 		}
 	}
 

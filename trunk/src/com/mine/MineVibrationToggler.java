@@ -30,6 +30,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
@@ -583,5 +585,25 @@ public class MineVibrationToggler {
 				R.string.pref_reminder_bedtime_time),
 				time);
 		editor.commit();
+	}
+	
+	private static WakeLock wl = null;
+	public static void DimScreenForReceivedSMSIfNeeded(Context context) {
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+        boolean dim = settings.getBoolean(context.getString(
+        		R.string.pref_dim_screen_enable_key), false);
+        if (dim) {
+        	MineLog.v("Dim screen...");
+        	PowerManager pm = (PowerManager) context
+				.getSystemService(Context.POWER_SERVICE);
+        	if (wl == null) {
+	        	wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
+	        			PowerManager.ACQUIRE_CAUSES_WAKEUP |
+	        			PowerManager.ON_AFTER_RELEASE, MineLog.LOGTAG);
+	        	wl.setReferenceCounted(false);
+        	}
+        	wl.acquire(10000);
+        }
 	}
 }
