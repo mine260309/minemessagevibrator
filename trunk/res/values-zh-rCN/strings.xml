@@ -20,7 +20,10 @@
     <!-- Vibration mode preference -->
     <string name="pref_vibration_mode_title">震动模式</string>
     <string name="pref_vibration_mode_dialogTitle">设置震动模式</string>
-    
+
+    <string name="pref_dim_screen_enable_title">点亮屏幕</string>
+    <string name="pref_dim_screen_enable_summary">收到短信时点亮屏幕</string>
+
     <string name="pref_vibrate_pattern_help">输入自定义振动的模式:\n停止振动,开始振动,再停止,再开始,...\n\n例如:\n0,1000,500,1000\n0,500,200,500,200,500</string>
     <string name="pref_vibrate_pattern_title">振动模式</string>
     <string name="pref_vibrate_pattern_summary">设置自定义振动模式</string>
@@ -117,9 +120,12 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.11: 可以为未接来电和未读Gmail设置单独的提醒\n
+1.12:\n
+1) 收到短信时点亮屏幕\n
+2) 更新admob sdk\n
 \n
 历史更新:\n
+1.11: 可以为未接来电和未读Gmail设置单独的提醒\n
 1.10: 添加了夜间免打扰设置\n
 1.09.2:\n
 1) 添加了自定义震动的预览\n
