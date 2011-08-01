@@ -525,10 +525,11 @@ public class MineVibrationToggler {
 	}
 	
 	public static boolean GetUnreadGmailReminderEnabled(Context context) {
-		SharedPreferences settings = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		return settings.getBoolean(context
-					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
+		return false;
+//		SharedPreferences settings = PreferenceManager
+//				.getDefaultSharedPreferences(context);
+//		return settings.getBoolean(context
+//					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
 	}
 	
 	public static boolean GetReminderBedtimeEnabled(Context context) {
