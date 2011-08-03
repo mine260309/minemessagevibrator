@@ -123,11 +123,13 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.14: Remove GMail Reminder to resolve FC issue.\n
+The latest GMail update breaks all 3rd party apps from counting unread mails, so temporarily remove the feature.\n
+\n
+Histories:\n
 1.12:\n
 1) Light screen up when message comes\n
 2) Upgrade admob sdk\n
-\n
-Histories:\n
 1.11: Add independent reminders for missed calls and unread gmails\n
 1.10：Add setting to disable reminder during bed time\n
 1.09.2:\n
