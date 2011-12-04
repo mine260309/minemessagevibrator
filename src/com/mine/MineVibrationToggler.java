@@ -22,10 +22,13 @@ package com.mine;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import oauth.signpost.OAuth;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -606,5 +609,33 @@ public class MineVibrationToggler {
         	}
         	wl.acquire(10000);
         }
+	}
+	
+	// OAuth Token functions
+	public static void SaveGmailToken(Context context, String token[]) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.putString(OAuth.OAUTH_TOKEN, token[0]);
+		edit.putString(OAuth.OAUTH_TOKEN_SECRET, token[1]);
+		edit.commit();
+	}
+	public static String[] GetGmailToken(Context context) {
+		String[] token = new String[2];
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		token[0] = settings.getString(OAuth.OAUTH_TOKEN, "");
+		token[1] = settings.getString(OAuth.OAUTH_TOKEN_SECRET, "");
+		return token;
+	}
+	public static boolean VerifyToken() {
+		return true;
+	}
+	public static void removeGmailToken(Context context) {
+		MineLog.v("CAUTION!! remove gmail token only for testing...");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.remove(OAuth.OAUTH_TOKEN);
+		edit.remove(OAuth.OAUTH_TOKEN_SECRET);
+		edit.commit();
 	}
 }

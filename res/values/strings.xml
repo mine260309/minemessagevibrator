@@ -161,4 +161,13 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
 
 <string name="menu_help_string">Help</string>
 <string name="menu_whatsnew_string">What\'s New</string>
+
+<!--  OAuth strings -->
+<string name="auth">GoTo Auth</string>
+<string name="oauth_note">You will be re-direct to Gmail to authenticate this app as host: mine-vibration.com.\n
+                          Please grant the access permission to enable Gmail reminder, 
+                          this app will only get the unread feed and count the unread number of your emails.\n
+                          If you don\'t grant the permission, it\'s OK but you will not get the reminder work.</string>
+<string name="oauth_note_ok">OK, go ahead</string>
+<string name="oauth_note_ko">No, please go back</string>
 </resources>
