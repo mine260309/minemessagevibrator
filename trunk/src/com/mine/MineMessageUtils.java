@@ -22,6 +22,7 @@ package com.mine;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog;
@@ -172,6 +173,17 @@ public class MineMessageUtils {
 		}
 		MineLog.v("Gmail account: secret, getUnreadGmails: " + ret);
 		return ret;
+	}
+
+	public static String[] getGmailToken(Context context) {
+		// Get the gmail token if exists
+		// Start authenticate activity if not
+		String[] token = MineVibrationToggler.GetGmailToken(context);
+		if (token[0].equals("") || token[1].equals("")) {
+			context.startActivity(new Intent().setClass(context,
+					com.mine.oauth.MineOAuthAccessActivity.class));
+		}
+		return token;
 	}
 
     private static final class Gmail {

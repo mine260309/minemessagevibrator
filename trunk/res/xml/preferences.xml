@@ -145,25 +145,25 @@
 	/>
 </PreferenceScreen>
       
-<!-- com.mine.MineReminderMissedPhoneCallCheckbox
+<com.mine.MineReminderMissedPhoneCallCheckbox
     android:key="@string/pref_reminder_item_unread_gmail_key"
     android:title="@string/pref_reminder_item_unread_gmail_title"
     android:summary="@string/pref_reminder_item_unread_gmail_summary"
     android:dependency="@string/pref_reminder_enable_key"
-/ -->
-<!--  PreferenceScreen
+/>
+<PreferenceScreen
     android:title="@string/pref_unread_gmail_notify_title"
     android:key="pref_unread_gmail_notify"
     android:summary="@string/pref_unread_gmail_notify_summary"
     android:dependency="@string/pref_reminder_item_unread_gmail_key">
-    
+
     <CheckBoxPreference
         android:key="@string/pref_unread_gmail_notify_independent_key"
         android:title="@string/pref_notify_independent_title"
         android:summaryOn="@string/pref_unread_gmail_notify_independent_summary_on"
         android:summaryOff="@string/pref_notify_independent_summary_off"
     />
-    
+
     <com.mine.CustomVibrateListPreference
         android:key="@string/pref_unread_gmail_notify_vib_key"
         android:title="@string/pref_missed_call_notify_vib_title"
@@ -183,7 +183,7 @@
         android:defaultValue="content://settings/system/notification_sound"
         android:dependency="@string/pref_unread_gmail_notify_independent_key"
     />
-</PreferenceScreen -->
+</PreferenceScreen>
 </PreferenceCategory>
 
 

@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
@@ -33,7 +34,6 @@ import android.view.MenuItem;
 public class MineVibrationSetting extends PreferenceActivity
 {
 	public static final String ACTION_UPDATE_PREF_VIEW = "com.mine.UPDATE_PREF_VIEW";
-
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
 	private static Context context;
@@ -200,6 +200,22 @@ public class MineVibrationSetting extends PreferenceActivity
 		// check the gmail watcher
 		if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
 			MineTelephonyListenService.startTelephonyListener(prefContext);
+		}
+	}
+	
+	public static void OnGmailTokenCallback() {
+		String[] token = MineVibrationToggler.GetGmailToken(context);
+		if (token[0].equals("") || token[1].equals("")) {
+			return;
+		}
+		else {
+			CheckBoxPreference gmailPref = (CheckBoxPreference) prefContext.findPreference(context
+					.getString(R.string.pref_reminder_item_unread_gmail_key));
+			if (gmailPref == null) {
+				MineLog.e("OnGmailTokenCallback: can't find pref");
+				return;
+			}
+			gmailPref.setChecked(true);
 		}
 	}
 }
