@@ -170,4 +170,5 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
                           If you don\'t grant the permission, it\'s OK but you will not get the reminder work.</string>
 <string name="oauth_note_ok">OK, go ahead</string>
 <string name="oauth_note_ko">No, please go back</string>
+<string name="oauth_dialog_fail">Failed to get request token.\nNetwork Unreachable.\nCheck your network settings or wait and retry.</string>
 </resources>
