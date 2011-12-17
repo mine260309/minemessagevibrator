@@ -51,7 +51,7 @@ public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 		}
 		else if (ACTION_GMAIL_TOKEN_CALLBACK.equals(i.getAction())) {
 			MineLog.v("On Gmail Token Callback");
-			MineVibrationSetting.OnGmailTokenCallback();
+			MineVibrationSetting.OnGmailTokenCallback(context);
 		}
 	}
 

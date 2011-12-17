@@ -47,6 +47,7 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 	private boolean isTokenValid(String[] token) {
 		return !(token[0].equals("") || token[1].equals(""));
 	}
+
 	@Override
 	protected void onClick() {
 		super.onClick();
@@ -56,12 +57,11 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 				MineTelephonyListenService.startTelephonyListener(context);
 			}
 			else if (KEY_REMINDER_ITEM_UNREAD_GMAIL.equals(key)) {
-				//MineTelephonyListenService.startGmailWatcher(context);
-				// TODO: to re-design how to handle this option click!
 				MineLog.v("reminder gmail clicked");
 				String[] token = MineMessageUtils.getGmailToken(context);
 				if (isTokenValid(token)) {
 					setChecked(true);
+					MineTelephonyListenService.startGmailWatcher(context);
 				}
 				else {
 					setChecked(false);
@@ -75,10 +75,10 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 				// TODO: CAUTION!!!
 				// only for test
 				// remove gmail token here...
-				//MineVibrationToggler.removeGmailToken(context);
+				MineVibrationToggler.removeGmailToken(context);
 			}
 			else if (KEY_REMINDER_ITEM_UNREAD_GMAIL.equals(key)) {
-				//MineTelephonyListenService.stopGmailWatcher(context);
+				MineTelephonyListenService.stopGmailWatcher(context);
 				MineLog.v("reminder gmail un-clicked");
 			}
 		}

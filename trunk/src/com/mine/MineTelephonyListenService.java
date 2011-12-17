@@ -295,7 +295,7 @@ public class MineTelephonyListenService extends Service {
 			MineLog.v("appContext is null, still stop telephony listener");
 		}
 	}
-	
+
 	public static void startGmailWatcher(Context context) {
 		Intent intent = new Intent(ACTION_START_GMAIL_WATCHER);
 		Context appContext = MineVibrationTabView.getContext();

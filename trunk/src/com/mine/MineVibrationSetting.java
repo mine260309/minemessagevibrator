@@ -203,19 +203,32 @@ public class MineVibrationSetting extends PreferenceActivity
 		}
 	}
 	
-	public static void OnGmailTokenCallback() {
+	public static void OnGmailTokenCallback(Context context) {
 		String[] token = MineVibrationToggler.GetGmailToken(context);
 		if (token[0].equals("") || token[1].equals("")) {
+			MineLog.v("OnGmailTokenCallback, got empty token");
 			return;
 		}
 		else {
-			CheckBoxPreference gmailPref = (CheckBoxPreference) prefContext.findPreference(context
-					.getString(R.string.pref_reminder_item_unread_gmail_key));
-			if (gmailPref == null) {
-				MineLog.e("OnGmailTokenCallback: can't find pref");
+			if (prefContext == null){
+				MineLog.v("appContext is null, let it restart");
+				// app is killed, let it restart
 				return;
 			}
-			gmailPref.setChecked(true);
+			else {
+				EnableGmailReminderCheckbox(prefContext);
+				MineTelephonyListenService.startGmailWatcher(context);
+			}
 		}
+	}
+
+	private static void EnableGmailReminderCheckbox(MineVibrationSetting context) {
+		CheckBoxPreference gmailPref = (CheckBoxPreference) context.findPreference(context
+				.getString(R.string.pref_reminder_item_unread_gmail_key));
+		if (gmailPref == null) {
+			MineLog.e("Can't find gmail pref");
+			return;
+		}
+		gmailPref.setChecked(true);
 	}
 }

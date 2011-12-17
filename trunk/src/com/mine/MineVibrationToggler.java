@@ -526,13 +526,12 @@ public class MineVibrationToggler {
 		return settings.getBoolean(context
 					.getString(R.string.pref_reminder_item_missed_call_key), false);
 	}
-	
+
 	public static boolean GetUnreadGmailReminderEnabled(Context context) {
-		return false;
-//		SharedPreferences settings = PreferenceManager
-//				.getDefaultSharedPreferences(context);
-//		return settings.getBoolean(context
-//					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context
+					.getString(R.string.pref_reminder_item_unread_gmail_key), false);
 	}
 	
 	public static boolean GetReminderBedtimeEnabled(Context context) {
@@ -590,7 +589,16 @@ public class MineVibrationToggler {
 				time);
 		editor.commit();
 	}
-	
+
+	public static void SetUnreadGmailReminderEnabled(Context context, boolean enable) {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(context
+				.getString(R.string.pref_reminder_item_unread_gmail_key), enable);
+		editor.commit();
+	}
+
 	private static WakeLock wl = null;
 	public static void DimScreenForReceivedSMSIfNeeded(Context context) {
 		SharedPreferences settings = PreferenceManager
