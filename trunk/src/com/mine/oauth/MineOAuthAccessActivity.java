@@ -25,13 +25,19 @@ import com.mine.MineVibrationToggler;
 import com.mine.R;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnDismissListener;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MineOAuthAccessActivity extends Activity {
 	private final static String LOGTAG = "MineOAuth";
@@ -100,26 +106,61 @@ public class MineOAuthAccessActivity extends Activity {
 	}
 	
 	private void authenticate() {
-        try {
-        	Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-	                try {
-	    				mHelper = new OAuthHelper("anonymous", "anonymous", "", "");
-	            	    //TODO: show a loading dialog
-	            	    String uri = mHelper.getRequestToken();
-	            	    OAuthHelper.save(getApplicationContext(),mHelper);
-	
-	            	    startActivity(new Intent("android.intent.action.VIEW", Uri.parse(uri)).
-	            	    		setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_FROM_BACKGROUND));
-	            	} catch (Exception ex) {
-	            		ex.printStackTrace();
-	            	}
-                }
-        	});
-        	t.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+        GetRequestTokenTask task = new GetRequestTokenTask(this);
+        task.execute();            
+	}
+
+	private class GetRequestTokenTask extends AsyncTask<Void, Void, String>
+										implements OnDismissListener {
+		private Context context;
+		private ProgressDialog dialog;
+		public GetRequestTokenTask(MineOAuthAccessActivity act) {
+			context = act;
+        	dialog = new ProgressDialog(context);
+        	dialog.setMessage("Loading...");
+        	dialog.setIndeterminate(true);
+        	dialog.setCancelable(true);
+        	dialog.setOnDismissListener(this);
+		}
+
+		@Override
+		protected void onPreExecute() {
+            dialog.show();
+        }
+
+		@Override
+		protected String doInBackground(Void... params) {
+			String ret="";
+			try {
+				mHelper = new OAuthHelper("anonymous", "anonymous", "", "");
+				ret = mHelper.getRequestToken();
+				OAuthHelper.save(context,mHelper);
+				startActivity(new Intent("android.intent.action.VIEW", Uri.parse(ret)).
+        	    	setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP |
+        	    			Intent.FLAG_ACTIVITY_NO_HISTORY |
+        	    			Intent.FLAG_FROM_BACKGROUND));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return ret;
+		}
+
+		@Override
+		protected void onPostExecute (String result)  {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			if (result.equals(""))
+			Toast.makeText(context,
+					R.string.oauth_dialog_fail,
+					Toast.LENGTH_LONG).show();
+		}
+
+		@Override
+		public void onDismiss(DialogInterface arg0) {
+			if (this.cancel(true)) {
+				MineLog.v("Task cancelled onDismiss");				
+			}
 		}
 	}
 }
