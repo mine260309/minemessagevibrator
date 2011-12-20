@@ -171,4 +171,5 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
 <string name="oauth_note_ok">OK, go ahead</string>
 <string name="oauth_note_ko">No, please go back</string>
 <string name="oauth_dialog_fail">Failed to get request token.\nNetwork Unreachable.\nCheck your network settings or wait and retry.</string>
+<string name="oauth_verify_dialog_text">Caution! The System Gmail Account does NOT match the authenticated account!\n You need to authenticate with %1$s</string>
 </resources>

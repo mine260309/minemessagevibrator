@@ -150,7 +150,7 @@ public class MineMessageUtils {
 		MineLog.v("getMissedPhoneCalls: " + ret);
 		return ret;
 	}
-	
+
 	public static String getGmailAccount(Context context) {
 		if (GmailAccount == null) {
 			AccountManager am = AccountManager.get(context);
@@ -170,11 +170,11 @@ public class MineMessageUtils {
 	 * Return the number of missed phone calls
 	 * 
 	 * @param context
-	 * @return missed phone calls
+	 * @return unread gmail count
 	 */
 	synchronized public static int getUnreadGmails(Context context) {
 		int ret = 0;
-		String mailFeed = getGmailFeed(context);
+		String mailFeed = getGmailFeed(context, null);
 /* for testing purpose
 		if (!mailFeed.equals("")) {
 			MineVibrationToggler.tempSaveFeedString(context, mailFeed);
@@ -195,7 +195,48 @@ public class MineMessageUtils {
 		return ret;
 	}
 
-	public static Document XMLfromString(String xml){
+	/**
+	 * Verify gmail account with saved token
+	 * It returns true only when 
+	 * 1) System has a gmail account
+	 * 2) Saved token is valid
+	 * 3) The account related to the token matches System's account
+	 */
+	public static boolean verifyGmailAccountWithToken(Context context, String[] token) {
+		boolean ret = false;
+		String systemAccount = getGmailAccount(context);
+		if (systemAccount != null) {
+			String mailFeed = getGmailFeed(context, token);
+			Document feedDoc = XMLfromString(mailFeed);
+			if (feedDoc != null) {
+				NodeList nodes = feedDoc.getElementsByTagName("title");
+				if (nodes.getLength() == 0) {
+					MineLog.e("Unexpected title!");
+				} else {
+					String title = nodes.item(0).getTextContent();
+					String tokenAccount = title.substring(title.lastIndexOf(' ')+1);
+					MineLog.v("found account: " + tokenAccount);
+					if (systemAccount.equals(tokenAccount)) {
+						ret = true;
+					} else {
+						// TODO remove this debug info!
+						MineLog.e("Unmatch account! System: "
+								+ systemAccount + ", token: "
+								+tokenAccount);
+					}
+				}
+			} else {
+				MineLog.e("Unable to parse the xml!");
+			}
+		}
+		return ret;
+	}
+
+	/** 
+	 * Create a Document from XML using Xml parser.
+	 * Copied from http://p-xr.com/android-tutorial-how-to-parseread-xml-data-into-android-listview/
+	 * */
+	private static Document XMLfromString(String xml){
 	    Document doc = null;
 	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
@@ -216,15 +257,18 @@ public class MineMessageUtils {
         return doc;
 	}
 
-	private static String getGmailFeed(Context context) {
+	private static String getGmailFeed(Context context, String[] token) {
 		String ret = "";
-		String[] token = MineVibrationToggler.GetGmailToken(context);
+		//String[] token = MineVibrationToggler.GetGmailToken(context);
+		if (token == null) {
+			token = MineVibrationToggler.GetGmailToken(context);
+		}
 		CommonsHttpOAuthConsumer consumer =
 			new CommonsHttpOAuthConsumer("anonymous", "anonymous");
 		consumer.setTokenWithSecret(token[0], token[1]);
-		MineLog.v("consumer with token: " + token[0] + ", secret: " + token[1]);
+
 		// create a request that requires authentication
-        HttpGet request = new HttpGet("https://mail.google.com/mail/feed/atom/unread");
+        HttpGet request = new HttpGet("https://mail.google.com/mail/feed/atom/");
 
         // sign the request
         try {
@@ -237,9 +281,7 @@ public class MineMessageUtils {
         HttpClient httpClient = new DefaultHttpClient();
         org.apache.http.HttpResponse response;
 		try {
-			MineLog.v("sending the request...");
 			response = httpClient.execute(request);
-			MineLog.v("after execute...");
 			ret = read(response.getEntity().getContent());
 			MineLog.v("response: " + ret);
 		} catch (Exception e) {
@@ -275,15 +317,5 @@ public class MineMessageUtils {
 	    public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);
 	    public static final String TYPE = "com.google";
     }
-    private static final class LabelColumns {    	
-        public static final String CANONICAL_NAME = "canonicalName";
-        public static final String NAME = "name";
-        public static final String NUM_CONVERSATIONS = "numConversations";
-        public static final String NUM_UNREAD_CONVERSATIONS = "numUnreadConversations";    
-    }
-    private static String[] LABEL_PROJECTION = {
-        LabelColumns.CANONICAL_NAME,
-        LabelColumns.NUM_UNREAD_CONVERSATIONS};
-    private static final String UNSEEN = "^^unseen-^i";
     private static String GmailAccount = null;
 }
