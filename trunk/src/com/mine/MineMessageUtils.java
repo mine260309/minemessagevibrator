@@ -19,6 +19,25 @@
 
 package com.mine;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
@@ -155,24 +174,88 @@ public class MineMessageUtils {
 	 */
 	synchronized public static int getUnreadGmails(Context context) {
 		int ret = 0;
-		getGmailAccount(context);
-		Cursor c = context.getContentResolver().query(
-				Uri.withAppendedPath(Gmail.LABELS_URI, GmailAccount), LABEL_PROJECTION, 
-				null, null, null);
-		if (c != null) {
-			try {
-				while (c.moveToNext()) {
-					String canonicalName = c.getString(0);
-					if (UNSEEN.equals(canonicalName)) {
-						ret = c.getInt(1);						
-					}
-				}
-			} finally {
-				c.close();
-			}
+		String mailFeed = getGmailFeed(context);
+/* for testing purpose
+		if (!mailFeed.equals("")) {
+			MineVibrationToggler.tempSaveFeedString(context, mailFeed);
+		} else {
+			mailFeed = MineVibrationToggler.tempLoadFeedString(context);
 		}
+*/
+		Document feedDoc = XMLfromString(mailFeed);
+		if (feedDoc != null) {
+	        NodeList nodes = feedDoc.getElementsByTagName("entry");
+	        ret = nodes.getLength();
+	        MineLog.v("Parsed unread count: " + ret);
+		} else {
+			MineLog.e("Unable to parse the xml!");
+		}
+
 		MineLog.v("Gmail account: secret, getUnreadGmails: " + ret);
 		return ret;
+	}
+
+	public static Document XMLfromString(String xml){
+	    Document doc = null;
+	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        InputSource is = new InputSource();
+	        is.setCharacterStream(new StringReader(xml));
+	        doc = db.parse(is);
+        } catch (ParserConfigurationException e) {
+            MineLog.e("XML parse error: " + e.getMessage());
+            return null;
+        } catch (SAXException e) {
+        	MineLog.e("Wrong XML file structure: " + e.getMessage());
+            return null;
+        } catch (IOException e) {
+        	MineLog.e("I/O exeption: " + e.getMessage());
+            return null;
+        }
+        return doc;
+	}
+
+	private static String getGmailFeed(Context context) {
+		String ret = "";
+		String[] token = MineVibrationToggler.GetGmailToken(context);
+		CommonsHttpOAuthConsumer consumer =
+			new CommonsHttpOAuthConsumer("anonymous", "anonymous");
+		consumer.setTokenWithSecret(token[0], token[1]);
+		MineLog.v("consumer with token: " + token[0] + ", secret: " + token[1]);
+		// create a request that requires authentication
+        HttpGet request = new HttpGet("https://mail.google.com/mail/feed/atom/unread");
+
+        // sign the request
+        try {
+			consumer.sign(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+        // send the request
+        HttpClient httpClient = new DefaultHttpClient();
+        org.apache.http.HttpResponse response;
+		try {
+			MineLog.v("sending the request...");
+			response = httpClient.execute(request);
+			MineLog.v("after execute...");
+			ret = read(response.getEntity().getContent());
+			MineLog.v("response: " + ret);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	private static String read(InputStream in) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
+		for (String line = r.readLine(); line != null; line = r.readLine()) {
+			sb.append(line);
+		}
+		in.close();
+		return sb.toString();
 	}
 
 	public static String[] getGmailToken(Context context) {

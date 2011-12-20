@@ -157,4 +157,12 @@ Mine短信震动切换有更新了!\n
 
 <string name="menu_help_string">帮助</string>
 <string name="menu_whatsnew_string">更新列表</string>
+
+<!--  OAuth strings -->
+<string name="oauth_note">将会打开浏览器开始进行Gmail的OAuth认证，请注意网页中的host应该是 mine-vibration.\n
+                          请授权对Gmail的访问，本程序只会读取 未读邮件 的feed并计算未读邮件数量，请放心。\n
+                          如果不放心，可以取消授权，但是Gmail的提醒功能将会失效.</string>
+<string name="oauth_note_ok">OK, 了解</string>
+<string name="oauth_note_ko">不, 算了</string>
+<string name="oauth_dialog_fail">无法得到request token\n网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
 </resources>

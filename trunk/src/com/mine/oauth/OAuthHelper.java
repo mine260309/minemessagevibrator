@@ -40,9 +40,6 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 public class OAuthHelper implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4308192229877317644L;
 	private CommonsHttpOAuthConsumer mConsumer;
 	private CommonsHttpOAuthProvider mProvider;
