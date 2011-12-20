@@ -635,9 +635,11 @@ public class MineVibrationToggler {
 		token[1] = settings.getString(OAuth.OAUTH_TOKEN_SECRET, "");
 		return token;
 	}
+
 	public static boolean VerifyToken() {
 		return true;
 	}
+
 	public static void removeGmailToken(Context context) {
 		MineLog.v("CAUTION!! remove gmail token only for testing...");
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -646,4 +648,21 @@ public class MineVibrationToggler {
 		edit.remove(OAuth.OAUTH_TOKEN_SECRET);
 		edit.commit();
 	}
+
+/* for testing purpose
+	public static void tempSaveFeedString(Context context, String feed) {
+		MineLog.v("CAUTION!! tempSaveFeedString is large storage...");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.putString("tempSavedFeed", feed);
+		edit.commit();
+	}
+	public static String tempLoadFeedString(Context context) {
+		String feed;
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		feed = settings.getString("tempSavedFeed", "");
+		return feed;
+	}
+*/
 }
