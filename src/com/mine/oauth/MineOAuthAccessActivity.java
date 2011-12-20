@@ -20,11 +20,13 @@
 package com.mine.oauth;
 
 import com.mine.MineLog;
+import com.mine.MineMessageUtils;
 import com.mine.MineRingerModeChangeReceiver;
 import com.mine.MineVibrationToggler;
 import com.mine.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -71,10 +73,10 @@ public class MineOAuthAccessActivity extends Activity {
 	@Override
 	public void onNewIntent(Intent intent) {
 		Log.v(LOGTAG, "onNewIntent");
-		boolean ret =false;
+
 		super.onNewIntent(intent);
 	    Uri uri = intent.getData();
-	    // TODO: check if gmail username matches system's gmail user 
+
 	    if (uri != null) {
 		    //String token = uri.getQueryParameter("oauth_token");
 		    String verifier = uri.getQueryParameter("oauth_verifier");
@@ -89,25 +91,77 @@ public class MineOAuthAccessActivity extends Activity {
 				}
 				mAccessToken = mHelper.getAccessToken(verifier);
 				Log.v(LOGTAG, "get token: " + mAccessToken[0] +", " + mAccessToken[1]);
-				MineVibrationToggler.SaveGmailToken(this, mAccessToken);
-				MineVibrationToggler.SetUnreadGmailReminderEnabled(this,true);
-				ret = true;
+				// start to verify if the token account matches system account
+				VerifyUserTokenTask task = new VerifyUserTokenTask(this);
+				task.execute();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 	    }
-		finish();
-		
-		if (ret) {
-			Intent intent1 = new Intent(MineRingerModeChangeReceiver.ACTION_GMAIL_TOKEN_CALLBACK);
-			MineLog.v("Send gmail token callback intent");
-			sendBroadcast(intent1);
-		}
 	}
 	
 	private void authenticate() {
         GetRequestTokenTask task = new GetRequestTokenTask(this);
         task.execute();            
+	}
+
+	private class VerifyUserTokenTask extends AsyncTask<Void, Void, Boolean>
+										implements OnDismissListener {
+		private MineOAuthAccessActivity context;
+		private ProgressDialog dialog;
+		public VerifyUserTokenTask(MineOAuthAccessActivity act) {
+			context = act;
+        	dialog = new ProgressDialog(context);
+        	dialog.setMessage("Verify Account...");
+        	dialog.setIndeterminate(true);
+        	dialog.setCancelable(true);
+        	dialog.setOnDismissListener(this);
+		}
+
+		@Override
+		protected void onPreExecute() {
+            dialog.show();
+        }
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			return MineMessageUtils.verifyGmailAccountWithToken(context, mAccessToken);
+		}
+
+		@Override
+		protected void onPostExecute (Boolean result)  {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			if (result) {
+				// verify OK
+				MineVibrationToggler.SaveGmailToken(context, mAccessToken);
+				MineVibrationToggler.SetUnreadGmailReminderEnabled(context,true);
+				Intent intent1 = new Intent(MineRingerModeChangeReceiver.ACTION_GMAIL_TOKEN_CALLBACK);
+				MineLog.v("Send gmail token callback intent");
+				sendBroadcast(intent1);
+				context.finish();
+			} else {
+				MineLog.e("Failed to verify the user account!");
+				new AlertDialog.Builder(context).setMessage(
+						String.format(getString(R.string.oauth_verify_dialog_text),
+							MineMessageUtils.getGmailAccount(context)))
+						.setPositiveButton(R.string.OK_string,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+										/* User clicked OK so do some stuff */
+									}
+								}).create().show();
+			}
+		}
+
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			if (this.cancel(true)) {
+				MineLog.v("VerifyUserTokenTask cancelled onDismiss");				
+			}
+		}
 	}
 
 	private class GetRequestTokenTask extends AsyncTask<Void, Void, String>
