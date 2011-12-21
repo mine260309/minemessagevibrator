@@ -44,6 +44,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.provider.CallLog;
 
 public class MineMessageUtils {
@@ -172,9 +173,18 @@ public class MineMessageUtils {
 	 * @param context
 	 * @return unread gmail count
 	 */
+	private static long lastCheckTime = 0;
+	private static int lastCheckCount = 0;
 	synchronized public static int getUnreadGmails(Context context) {
 		int ret = 0;
+		long timeSinceLastCheck = SystemClock.elapsedRealtime()-lastCheckTime;
+		if (timeSinceLastCheck < 30000) {
+			MineLog.v("check too frequnt, return saved count. interval: "
+					+ timeSinceLastCheck);
+			return lastCheckCount;
+		}
 		String mailFeed = getGmailFeed(context, null);
+		lastCheckTime = SystemClock.elapsedRealtime();
 /* for testing purpose
 		if (!mailFeed.equals("")) {
 			MineVibrationToggler.tempSaveFeedString(context, mailFeed);
@@ -184,15 +194,38 @@ public class MineMessageUtils {
 */
 		Document feedDoc = XMLfromString(mailFeed);
 		if (feedDoc != null) {
-	        NodeList nodes = feedDoc.getElementsByTagName("entry");
-	        ret = nodes.getLength();
-	        MineLog.v("Parsed unread count: " + ret);
+			if (verifyValid(mailFeed)) {
+		        NodeList nodes = feedDoc.getElementsByTagName("entry");
+		        ret = nodes.getLength();
+		        MineLog.v("Parsed unread count: " + ret);
+			}
+			else {
+				MineLog.v("Unauthorized feed!");
+				handleUnauthorized(context);
+			}
 		} else {
 			MineLog.e("Unable to parse the xml!");
 		}
 
 		MineLog.v("Gmail account: secret, getUnreadGmails: " + ret);
+		lastCheckCount = ret;
 		return ret;
+	}
+/*
+	private static boolean verifyValid(Document doc) {
+		NodeList nodes = doc.getElementsByTagName("title");
+		return !( nodes.getLength() == 1 &&
+				nodes.item(0).getTextContent().equals("Unauthorized") );
+	}
+*/
+	private static boolean verifyValid(String doc) {
+		return !(doc.startsWith("<HTML>") && doc.contains("<TITLE>Unauthorized"));
+	}
+
+	private static void handleUnauthorized(Context context) {
+		// TODO: store Unauthorized in preference
+		// send notifiction of this
+		MineVibrationToggler.invalidateGmailToken(context);
 	}
 
 	/**
@@ -218,12 +251,13 @@ public class MineMessageUtils {
 					MineLog.v("found account: " + tokenAccount);
 					if (systemAccount.equals(tokenAccount)) {
 						ret = true;
-					} else {
+					}
+					/*else {
 						// TODO remove this debug info!
 						MineLog.e("Unmatch account! System: "
 								+ systemAccount + ", token: "
 								+tokenAccount);
-					}
+					}*/
 				}
 			} else {
 				MineLog.e("Unable to parse the xml!");
@@ -259,12 +293,18 @@ public class MineMessageUtils {
 
 	private static String getGmailFeed(Context context, String[] token) {
 		String ret = "";
-		//String[] token = MineVibrationToggler.GetGmailToken(context);
 		if (token == null) {
 			token = MineVibrationToggler.GetGmailToken(context);
 		}
 		CommonsHttpOAuthConsumer consumer =
 			new CommonsHttpOAuthConsumer("anonymous", "anonymous");
+		
+		//!!! for testing purpose only, invalid the token
+		/*
+		char[] temp = token[0].toCharArray();
+		temp[0] = 'i';
+		token[0] = String.copyValueOf(temp);*/
+
 		consumer.setTokenWithSecret(token[0], token[1]);
 
 		// create a request that requires authentication
@@ -305,6 +345,7 @@ public class MineMessageUtils {
 		// Start authenticate activity if not
 		String[] token = MineVibrationToggler.GetGmailToken(context);
 		if (token[0].equals("") || token[1].equals("")) {
+			MineVibrationToggler.clearGmailTokenInvalid(context);
 			context.startActivity(new Intent().setClass(context,
 					com.mine.oauth.MineOAuthAccessActivity.class));
 		}

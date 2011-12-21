@@ -36,6 +36,7 @@ public class MineVibrationSetting extends PreferenceActivity
 	public static final String ACTION_UPDATE_PREF_VIEW = "com.mine.UPDATE_PREF_VIEW";
 	private static final int FIRST_TIME_RUN_DIALOG_ID = 1;
 	private static final int UPGRADED_RUN_DIALOG_ID = 2;
+	private static final int GMAIL_TOKEN_INVALID_DIALOG_ID = 3;
 	private static Context context;
 	private static MineVibrationSetting prefContext;
 
@@ -75,29 +76,31 @@ public class MineVibrationSetting extends PreferenceActivity
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		// show dialog according to the id
+		int msgStringId;
+		int titleStringId;
 		if (id == FIRST_TIME_RUN_DIALOG_ID) {
-			return new AlertDialog.Builder(this).setMessage(
-					getString(R.string.first_run_dialog_message)).setTitle(
-					getString(R.string.first_run_dialog_title))
-					.setPositiveButton(R.string.OK_string,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									/* User clicked OK so do some stuff */
-								}
-							}).create();
+			msgStringId = R.string.first_run_dialog_message;
+			titleStringId = R.string.first_run_dialog_title;
+		} else if (id == UPGRADED_RUN_DIALOG_ID){
+			msgStringId = R.string.upgraded_run_dialog_message;
+			titleStringId = R.string.upgraded_run_dialog_title;
+		} else if (id == GMAIL_TOKEN_INVALID_DIALOG_ID) {
+			msgStringId = R.string.token_invalidate_dialog_text;
+			titleStringId = R.string.token_invalidate_dialog_title;
 		} else {
-			return new AlertDialog.Builder(this).setMessage(
-					getString(R.string.upgraded_run_dialog_message)).setTitle(
-					getString(R.string.upgraded_run_dialog_title))
-					.setPositiveButton(R.string.OK_string,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									/* User clicked OK so do some stuff */
-								}
-							}).create();
+			MineLog.e("Unkonw dialog id!");
+			return new Dialog(this);
 		}
+		return new AlertDialog.Builder(this).setMessage(
+				getString(msgStringId)).setTitle(
+				getString(titleStringId))
+				.setPositiveButton(R.string.OK_string,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								/* User clicked OK so do some stuff */
+							}
+						}).create();
 	}
 
 	@Override
@@ -200,6 +203,9 @@ public class MineVibrationSetting extends PreferenceActivity
 		// check the gmail watcher
 		if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
 			MineTelephonyListenService.startTelephonyListener(prefContext);
+		}
+		if (MineVibrationToggler.getGmailTokenInvalid(context)) {
+			prefContext.showDialog(GMAIL_TOKEN_INVALID_DIALOG_ID);
 		}
 	}
 	
