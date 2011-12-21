@@ -665,4 +665,32 @@ public class MineVibrationToggler {
 		return feed;
 	}
 */
+	public static void invalidateGmailToken(Context context) {
+		MineTelephonyListenService.stopGmailWatcher(context);
+		SetUnreadGmailReminderEnabled(context, false);
+		removeGmailToken(context);
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.putBoolean(context.getString(
+				R.string.pref_unread_gmail_token_invalidate_key),
+				true);
+		edit.commit();
+	}
+
+	public static void clearGmailTokenInvalid(Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.remove(context.getString(
+				R.string.pref_unread_gmail_token_invalidate_key));
+		edit.commit();
+	}
+
+	public static boolean getGmailTokenInvalid(Context context) {
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context.getString(
+				R.string.pref_unread_gmail_token_invalidate_key),
+				false);
+	}
 }

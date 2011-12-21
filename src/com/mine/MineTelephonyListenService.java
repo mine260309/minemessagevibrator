@@ -252,6 +252,9 @@ public class MineTelephonyListenService extends Service {
     	private int lastUnreadGmail = 0;
     	@Override
 	    public void onChange(boolean selfChange) {
+    		// Issue: when user read gmail on phone, it takes time to sync
+    		// with server, so it will remind in this time interval
+    		// How to better handle this case?
     		MineLog.v("GMail watcher: onChange");
     		int numUnread = MineMessageUtils.getUnreadGmails(context);
     		if (numUnread > 0) {
@@ -264,7 +267,7 @@ public class MineTelephonyListenService extends Service {
     				context.startService(intent);
     			}
     			else {
-    				MineLog.v("Unread gmail is decreasing, do nothing");
+    				MineLog.v("Unread gmail is equal or decreasing, do nothing");
     			}
     		}
     		lastUnreadGmail = numUnread;
