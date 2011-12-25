@@ -53,7 +53,8 @@ public class MineTelephonyListenService extends Service {
 	private Looper mServiceLooper;
 	private boolean telephonyListenerEnabled;
 	private boolean gmailWatcherEnabled;
-	
+	private int lastUnreadGmail = 0;
+
 	private final IBinder binder = new ServiceBinder(this);
 	public static class ServiceBinder extends Binder {
 		
@@ -83,6 +84,7 @@ public class MineTelephonyListenService extends Service {
 		mServiceLooper = thread.getLooper();
 		mServiceHandler = new MineTelephonyListenServiceHandler(mServiceLooper);
 		telephonyListenerEnabled = gmailWatcherEnabled = false;
+		lastUnreadGmail = MineVibrationToggler.getPreviousUnreadGmailNumber(context);
 		// if missed phone call reminder is enabled,
 		// start telephony listener
 		if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
@@ -190,6 +192,7 @@ public class MineTelephonyListenService extends Service {
 				if (MineVibrationToggler.GetReminderEnabled(context) &&
 						MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
 					int unread = intent.getIntExtra("unread", 0);
+					MineVibrationToggler.savePreviousUnreadGmailNumber(context, unread);
 					MineMessageReminderReceiver.scheduleReminder(context, unread,
 						MineMessageReminderReceiver.REMINDER_TYPE_GMAIL);
 				}
@@ -246,10 +249,9 @@ public class MineTelephonyListenService extends Service {
 			}
 		}
 	};
-	
+
 	private final Handler handler = new Handler();
     private final ContentObserver gmailObserver = new ContentObserver(handler) {
-    	private int lastUnreadGmail = 0;
     	@Override
 	    public void onChange(boolean selfChange) {
     		// Issue: when user read gmail on phone, it takes time to sync
