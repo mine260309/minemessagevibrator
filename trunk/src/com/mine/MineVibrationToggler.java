@@ -693,4 +693,16 @@ public class MineVibrationToggler {
 				R.string.pref_unread_gmail_token_invalidate_key),
 				false);
 	}
+
+	public static void savePreviousUnreadGmailNumber(Context context, int unread) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = prefs.edit();
+		edit.putInt("unreadGmailCount", unread);
+		edit.commit();
+	}
+	public static int getPreviousUnreadGmailNumber(Context context) {
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		return settings.getInt("unreadGmailCount", 0);
+	}
 }

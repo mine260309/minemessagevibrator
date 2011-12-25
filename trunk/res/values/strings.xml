@@ -175,4 +175,6 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
 
 <string name="token_invalidate_dialog_text">Your Gmail Authentication becomes invalid. So Gmail Reminder is disabled.\nIt is possible if you changed your password or it simply expire.\nPlease click \"Unread Gmail\" to re-authenticate.</string>
 <string name="token_invalidate_dialog_title">Token Invalid</string>
+<string name="token_invalid_notify_title">Gmail token becomes invalid!</string>
+<string name="token_invalid_notify_text">Click to re-authenticate</string>
 </resources>

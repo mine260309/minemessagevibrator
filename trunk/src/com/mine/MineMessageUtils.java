@@ -40,6 +40,9 @@ import org.xml.sax.SAXException;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -223,9 +226,29 @@ public class MineMessageUtils {
 	}
 
 	private static void handleUnauthorized(Context context) {
-		// TODO: store Unauthorized in preference
 		// send notifiction of this
 		MineVibrationToggler.invalidateGmailToken(context);
+		showTokenInvalidNotification(context);
+	}
+
+	public static void showTokenInvalidNotification(Context context) {
+		NotificationManager nm =
+			(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		CharSequence contentTitle = context.getText(R.string.token_invalid_notify_title);
+		CharSequence contentText = context.getText(R.string.token_invalid_notify_text);
+
+		Notification notification = new Notification(
+				android.R.drawable.stat_notify_error,
+				contentTitle, System.currentTimeMillis());
+
+		Intent notificationIntent = new Intent(context, MineVibrationTabView.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+
+		notification.defaults=Notification.DEFAULT_ALL; 
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		nm.notify(1, notification);
 	}
 
 	/**
@@ -253,7 +276,6 @@ public class MineMessageUtils {
 						ret = true;
 					}
 					/*else {
-						// TODO remove this debug info!
 						MineLog.e("Unmatch account! System: "
 								+ systemAccount + ", token: "
 								+tokenAccount);
@@ -323,7 +345,7 @@ public class MineMessageUtils {
 		try {
 			response = httpClient.execute(request);
 			ret = read(response.getEntity().getContent());
-			MineLog.v("response: " + ret);
+			//MineLog.v("response: " + ret);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

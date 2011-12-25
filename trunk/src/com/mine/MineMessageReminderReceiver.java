@@ -43,7 +43,6 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO Auto-generated method stub
 		MineLog.v("Receive an intent: " + intent.getAction());
 		intent.setClass(context, MineMessageReminderService.class);
 		MineMessageReminderService.beginStartingService(context, intent);
@@ -84,7 +83,6 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				unreadNumber = MineMessageUtils.getUnreadMessagesCount(context);

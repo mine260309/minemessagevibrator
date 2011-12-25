@@ -154,8 +154,13 @@ public class MineMessageReminderService extends Service {
 			//   if missedPhoneCalls reminder is enabled
 			//     get the number of missed calls (nMC)
 			//   fi
+			//   if unreadGmail reminder is enabled
+			//     get the number of unread gmails (nGM)
+			//   fi
 			//   get the number of unread messages (nUM)
-			//   if nMC ir not 0 OR nUM is not decreasing
+			//   if    nMC is not 0
+			//      OR nUM is not decreasing
+			//      OR nGM is not decreasing
 			//     notify & schedule new reminder
 			//   else
 			//     cancel reminder
@@ -167,24 +172,35 @@ public class MineMessageReminderService extends Service {
 			int type = intent.getIntExtra(EXTRA_REMINDER_TYPE, 
 					MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 			if (MineVibrationToggler.GetReminderEnabled(context)) {
-				int previousUnreadNumber = 0, missedPhoneCalls = 0, 
+				int previousUnreadNumber = 0, previousGmailNumber = 0,
+					missedPhoneCalls = 0, 
 					currentUnreadNumber = 0, unreadGmails = 0;
+				boolean isUnreadGmailDecreasing = true;
 				if (MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
 					missedPhoneCalls = MineMessageUtils.getMissedPhoneCalls(context);
 				}
 				if (MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
 					unreadGmails = MineMessageUtils.getUnreadGmails(context);
+					// assume there were unread gmails
+					previousGmailNumber = MineVibrationToggler.getPreviousUnreadGmailNumber(context);
+					if (previousGmailNumber == 0) {
+						MineLog.e("previous unread gmail is 0?");
+						previousUnreadNumber = 1;
+					}
+					isUnreadGmailDecreasing = unreadGmails < previousGmailNumber;
+					// save the unread count again
+					MineVibrationToggler.savePreviousUnreadGmailNumber(context, unreadGmails);
 				}
 				previousUnreadNumber = intent.getIntExtra(EXTRA_UNREAD_NUMBER, -1);
 				if (previousUnreadNumber == -1) {
-					MineLog.e("Error getting unread number from intent!");
+					MineLog.v("No unread number from intent!");
 					previousUnreadNumber = 1; // set to 1 to simulate we have 1
 												// unread previously
 				}
 				currentUnreadNumber = MineMessageUtils
 					.getUnreadMessagesCount(context);
 				boolean isUnreadMessageDecreasing = currentUnreadNumber < previousUnreadNumber;
-				
+
 				// So if the unread/missed stuff changes, I need to handle a little
 				// priority: message > missed call > gmail
 				// if type is message, 
@@ -196,7 +212,7 @@ public class MineMessageReminderService extends Service {
 						", missed calls: "+missedPhoneCalls +
 						", unread gmails: " +unreadGmails +
 						", reminder type: " + type);
-				if(missedPhoneCalls > 0 || unreadGmails > 0 || !isUnreadMessageDecreasing) {
+				if(missedPhoneCalls > 0 || !isUnreadGmailDecreasing || !isUnreadMessageDecreasing) {
 					if (type == MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE) {
 						if (isUnreadMessageDecreasing) { // messages read
 							if (missedPhoneCalls > 0) {

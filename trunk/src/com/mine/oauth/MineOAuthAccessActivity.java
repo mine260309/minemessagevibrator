@@ -69,7 +69,7 @@ public class MineOAuthAccessActivity extends Activity {
 			}
 	    });
 	}
-	
+
 	@Override
 	public void onNewIntent(Intent intent) {
 		Log.v(LOGTAG, "onNewIntent");
