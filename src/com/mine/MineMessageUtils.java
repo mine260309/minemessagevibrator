@@ -181,7 +181,7 @@ public class MineMessageUtils {
 	synchronized public static int getUnreadGmails(Context context) {
 		int ret = 0;
 		long timeSinceLastCheck = SystemClock.elapsedRealtime()-lastCheckTime;
-		if (timeSinceLastCheck < 30000) {
+		if (timeSinceLastCheck < 15000) {
 			MineLog.v("check too frequnt, return saved count. interval: "
 					+ timeSinceLastCheck);
 			return lastCheckCount;

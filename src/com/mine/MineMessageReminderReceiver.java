@@ -142,7 +142,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		reminderIntent.putExtra(MineMessageReminderService.EXTRA_REMINDER_TYPE, type);
+		reminderIntent.putExtra(MineMessageReminderService.EXTRA_REMINDER_TYPE, reminderEnableState);
 
 		synchronized (mReminderSync) {
 			reminderPendingIntent = PendingIntent.getBroadcast(context, 0,
