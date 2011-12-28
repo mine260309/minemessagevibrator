@@ -258,8 +258,9 @@ public class MineMessageUtils {
 	 * 2) Saved token is valid
 	 * 3) The account related to the token matches System's account
 	 */
-	public static boolean verifyGmailAccountWithToken(Context context, String[] token) {
-		boolean ret = false;
+	public static boolean verifyGmailAccountWithToken(
+			Context context, String[] token)
+				throws Exception {
 		String systemAccount = getGmailAccount(context);
 		if (systemAccount != null) {
 			String mailFeed = getGmailFeed(context, token);
@@ -273,19 +274,20 @@ public class MineMessageUtils {
 					String tokenAccount = title.substring(title.lastIndexOf(' ')+1);
 					MineLog.v("found account: " + tokenAccount);
 					if (systemAccount.equals(tokenAccount)) {
-						ret = true;
+						return true;
 					}
-					/*else {
+					else {
 						MineLog.e("Unmatch account! System: "
 								+ systemAccount + ", token: "
 								+tokenAccount);
-					}*/
+						return false;
+					}
 				}
 			} else {
 				MineLog.e("Unable to parse the xml!");
 			}
 		}
-		return ret;
+		throw new Exception();
 	}
 
 	/** 
