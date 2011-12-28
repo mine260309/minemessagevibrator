@@ -126,6 +126,14 @@ public class MineVibrationSetting extends PreferenceActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_HOME);
+		startActivity(intent);
+		finish();
+	}
 
 	public static void AdjustPreference() {
 
