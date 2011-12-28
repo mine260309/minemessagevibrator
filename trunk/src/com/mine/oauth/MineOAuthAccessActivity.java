@@ -105,8 +105,12 @@ public class MineOAuthAccessActivity extends Activity {
         task.execute();            
 	}
 
-	private class VerifyUserTokenTask extends AsyncTask<Void, Void, Boolean>
+	private class VerifyUserTokenTask extends AsyncTask<Void, Void, Integer>
 										implements OnDismissListener {
+		private static final int VERIFY_OK = 0;
+		private static final int VERIFY_MISMATCH = 1;
+		private static final int VERIFY_NETWORK_ERROR = 2;
+		
 		private MineOAuthAccessActivity context;
 		private ProgressDialog dialog;
 		public VerifyUserTokenTask(MineOAuthAccessActivity act) {
@@ -124,16 +128,24 @@ public class MineOAuthAccessActivity extends Activity {
         }
 
 		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			return MineMessageUtils.verifyGmailAccountWithToken(context, mAccessToken);
+		protected Integer doInBackground(Void... arg0) {
+			int ret = VERIFY_MISMATCH;
+			try{
+				if (MineMessageUtils.verifyGmailAccountWithToken(context, mAccessToken)) {
+					ret = VERIFY_OK;
+				}
+			} catch (Exception e) {
+				ret = VERIFY_NETWORK_ERROR;
+			}
+			return ret;
 		}
 
 		@Override
-		protected void onPostExecute (Boolean result)  {
+		protected void onPostExecute (Integer result)  {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
-			if (result) {
+			if (result == VERIFY_OK) {
 				// verify OK
 				MineVibrationToggler.SaveGmailToken(context, mAccessToken);
 				MineVibrationToggler.SetUnreadGmailReminderEnabled(context,true);
@@ -143,9 +155,14 @@ public class MineOAuthAccessActivity extends Activity {
 				context.finish();
 			} else {
 				MineLog.e("Failed to verify the user account!");
-				new AlertDialog.Builder(context).setMessage(
-						String.format(getString(R.string.oauth_verify_dialog_text),
-							MineMessageUtils.getGmailAccount(context)))
+				String msg;
+				if (result == VERIFY_NETWORK_ERROR) {
+					msg = getString(R.string.oauth_dialog_fail);
+				} else {
+					msg = String.format(getString(R.string.oauth_verify_dialog_text),
+							MineMessageUtils.getGmailAccount(context));
+				}
+				new AlertDialog.Builder(context).setMessage(msg)
 						.setPositiveButton(R.string.OK_string,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,

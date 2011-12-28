@@ -164,5 +164,5 @@ Mine短信震动切换有更新了!\n
                           如果不放心，可以取消授权，但是Gmail的提醒功能将会失效.</string>
 <string name="oauth_note_ok">OK, 了解</string>
 <string name="oauth_note_ko">不, 算了</string>
-<string name="oauth_dialog_fail">无法得到request token\n网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
+<string name="oauth_dialog_fail">网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
 </resources>
