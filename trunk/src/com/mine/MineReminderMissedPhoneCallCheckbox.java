@@ -72,10 +72,6 @@ public class MineReminderMissedPhoneCallCheckbox extends CheckBoxPreference {
 		else {
 			if (KEY_REMINDER_ITEM_MISSED_CALL.equals(key)) {
 				MineTelephonyListenService.stopTelephonyListener(context);
-				// TODO: CAUTION!!!
-				// only for test
-				// remove gmail token here...
-				MineVibrationToggler.removeGmailToken(context);
 			}
 			else if (KEY_REMINDER_ITEM_UNREAD_GMAIL.equals(key)) {
 				MineTelephonyListenService.stopGmailWatcher(context);

@@ -44,8 +44,9 @@ import android.widget.Toast;
 public class MineOAuthAccessActivity extends Activity {
 	private final static String LOGTAG = "MineOAuth";
 	
-	private static OAuthHelper mHelper;
-	public static String[] mAccessToken = null;
+	private OAuthHelper mHelper;
+	private String TokenVerifier;
+	public String[] mAccessToken = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,8 @@ public class MineOAuthAccessActivity extends Activity {
 
 	    if (uri != null) {
 		    //String token = uri.getQueryParameter("oauth_token");
-		    String verifier = uri.getQueryParameter("oauth_verifier");
-		    Log.v(LOGTAG, "get verifier: " + verifier);
+	    	TokenVerifier = uri.getQueryParameter("oauth_verifier");
+		    Log.v(LOGTAG, "get verifier: " + TokenVerifier);
 			try {
 				if (mHelper==null) {
 					mHelper = OAuthHelper.load(getApplicationContext());
@@ -89,9 +90,8 @@ public class MineOAuthAccessActivity extends Activity {
 						throw new Exception("mHelper failed to load!");
 					}
 				}
-				mAccessToken = mHelper.getAccessToken(verifier);
-				Log.v(LOGTAG, "get token: " + mAccessToken[0] +", " + mAccessToken[1]);
-				// start to verify if the token account matches system account
+				// start to get access token and verify
+				// if its account matches system account
 				VerifyUserTokenTask task = new VerifyUserTokenTask(this);
 				task.execute();
 			} catch (Exception ex) {
@@ -131,6 +131,9 @@ public class MineOAuthAccessActivity extends Activity {
 		protected Integer doInBackground(Void... arg0) {
 			int ret = VERIFY_MISMATCH;
 			try{
+				mAccessToken = mHelper.getAccessToken(TokenVerifier);
+				Log.v(LOGTAG, "get token: " + mAccessToken[0] +", " + mAccessToken[1]);
+
 				if (MineMessageUtils.verifyGmailAccountWithToken(context, mAccessToken)) {
 					ret = VERIFY_OK;
 				}
