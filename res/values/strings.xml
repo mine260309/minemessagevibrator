@@ -123,10 +123,13 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
-1.14: Remove GMail Reminder to resolve FC issue.\n
-The latest GMail update breaks all 3rd party apps from counting unread mails, so temporarily remove the feature.\n
+1.15: GMail Reminder is Back!\n
+ * You need to do OAuth to get unread gmail reminder work.\n
+Reminder logic is re-write so it may be better.\n
 \n
 Histories:\n
+1.14: Remove GMail Reminder to resolve FC issue.\n
+The latest GMail update breaks all 3rd party apps from counting unread mails, so temporarily remove the feature.\n
 1.12:\n
 1) Light screen up when message comes\n
 2) Upgrade admob sdk\n
@@ -167,12 +170,13 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
 <string name="oauth_note">You will be re-direct to Gmail to authenticate this app as host: mine-vibration.\n
                           Please grant the access permission to enable Gmail reminder, 
                           this app will only get the unread feed and count the unread number of your emails.\n
-                          If you don\'t grant the permission, it\'s OK but you will not get the reminder work.</string>
+                          If you don\'t grant the permission, it\'s OK but you will not get the reminder work.\n
+                          \n
+                          You need to do this for only once.</string>
 <string name="oauth_note_ok">OK, go ahead</string>
-<string name="oauth_note_ko">No, please go back</string>
+<string name="oauth_note_ko">No, go back</string>
 <string name="oauth_dialog_fail">Network Unreachable.\nCheck your network settings or wait and retry.</string>
 <string name="oauth_verify_dialog_text">Caution! The System Gmail Account does NOT match the authenticated account!\n You need to authenticate with %1$s</string>
-
 <string name="token_invalidate_dialog_text">Your Gmail Authentication becomes invalid. So Gmail Reminder is disabled.\nIt is possible if you changed your password or it simply expire.\nPlease click \"Unread Gmail\" to re-authenticate.</string>
 <string name="token_invalidate_dialog_title">Token Invalid</string>
 <string name="token_invalid_notify_title">Gmail token becomes invalid!</string>

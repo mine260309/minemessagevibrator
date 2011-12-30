@@ -120,10 +120,13 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.14: 取消了未读Gmail提醒,解决Force Close问题.\n
-最新的Gmail的升级禁止所有第三方软件读取邮件,因此无法获得未读邮件数量,并会引起Force Close,所以暂时禁用此功能\n
+1.15: 未读GMail提醒功能又回来啦!\n
+ * 你需要进行OAuth认证来激活未读GMail提醒功能\n
+重写了提醒的code,它也许会工作得更好吧.\n
 \n
 历史更新:\n
+1.14: 取消了未读Gmail提醒,解决Force Close问题.\n
+最新的Gmail的升级禁止所有第三方软件读取邮件,因此无法获得未读邮件数量,并会引起Force Close,所以暂时禁用此功能\n
 1.12:\n
 1) 收到短信时点亮屏幕\n
 2) 更新admob sdk\n
@@ -161,8 +164,16 @@ Mine短信震动切换有更新了!\n
 <!--  OAuth strings -->
 <string name="oauth_note">将会打开浏览器开始进行Gmail的OAuth认证，请注意网页中的host应该是 mine-vibration.\n
                           请授权对Gmail的访问，本程序只会读取 未读邮件 的feed并计算未读邮件数量，请放心。\n
-                          如果不放心，可以取消授权，但是Gmail的提醒功能将会失效.</string>
+                          如果不放心，可以取消授权，但是Gmail的提醒功能将会失效.\n
+          \n
+                          你只需要做一次OAuth认证\n</string>
 <string name="oauth_note_ok">OK, 了解</string>
 <string name="oauth_note_ko">不, 算了</string>
 <string name="oauth_dialog_fail">网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
+<string name="oauth_verify_dialog_text">注意!系统的Gmail帐号与验证的帐号不匹配.\n请使用帐号 %1$s 进行认证</string>
+<string name="token_invalidate_dialog_text">Gmail认证信息失效! Gmail提醒功能将自动禁用.\n可能是您修改了密码或者Token已经过期.\n请重新勾选 \"未读GMail\"进行认证.</string>
+<!--  string name="token_invalidate_dialog_title">Token Invalid</string -->
+<string name="token_invalid_notify_title">Gmail认证信息失效!</string>
+<string name="token_invalid_notify_text">点击进行重新认证</string>
+
 </resources>
