@@ -377,9 +377,9 @@ public class MineMessageUtils {
 	}
 
     private static final class Gmail {
-    	public static final String AUTHORITY = "gmail-ls";
-	    public static final String AUTHORITY_PLUS_LABELS = "content://" + AUTHORITY + "/labels/";
-	    public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);
+    	//public static final String AUTHORITY = "gmail-ls";
+	    //public static final String AUTHORITY_PLUS_LABELS = "content://" + AUTHORITY + "/labels/";
+	    //public static final Uri LABELS_URI = Uri.parse(AUTHORITY_PLUS_LABELS);
 	    public static final String TYPE = "com.google";
     }
     private static String GmailAccount = null;

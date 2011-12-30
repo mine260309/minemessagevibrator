@@ -81,7 +81,7 @@ public class MineOAuthAccessActivity extends Activity {
 	    if (uri != null) {
 		    //String token = uri.getQueryParameter("oauth_token");
 	    	TokenVerifier = uri.getQueryParameter("oauth_verifier");
-		    Log.v(LOGTAG, "get verifier: " + TokenVerifier);
+		    //Log.v(LOGTAG, "get verifier: " + TokenVerifier);
 			try {
 				if (mHelper==null) {
 					mHelper = OAuthHelper.load(getApplicationContext());
@@ -132,7 +132,7 @@ public class MineOAuthAccessActivity extends Activity {
 			int ret = VERIFY_MISMATCH;
 			try{
 				mAccessToken = mHelper.getAccessToken(TokenVerifier);
-				Log.v(LOGTAG, "get token: " + mAccessToken[0] +", " + mAccessToken[1]);
+				//Log.v(LOGTAG, "get token: " + mAccessToken[0] +", " + mAccessToken[1]);
 
 				if (MineMessageUtils.verifyGmailAccountWithToken(context, mAccessToken)) {
 					ret = VERIFY_OK;
