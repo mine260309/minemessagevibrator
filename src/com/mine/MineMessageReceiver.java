@@ -29,7 +29,6 @@ public class MineMessageReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		MineLog.v("Received a message");
 		intent.setClass(context, MineMessageReceiverService.class);
-		intent.putExtra("result", getResultCode());
 
 		/*
 		 * This service will process the activity and play notifications after
