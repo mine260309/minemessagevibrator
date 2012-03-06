@@ -139,30 +139,35 @@ public class MineMessageReceiverService extends Service {
 				return;
 			}
 
-			int serviceId = msg.arg1;
-			String action = intent.getAction();
-			String dataType = intent.getType();
+			int serviceId = msg.arg1;;
+			try {
+				String action = intent.getAction();
+				String dataType = intent.getType();
 
-			if (ACTION_SMS_RECEIVED.equals(action)) {
-				handleSmsReceived(intent);
-			} else if (ACTION_MMS_RECEIVED.equals(action)
-					&& MMS_DATA_TYPE.equals(dataType)) {
-				//handleMmsReceived(intent);
-				MineLog.v("Received a mms, probably downloading...");
-			} else if (ACTION_MMS_TRANSACTION_COMPLETED.equals(action)) {
-				MineLog.v("ACTION_MMS_TRANSACTION_COMPLETED");
-				int state = intent.getIntExtra(STATE, STATE_FAILED);
-				if (state == STATE_SUCCESS) {
-					MineLog.v("TRANSACTION_COMPLETED and success");
-					handleMmsReceived(intent);
-				} else {
-					MineLog.v("TRANSACTION_COMPLETED but not success");
+				if (ACTION_SMS_RECEIVED.equals(action)) {
+					handleSmsReceived(intent);
+				} else if (ACTION_MMS_RECEIVED.equals(action)
+						&& MMS_DATA_TYPE.equals(dataType)) {
+					//handleMmsReceived(intent);
+					MineLog.v("Received a mms, probably downloading...");
+				} else if (ACTION_MMS_TRANSACTION_COMPLETED.equals(action)) {
+					MineLog.v("ACTION_MMS_TRANSACTION_COMPLETED");
+					int state = intent.getIntExtra(STATE, STATE_FAILED);
+					if (state == STATE_SUCCESS) {
+						MineLog.v("TRANSACTION_COMPLETED and success");
+						handleMmsReceived(intent);
+					} else {
+						MineLog.v("TRANSACTION_COMPLETED but not success");
+					}
+				}
+
+				if (MineVibrationToggler.GetReminderEnabled(context)) {
+					MineMessageReminderReceiver.scheduleReminder(context, -1,
+							MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
 				}
 			}
-
-			if (MineVibrationToggler.GetReminderEnabled(context)) {
-				MineMessageReminderReceiver.scheduleReminder(context, -1,
-						MineMessageReminderReceiver.REMINDER_TYPE_MESSAGE);
+			catch (Exception ex) {
+				MineLog.e("Exception: " + ex.toString());
 			}
 
 			// NOTE: We MUST not call stopSelf() directly, since we need to
