@@ -270,7 +270,7 @@ public class MineMessageUtils {
 				if (nodes.getLength() == 0) {
 					MineLog.e("Unexpected title!");
 				} else {
-					String title = nodes.item(0).getTextContent();
+					String title = nodes.item(0).getFirstChild().getNodeValue();
 					String tokenAccount = title.substring(title.lastIndexOf(' ')+1);
 					MineLog.v("found account: " + tokenAccount);
 					if (systemAccount.equals(tokenAccount)) {

@@ -29,6 +29,8 @@ public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 	private final String ACTION_RINGER_MODE_CHANGED = "android.media.RINGER_MODE_CHANGED";
 	private final String ACTION_BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
 	public static final String ACTION_GMAIL_TOKEN_CALLBACK = "com.mine.GMAIL_TOKEN_CALLBACK";
+	private final String ACTION_GMAIL_CHANGED = "android.intent.action.PROVIDER_CHANGED";
+	
 	@Override
 	public void onReceive(Context context, Intent i) {
 		
@@ -52,6 +54,18 @@ public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 		else if (ACTION_GMAIL_TOKEN_CALLBACK.equals(i.getAction())) {
 			MineLog.v("On Gmail Token Callback");
 			MineVibrationSetting.OnGmailTokenCallback(context);
+		}
+		else if (ACTION_GMAIL_CHANGED.equals(i.getAction())) {
+			// This is kind of workaround:
+			// On my CM9 for Milestone, the gmail watcher is not working,
+			// so I have to register this receiver to get Gmail changed event.
+			// Should I make this code only work on Android 4.0? I don't have 
+			// any other devices to test...
+			if (android.os.Build.VERSION.SDK_INT >= 11 /* VERSION CODE of HONEYCOMB */
+				  && MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
+				Intent intent = new Intent(MineTelephonyListenService.ACTION_GMAIL_CHANGED);
+				context.startService(intent);
+			}
 		}
 	}
 

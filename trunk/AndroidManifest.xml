@@ -59,8 +59,11 @@
         <action android:name="android.intent.action.BOOT_COMPLETED" />
       </intent-filter>
       <intent-filter>
-        <action
-          android:name="com.mine.GMAIL_TOKEN_CALLBACK" />
+        <action android:name="com.mine.GMAIL_TOKEN_CALLBACK" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.PROVIDER_CHANGED" />
+        <data android:scheme="content" android:host="gmail-ls"/>
       </intent-filter>
     </receiver>
 
@@ -77,6 +80,7 @@
         <action android:name="com.mine.UNREAD_GMAIL_RECEIVED" />
         <action android:name="com.mine.START_GMAIL_WATCHER" />
         <action android:name="com.mine.STOP_GMAIL_WATCHER" />
+        <action android:name="com.mine.GMAIL_CHANGED" />
       </intent-filter>
     </service>
     

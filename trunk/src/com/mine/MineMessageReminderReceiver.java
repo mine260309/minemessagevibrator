@@ -24,7 +24,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 
 public class MineMessageReminderReceiver extends BroadcastReceiver {
 
@@ -67,6 +70,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				MineMessageReminderReceiver.class);
 		reminderIntent.setAction(MineMessageReminderService.ACTION_REMIND);
 
+		GetReminderType(context);
 		// calculate the trigger time
 		int reminderIntervalSeconds = MineVibrationToggler
 			.GetReminderInterval(context);
@@ -109,7 +113,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 					+ reminderIntervalSeconds
 					+ " seconds, Unread: "
 					+ unreadNumber);
-			reminderEnableState |= type;
+			AddReminderType(context, type);
 		}
 		else if (type == REMINDER_TYPE_PHONECALL) {
 			// int missedPhonecall = 0;
@@ -119,7 +123,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 					"for missed calls in "
 					+ reminderIntervalSeconds
 					+ " seconds");
-			reminderEnableState |= type;
+			AddReminderType(context, type);
 		}
 		else if (type == REMINDER_TYPE_GMAIL) {
 			MineLog
@@ -127,7 +131,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				"for unread gmails in "
 				+ reminderIntervalSeconds
 				+ " seconds");
-			reminderEnableState |= type;
+			AddReminderType(context, type);
 		}
 		else if (type == REMINDER_TYPE_WHATEVER){
 			MineLog
@@ -135,7 +139,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				"for whatever in "
 				+ reminderIntervalSeconds
 				+ " seconds");
-			reminderEnableState |= type;
+			AddReminderType(context, type);
 		}
 		else {
 			MineLog.e("MineMessageReminderReceiver: invalid type!");
@@ -166,16 +170,16 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 
 			// TODO: stupid code here! Need to clean up the reminder type...
 			if (type == REMINDER_TYPE_MESSAGE) {
-				reminderEnableState &= (~type);
+				RemoveReinderType(context, type);
 			}
 			else if (type == REMINDER_TYPE_PHONECALL) {
-				reminderEnableState &= (~type);
+				RemoveReinderType(context, type);
 			}
 			else if (type == REMINDER_TYPE_GMAIL) {
-				reminderEnableState &= (~type);				
+				RemoveReinderType(context, type);			
 			}
 			else if (type == REMINDER_TYPE_WHATEVER) {
-				reminderEnableState &= type;
+				RemoveReinderType(context, type);
 			}
 			else {
 				MineLog.e("cancelReminder: invalid type!");
@@ -225,5 +229,31 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				MineLog.v("release wake lock");
 			}
 		}
+	}
+	
+	private static void AddReminderType(Context c, int type) {
+		reminderEnableState |= type;
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+		final Editor edit = prefs.edit();
+		edit.putInt("mineReminderType", reminderEnableState);
+		edit.commit();
+	}
+
+	private static void RemoveReinderType(Context c, int type) {
+		reminderEnableState &= (~type);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+		final Editor edit = prefs.edit();
+		edit.putInt("mineReminderType", reminderEnableState);
+		edit.commit();
+	}
+
+	private static int GetReminderType(Context c) {
+		if (reminderEnableState == 0) {
+			// In case app gets killed, read it
+			SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(c);
+			reminderEnableState =  settings.getInt("mineReminderType", 0);
+		}
+		return reminderEnableState;
 	}
 }

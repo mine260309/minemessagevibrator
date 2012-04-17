@@ -47,6 +47,7 @@ public class MineTelephonyListenService extends Service {
 	
 	public static final String ACTION_INCOMING_CALL_RECEIVED = "com.mine.INCOMING_CALL_RECEIVED";
 	public static final String ACTION_UNREAD_GMAIL_RECEIVED = "com.mine.UNREAD_GMAIL_RECEIVED";
+	public static final String ACTION_GMAIL_CHANGED = "com.mine.GMAIL_CHANGED";
 
 	private Context context;
 	private MineTelephonyListenServiceHandler mServiceHandler;
@@ -228,6 +229,10 @@ public class MineTelephonyListenService extends Service {
 					gmailWatcherEnabled = true;
 				}
 			}
+			else if (action.equals(ACTION_GMAIL_CHANGED)) {
+				// Need to check gmail manually, since on ICS the watcher is not working
+				CheckAndNotifyGmail(context);
+			}
 
 			if (!telephonyListenerEnabled && !gmailWatcherEnabled) {
 				// no listener is enabled, stop this service
@@ -258,23 +263,29 @@ public class MineTelephonyListenService extends Service {
     		// with server, so it will remind in this time interval
     		// How to better handle this case?
     		MineLog.v("GMail watcher: onChange");
-    		int numUnread = MineMessageUtils.getUnreadGmails(context);
-    		if (numUnread > 0) {
-    			if (numUnread > lastUnreadGmail) {
-    				MineMessageVibrator.notifyGmail(context);
-        			Intent intent = new Intent(ACTION_UNREAD_GMAIL_RECEIVED);
-    				intent.setClass(context, MineTelephonyListenService.class);
-    				intent.putExtra("unread", numUnread);
-    				MineTelephonyListenService.acquireLock(context);
-    				context.startService(intent);
-    			}
-    			else {
-    				MineLog.v("Unread gmail is equal or decreasing, do nothing");
-    			}
-    		}
-    		lastUnreadGmail = numUnread;
+    		CheckAndNotifyGmail(context);
 	    }
     };
+
+    private void CheckAndNotifyGmail(Context context) {
+    	synchronized(this) {
+			int numUnread = MineMessageUtils.getUnreadGmails(context);
+			if (numUnread > 0) {
+				if (numUnread > lastUnreadGmail) {
+					MineMessageVibrator.notifyGmail(context);
+	    			Intent intent = new Intent(ACTION_UNREAD_GMAIL_RECEIVED);
+					intent.setClass(context, MineTelephonyListenService.class);
+					intent.putExtra("unread", numUnread);
+					MineTelephonyListenService.acquireLock(context);
+					context.startService(intent);
+				}
+				else {
+					MineLog.v("Unread gmail is equal or decreasing, do nothing");
+				}
+			}
+			lastUnreadGmail = numUnread;
+    	}
+    }
 
 	public static void startTelephonyListener(Context context) {
 		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
