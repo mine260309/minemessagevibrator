@@ -123,12 +123,13 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
+1.15.3: Support Android 2.1 and 4.0 plus bug fixes.\n
+\n
+Histories:\n
 1.15.1 &amp; 1.15.2: May fix an issue that app crashes in Motorola Blur.\n
 1.15: GMail Reminder is Back!\n
  * You need to do OAuth to get unread gmail reminder work.\n
 Reminder logic is re-write so it may be better.\n
-\n
-Histories:\n
 1.14: Remove GMail Reminder to resolve FC issue.\n
 The latest GMail update breaks all 3rd party apps from counting unread mails, so temporarily remove the feature.\n
 1.12:\n
@@ -138,7 +139,7 @@ The latest GMail update breaks all 3rd party apps from counting unread mails, so
 1.10：Add setting to disable reminder during bed time\n
 1.09.2:\n
 1) Add preview of custom vibrate pattern\n
-2) May fix some force closing issues...\n
+2) May fix some force closing issues\n
 1.09.1: Try to fix force closing issue\n
 1.09:\n
 1) Add GMail Vibrate &amp; Reminder\n
