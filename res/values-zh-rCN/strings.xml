@@ -24,7 +24,7 @@
     <string name="pref_dim_screen_enable_title">点亮屏幕</string>
     <string name="pref_dim_screen_enable_summary">收到短信时点亮屏幕</string>
 
-    <string name="pref_vibrate_pattern_help">输入自定义振动的模式:\n停止振动,开始振动,再停止,再开始,...\n\n例如:\n0,1000,500,1000\n0,500,200,500,200,500</string>
+    <string name="pref_vibrate_pattern_help">输入自定义振动的模式:\n停止振动,开始振动,再停止,再开始,…\n\n例如:\n0,1000,500,1000\n0,500,200,500,200,500</string>
     <string name="pref_vibrate_pattern_title">振动模式</string>
     <string name="pref_vibrate_pattern_summary">设置自定义振动模式</string>
     <string name="pref_vibrate_pattern_ok">设置自定义振动模式成功</string>
@@ -120,12 +120,13 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
+1.15.3: 支持Android 2.1和4.0, 以及其它bug修复\n
+\n
+历史更新:\n
 1.15.1 &amp; 1.15.2: 也许修正了在Motorola Blur里的崩溃问题.\n
 1.15: 未读GMail提醒功能又回来啦!\n
  * 你需要进行OAuth认证来激活未读GMail提醒功能\n
 重写了提醒的code,它也许会工作得更好吧.\n
-\n
-历史更新:\n
 1.14: 取消了未读Gmail提醒,解决Force Close问题.\n
 最新的Gmail的升级禁止所有第三方软件读取邮件,因此无法获得未读邮件数量,并会引起Force Close,所以暂时禁用此功能\n
 1.12:\n
@@ -135,7 +136,7 @@ Mine短信震动切换有更新了!\n
 1.10: 添加了夜间免打扰设置\n
 1.09.2:\n
 1) 添加了自定义震动的预览\n
-2) 继续尝试修复崩溃问题...\n
+2) 继续尝试修复崩溃问题\n
 1.09.1: 尝试修复程序崩溃问题\n
 1.09:\n
 1) 添加了GMail的震动和提醒\n
