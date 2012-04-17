@@ -98,8 +98,6 @@ public class MineVibrationToggler {
 				: PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 		pm.setComponentEnabledSetting(cn, enable_disable,
 				PackageManager.DONT_KILL_APP);
-		MineLog.v("Set the MineUpdateViewReceiver "
-				+ (enable ? "Enabled" : "Disabled"));
 	}
 
 	public static void EnableMessageVibration(Context context, boolean enable) {

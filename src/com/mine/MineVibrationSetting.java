@@ -64,7 +64,6 @@ public class MineVibrationSetting extends PreferenceActivity
 		// Send intent to update the preference view
 		MineVibrationToggler.SetUpdateViewReceiverEnable(context, true);
 		Intent intent = new Intent(ACTION_UPDATE_PREF_VIEW);
-		MineLog.v("Send update pref view intent");
 		prefContext.sendBroadcast(intent);
 	}
 
@@ -157,8 +156,8 @@ public class MineVibrationSetting extends PreferenceActivity
 		boolean remSound = MineVibrationToggler
 				.GetReminderSoundEnabled(context)
 				&& rem;
-		MineLog.v("vib:" + vib + " auto:" + auto + " rem:" + rem + " remSound:"
-				+ remSound);
+//		MineLog.v("vib:" + vib + " auto:" + auto + " rem:" + rem + " remSound:"
+//				+ remSound);
 
 		if (!vib && !auto) {
 			vibPref.notifyDependencyChange(true);

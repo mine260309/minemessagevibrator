@@ -61,7 +61,7 @@ public class CustomVibrateListPreference extends ListPreference {
 		} else {
 			vibrate_reason = MineMessageVibrator.VIBRATE_REASON_REMINDER;
 		}
-		MineLog.v("Using Vibrate reason: " + vibrate_reason);
+		//MineLog.v("Using Vibrate reason: " + vibrate_reason);
 	}
 
 	@Override
