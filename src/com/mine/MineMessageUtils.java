@@ -311,6 +311,8 @@ public class MineMessageUtils {
         } catch (IOException e) {
         	MineLog.e("I/O exeption: " + e.getMessage());
             return null;
+        } catch (Exception e) {
+        	MineLog.e("Other exception: " + e.getMessage());
         }
         return doc;
 	}

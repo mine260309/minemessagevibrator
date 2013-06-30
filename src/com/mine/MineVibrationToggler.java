@@ -171,7 +171,14 @@ public class MineVibrationToggler {
 				.getDefaultSharedPreferences(context);
 		String minutes = settings.getString(context
 				.getString(R.string.pref_reminder_interval_key), "5");
-		int seconds = 60 * Integer.valueOf(minutes);
+		int seconds;
+		if ("Custom".equals(minutes)) {
+			// Custom interval
+			seconds = 60 * getCustomReminderInterval(context);
+		}
+		else {
+			seconds = 60 * Integer.valueOf(minutes);
+		}
 		return seconds;
 	}
 
@@ -668,8 +675,8 @@ public class MineVibrationToggler {
 		SetUnreadGmailReminderEnabled(context, false);
 		removeGmailToken(context);
 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final Editor edit = prefs.edit();
+		final Editor edit = PreferenceManager.
+		  getDefaultSharedPreferences(context).edit();
 		edit.putBoolean(context.getString(
 				R.string.pref_unread_gmail_token_invalidate_key),
 				true);
@@ -677,10 +684,10 @@ public class MineVibrationToggler {
 	}
 
 	public static void clearGmailTokenInvalid(Context context) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final Editor edit = prefs.edit();
+		final Editor edit = PreferenceManager.
+		  getDefaultSharedPreferences(context).edit();
 		edit.remove(context.getString(
-				R.string.pref_unread_gmail_token_invalidate_key));
+		  R.string.pref_unread_gmail_token_invalidate_key));
 		edit.commit();
 	}
 
@@ -693,14 +700,30 @@ public class MineVibrationToggler {
 	}
 
 	public static void savePreviousUnreadGmailNumber(Context context, int unread) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final Editor edit = prefs.edit();
-		edit.putInt("unreadGmailCount", unread);
+		final Editor edit = PreferenceManager.
+		  getDefaultSharedPreferences(context).edit();
+		edit.putInt(context.getString(R.string.pref_unread_gmail_count), unread);
 		edit.commit();
 	}
 	public static int getPreviousUnreadGmailNumber(Context context) {
 		SharedPreferences settings = PreferenceManager
 			.getDefaultSharedPreferences(context);
-		return settings.getInt("unreadGmailCount", 0);
+		return settings.getInt(
+		  context.getString(R.string.pref_unread_gmail_count), 0);
+	}
+
+	public static void setCustomReminderInterval(Context context, int interval) {
+		final Editor edit = PreferenceManager.
+		  getDefaultSharedPreferences(context).edit();
+		edit.putInt(context.getString(R.string.pref_reminder_custom_interval),
+				    interval);
+		edit.commit();
+	}
+
+	public static int getCustomReminderInterval(Context context) {
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return settings.getInt(
+		  context.getString(R.string.pref_reminder_custom_interval), 30);
 	}
 }

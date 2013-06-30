@@ -49,10 +49,15 @@
 <string name="pref_reminder_sound_enable_summary_off">Reminder Sound is Disabled</string>
 <string name="pref_reminder_sound_title">Reminder Sound</string>
 <string name="pref_reminder_sound_summary">Reminder will play this sound for every interval</string>
+<string name="pref_custom_interval_title">Custom Interval</string>
+<string name="pref_custom_interval_helptext">Please set custom interval, in minutes</string>
+<string name="pref_custom_interval_bad">Interval invalid, will not change</string>
+<string name="pref_custom_interval_toolarge">Interval too large, will not change</string>
+<string name="pref_custom_interval_summary">Remind on every %1$d minutes</string>
 
 <!-- Reminder bedtime preference -->
 <string name="pref_reminder_bedtime_title">Bed Time</string>
-<string name="pref_reminder_bedtime_summary">NO Reminder during bed time</string>
+<string name="pref_reminder_bedtime_summary">Disable Reminder during bed time</string>
 <string name="pref_reminder_bedtime_time_title">Set Bed Time</string>
 <string name="pref_reminder_bedtime_time_summary">Disable reminder from %1$s:%2$s to %3$s%4$s:%5$s%6$s</string>
 <string name="pref_reminder_bedtime_time_summary_tomorrow">"Tomorrow\'s "</string>
