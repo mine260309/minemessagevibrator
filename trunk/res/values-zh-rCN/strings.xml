@@ -48,6 +48,12 @@
 <string name="pref_reminder_sound_title">提醒铃声</string>
 <string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
 
+<string name="pref_custom_interval_title">自定义间隔</string>
+<string name="pref_custom_interval_helptext">请设置提醒间隔,以分钟为单位</string>
+<string name="pref_custom_interval_bad">无效的间隔,将会保持原有的间隔</string>
+<string name="pref_custom_interval_toolarge">输入的间隔太大，将会保持原有的间隔</string>
+<string name="pref_custom_interval_summary">每过%1$d分钟提醒</string>
+
 <!-- Reminder bedtime preference -->
 <string name="pref_reminder_bedtime_title">夜间免打扰</string>
 <string name="pref_reminder_bedtime_summary">在夜间关闭震动和提醒</string>

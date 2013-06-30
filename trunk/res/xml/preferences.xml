@@ -68,7 +68,7 @@
     android:defaultValue="content://settings/system/notification_sound" 
 />
 
-<ListPreference
+<com.mine.CustomIntervalListPreference
     android:key="@string/pref_reminder_interval_key"
     android:title="@string/pref_reminder_interval_title"
     android:entries="@array/pref_reminder_interval_entries"
@@ -77,7 +77,7 @@
     android:defaultValue="@string/pref_reminder_interval_default"
     android:dependency="@string/pref_reminder_enable_key"
 >
-</ListPreference>
+</com.mine.CustomIntervalListPreference>
 
 <CheckBoxPreference
     android:key="@string/pref_reminder_bedtime_enable_key"

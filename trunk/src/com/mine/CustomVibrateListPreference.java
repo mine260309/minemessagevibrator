@@ -68,18 +68,14 @@ public class CustomVibrateListPreference extends ListPreference {
 	protected void onDialogClosed(boolean positiveResult) {
 		super.onDialogClosed(positiveResult);
 
-		SharedPreferences settings = PreferenceManager
+		final SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		String pattern;
-
-		pattern = settings.getString(getKey(), this.getEntries()[1].toString());
+		final String pattern = settings.getString(getKey(),
+				                 this.getEntries()[1].toString());
 
 		MineLog.v("Get pattern of " + getKey() + " : " + pattern);
-		if (positiveResult) {
-
-			if ("Custom".equals(pattern)) {
-				showDialog();
-			}
+		if (positiveResult && "Custom".equals(pattern)) {
+			showDialog();
 		}
 	}
 
