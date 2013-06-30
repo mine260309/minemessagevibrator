@@ -68,6 +68,7 @@ public class CustomIntervalListPreference extends ListPreference {
 		  MineVibrationToggler.getCustomReminderInterval(context));
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		input.setText(customInterval);
+		input.setSelection(customInterval.length());
 		alert.setView(input);
 
 		alert.setPositiveButton(context.getString(android.R.string.ok),
@@ -78,10 +79,19 @@ public class CustomIntervalListPreference extends ListPreference {
 		    try {
 		    	interval = Integer.parseInt(customInterval);
 			    if (interval > 60*24) {
+			    	// Interval too large
 					Toast.makeText(
 						context,
 						context.getString(
 								R.string.pref_custom_interval_toolarge),
+								Toast.LENGTH_LONG).show();
+			    }
+			    else if (interval <= 0) {
+			    	// Invalid interval
+					Toast.makeText(
+						context,
+						context.getString(
+								R.string.pref_custom_interval_bad),
 								Toast.LENGTH_LONG).show();
 			    }
 			    else {
