@@ -63,7 +63,7 @@ public class MineVibrationSetting extends PreferenceActivity
 		super.onPostCreate(savedInstanceState);
 		// Send intent to update the preference view
 		MineVibrationToggler.SetUpdateViewReceiverEnable(context, true);
-		Intent intent = new Intent(ACTION_UPDATE_PREF_VIEW);
+		Intent intent = new Intent(this, MineUpdateViewReceiver.class);
 		prefContext.sendBroadcast(intent);
 	}
 

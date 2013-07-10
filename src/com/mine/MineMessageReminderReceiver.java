@@ -20,21 +20,26 @@
 package com.mine;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.widget.RemoteViews;
 
 public class MineMessageReminderReceiver extends BroadcastReceiver {
 
-	public static final int REMINDER_TYPE_WHATEVER = 0x00;
+	public static final int REMINDER_TYPE_NONE = 0x0;
 	public static final int REMINDER_TYPE_MESSAGE = 0x01;
 	public static final int REMINDER_TYPE_PHONECALL = 0x02;
 	public static final int REMINDER_TYPE_GMAIL = 0x04;
+	public static final int REMINDER_TYPE_WHATEVER = 0x7;
 	private static final Object mReminderSync = new Object();
 
 	private static PendingIntent reminderPendingIntent = null;
@@ -54,6 +59,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	/**
 	 * This will schedule a reminder notification to play in the future using
 	 * the system AlarmManager.
+	 * A notification is sent to indicate what the reminder is for and can be
+	 * cancelled by tap the notification.
 	 * 
 	 * @param context
 	 * @param currentUnreadCount
@@ -68,7 +75,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		// create the reminder intent
 		Intent reminderIntent = new Intent(context,
 				MineMessageReminderReceiver.class);
-		reminderIntent.setAction(MineMessageReminderService.ACTION_REMIND);
+		reminderIntent.setAction(MineMessageReminderService.ACTION_REMIND_SET);
 
 		GetReminderType(context);
 		// calculate the trigger time
@@ -154,6 +161,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	
 			am.set(AlarmManager.RTC, triggerTime, reminderPendingIntent);
 		}
+		sendNotification(context, type);
 		acquireWakeLockIfNeeded(context);
 	}
 
@@ -185,12 +193,13 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				MineLog.e("cancelReminder: invalid type!");
 				return;
 			}
-			if(reminderEnableState == REMINDER_TYPE_WHATEVER) {
+			if(reminderEnableState == REMINDER_TYPE_NONE) {
 				AlarmManager am = (AlarmManager) context
 						.getSystemService(Context.ALARM_SERVICE);
 				am.cancel(reminderPendingIntent);
 				reminderPendingIntent.cancel();
 				reminderPendingIntent = null;
+				cacelNotification(context);
 				MineLog.v("MineMessageReminderReceiver: cancelReminder()");
 				releaseWakeLock();
 			}
@@ -237,6 +246,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		final Editor edit = prefs.edit();
 		edit.putInt("mineReminderType", reminderEnableState);
 		edit.commit();
+		MineLog.v("MINEDBG: add reminder type " + type +", state " + reminderEnableState);
 	}
 
 	private static void RemoveReinderType(Context c, int type) {
@@ -245,6 +255,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		final Editor edit = prefs.edit();
 		edit.putInt("mineReminderType", reminderEnableState);
 		edit.commit();
+		MineLog.v("MINEDBG: remove reminder type " + type +", state " + reminderEnableState);
 	}
 
 	private static int GetReminderType(Context c) {
@@ -255,5 +266,59 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			reminderEnableState =  settings.getInt("mineReminderType", 0);
 		}
 		return reminderEnableState;
+	}
+
+	private static String getNotificationMessage(Context context, int type) {
+		String notifyStrFormat = context.getString(R.string.notification_msg_format);
+		String notifyItem; 
+		switch(type) {
+		case REMINDER_TYPE_MESSAGE:
+			notifyItem = context.getString(R.string.notification_msg_sms);
+			break;
+		case REMINDER_TYPE_GMAIL:
+			notifyItem = context.getString(R.string.notification_msg_gmail);
+			break;
+		case REMINDER_TYPE_PHONECALL:
+			notifyItem = context.getString(R.string.notification_msg_missedphonecall);
+			break;
+		case REMINDER_TYPE_WHATEVER:
+		default:
+			notifyItem = "MINEDBG: I don't know what type...";
+			break;
+		}
+		return String.format(notifyStrFormat, notifyItem);
+	}
+
+	private static final int NOTIFICATION_ID = 0x0309;
+	private static void sendNotification(Context context, int type) {
+		MineLog.v("send Notification");
+		NotificationManager nm = (NotificationManager)
+				context.getSystemService(Context.NOTIFICATION_SERVICE);
+		// TODO: use proper icon
+		Notification n = new Notification(R.drawable.icon, "",  System.currentTimeMillis());
+
+		// Prepare notification string
+		String notifyString = getNotificationMessage(context, type);
+
+		// Prepare notification
+		RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
+		contentView.setTextViewText(R.id.notification_msg, notifyString);
+		contentView.setImageViewResource(R.id.notification_image, R.drawable.icon);
+		n.contentView = contentView;
+		Intent intent = new Intent(context, MineMessageReminderReceiver.class);
+		intent.setAction(MineMessageReminderService.ACTION_REMIND_CANCEL);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(
+				context, 0, intent, 0);
+		n.contentIntent = pendingIntent;
+		n.deleteIntent = pendingIntent;
+		n.flags |= Notification.FLAG_AUTO_CANCEL;
+		nm.notify(NOTIFICATION_ID, n);
+	}
+	
+	private static void cacelNotification(Context context) {
+		MineLog.v("cancel Notification");
+		NotificationManager nm = (NotificationManager)
+				context.getSystemService(Context.NOTIFICATION_SERVICE);
+		nm.cancel(NOTIFICATION_ID);
 	}
 }

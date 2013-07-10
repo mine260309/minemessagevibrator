@@ -33,7 +33,8 @@ import android.os.Process;
 public class MineMessageReminderService extends Service {
 
 	private static final Object mStartingServiceSync = new Object();
-	public static final String ACTION_REMIND = "com.mine.ACTION_REMIND";
+	public static final String ACTION_REMIND_SET = "com.mine.ACTION_REMIND_SET";
+	public static final String ACTION_REMIND_CANCEL = "com.mine.ACTION_REMIND_CANCEL";
 	public static final String EXTRA_UNREAD_NUMBER = "com.mine.UNREAD";
 	public static final String EXTRA_REMINDER_TYPE = "com.mine.REMINDER_TYPE";
 
@@ -136,8 +137,13 @@ public class MineMessageReminderService extends Service {
 			int serviceId = msg.arg1;
 			String action = intent.getAction();
 
-			if (ACTION_REMIND.equals(action)) {
+			if (ACTION_REMIND_SET.equals(action)) {
 				processReminder(intent);
+			}
+			else if (ACTION_REMIND_CANCEL.equals(action)) {
+				MineLog.v("MINEDBG: User cancel reminder");
+				MineMessageReminderReceiver.cancelReminder(context,
+						MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 			}
 
 			// NOTE: We MUST not call stopSelf() directly, since we need to
