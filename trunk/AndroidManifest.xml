@@ -26,7 +26,9 @@
   <uses-sdk android:minSdkVersion="5"
             android:targetSdkVersion="5" />
   
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon"
+                 android:label="@string/app_name"
+                 android:allowBackup="true">
     
         <activity android:name=".MineVibrationTabView"
                   android:label="@string/app_name">
@@ -63,19 +65,9 @@
       </intent-filter>
     </receiver>
     
-    <receiver android:name="MineUpdateViewReceiver">
-      <intent-filter>
-        <action
-          android:name="com.mine.UPDATE_PREF_VIEW" />
-      </intent-filter>
-    </receiver>
-    
-    <receiver android:name=".MineMessageReminderReceiver">
-      <intent-filter>
-        <action
-          android:name="com.mine.ACTION_REMIND" />
-      </intent-filter>
-    </receiver>
+    <receiver android:name="MineUpdateViewReceiver" />
+
+    <receiver android:name=".MineMessageReminderReceiver" />
     
     <receiver android:name=".MineRingerModeChangeReceiver">
       <intent-filter>

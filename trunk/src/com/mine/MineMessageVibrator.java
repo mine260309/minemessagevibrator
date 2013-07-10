@@ -40,7 +40,7 @@ public class MineMessageVibrator {
 	public static final int VIBRATE_REASON_REMINDER_MESSAGE = 0x81;
 	public static final int VIBRATE_REASON_REMINDER_GMAIL = 0x82;
 	public static final int VIBRATE_REASON_REMINDER_MISSEDCALL = 0x83;
-	
+
 	private static final String VIBRATE_MODE_SHORT = "Short";
 	private static final String VIBRATE_MODE_MIDDLE = "Middle";
 	private static final String VIBRATE_MODE_LONG = "Long";

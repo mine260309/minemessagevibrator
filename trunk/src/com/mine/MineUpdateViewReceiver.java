@@ -27,12 +27,7 @@ public class MineUpdateViewReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (intent.getAction().equals(
-				MineVibrationSetting.ACTION_UPDATE_PREF_VIEW)) {
-			// this piece of code is put here just because it's simple...
 			MineLog.v("Update preference view");
 			MineVibrationSetting.InitAdjustPreference();
-			return;
 		}
-	}
 }
