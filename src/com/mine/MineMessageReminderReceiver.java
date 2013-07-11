@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.Uri;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
@@ -64,20 +63,25 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	 * 
 	 * @param context
 	 * @param currentUnreadCount
+	 *          For Message:
 	 *            if -1 it will read unread count from inbox; if >0 it will use
 	 *            it as the message unread count; if ==0, it shall never happen!
-	 * @param type the reminder type, message or phone call 
+	 *          For phone call:
+	 *            if -1 it is the first schedule, should not send notification
+	 *            if 0 it is reminder's schedule, should send notification 
+	 * @param type the reminder type, message or phone call or gmail
 	 */
 	public static void scheduleReminder(Context context, int currentUnreadCount, int type) {
 
 		AlarmManager am = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
+		boolean shouldSendNotification = true;
 		// create the reminder intent
 		Intent reminderIntent = new Intent(context,
 				MineMessageReminderReceiver.class);
 		reminderIntent.setAction(MineMessageReminderService.ACTION_REMIND_SET);
-
 		GetReminderType(context);
+		
 		// calculate the trigger time
 		int reminderIntervalSeconds = MineVibrationToggler
 			.GetReminderInterval(context);
@@ -97,15 +101,13 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 					e.printStackTrace();
 				}
 				unreadNumber = MineMessageUtils.getUnreadMessagesCount(context);
-				// TODO: This is very hacky!!
-				// actually this is a bug!
 				// It assumes this happens before the system add the current message
 				// unreadNumber++;
 				if (unreadNumber <= 0) {
-					MineLog
-							.e("scheduleReminder: get 0 unread message, maybe it's read?!");
+					MineLog.e("scheduleReminder: get 0 unread message, maybe it's read?!");
 					return;
 				}
+				shouldSendNotification = false;
 			} else if (currentUnreadCount == 0) {
 				MineLog.e("scheduleReminder: currentUnreadCount is 0, why?!");
 				return;
@@ -123,14 +125,16 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			AddReminderType(context, type);
 		}
 		else if (type == REMINDER_TYPE_PHONECALL) {
-			// int missedPhonecall = 0;
-			// should I add some extra information?
 			MineLog
 				.v("MineMessageReminderReceiver: scheduled reminder notification " +
 					"for missed calls in "
 					+ reminderIntervalSeconds
 					+ " seconds");
 			AddReminderType(context, type);
+			if (currentUnreadCount == -1) {
+				// First time schedule for phone call, do not notify
+				shouldSendNotification = false;
+			}
 		}
 		else if (type == REMINDER_TYPE_GMAIL) {
 			MineLog
@@ -161,7 +165,10 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 	
 			am.set(AlarmManager.RTC, triggerTime, reminderPendingIntent);
 		}
-		sendNotification(context, type);
+		
+		if (shouldSendNotification) {
+			sendNotification(context, type);
+		}
 		acquireWakeLockIfNeeded(context);
 	}
 
@@ -176,7 +183,6 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		if (reminderPendingIntent != null) {
 			MineLog.v("cancelReminder() for type: " + type);
 
-			// TODO: stupid code here! Need to clean up the reminder type...
 			if (type == REMINDER_TYPE_MESSAGE) {
 				RemoveReinderType(context, type);
 			}
@@ -199,7 +205,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 				am.cancel(reminderPendingIntent);
 				reminderPendingIntent.cancel();
 				reminderPendingIntent = null;
-				cacelNotification(context);
+				cancelNotification(context);
 				MineLog.v("MineMessageReminderReceiver: cancelReminder()");
 				releaseWakeLock();
 			}
@@ -268,8 +274,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		return reminderEnableState;
 	}
 
-	private static String getNotificationMessage(Context context, int type) {
-		String notifyStrFormat = context.getString(R.string.notification_msg_format);
+	private static String getNotificationTitle(Context context, int type) {
+		String notifyStrFormat = context.getString(R.string.notification_msg_title_format);
 		String notifyItem; 
 		switch(type) {
 		case REMINDER_TYPE_MESSAGE:
@@ -298,12 +304,14 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		Notification n = new Notification(R.drawable.icon, "",  System.currentTimeMillis());
 
 		// Prepare notification string
-		String notifyString = getNotificationMessage(context, type);
-
+		String notifyTitle = getNotificationTitle(context, type);
+		String notifyInfo = context.getString(R.string.notification_msg_info);
+		
 		// Prepare notification
 		RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
-		contentView.setTextViewText(R.id.notification_msg, notifyString);
 		contentView.setImageViewResource(R.id.notification_image, R.drawable.icon);
+		contentView.setTextViewText(R.id.notification_title, notifyTitle);
+		contentView.setTextViewText(R.id.notification_info, notifyInfo);
 		n.contentView = contentView;
 		Intent intent = new Intent(context, MineMessageReminderReceiver.class);
 		intent.setAction(MineMessageReminderService.ACTION_REMIND_CANCEL);
@@ -315,7 +323,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		nm.notify(NOTIFICATION_ID, n);
 	}
 	
-	private static void cacelNotification(Context context) {
+	private static void cancelNotification(Context context) {
 		MineLog.v("cancel Notification");
 		NotificationManager nm = (NotificationManager)
 				context.getSystemService(Context.NOTIFICATION_SERVICE);
