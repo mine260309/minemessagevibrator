@@ -185,7 +185,7 @@ public class MineTelephonyListenService extends Service {
 			if (action.equals(ACTION_INCOMING_CALL_RECEIVED)) {
 				if (MineVibrationToggler.GetReminderEnabled(context) &&
 						MineVibrationToggler.GetMissedPhoneCallReminderEnabled(context)) {
-					MineMessageReminderReceiver.scheduleReminder(context, 0,
+					MineMessageReminderReceiver.scheduleReminder(context, -1,
 						MineMessageReminderReceiver.REMINDER_TYPE_PHONECALL);
 				}
 			}
