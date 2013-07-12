@@ -107,10 +107,10 @@
 <string name="pref_email_title">Feedback (email)</string>
 <string name="pref_email_summary">Issues, Suggestions? Send me email~</string>
 
-<string name="notification_msg_title_format">New %1$s Reminder</string>
-<string name="notification_msg_info">Tap to cancel Reminder</string>
-<string name="notification_msg_sms">Message</string>
-<string name="notification_msg_gmail">Gmail</string>
+<string name="notification_msg_title_format">%1$s Reminder</string>
+<string name="notification_msg_info">Tap to cancel</string>
+<string name="notification_msg_sms">New Message</string>
+<string name="notification_msg_gmail">New Gmail</string>
 <string name="notification_msg_missedphonecall">Missed Phone Call</string>
 
 <!-- First time run help message -->
