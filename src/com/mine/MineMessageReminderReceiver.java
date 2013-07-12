@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.widget.RemoteViews;
 
 public class MineMessageReminderReceiver extends BroadcastReceiver {
 
@@ -300,33 +299,35 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		MineLog.v("send Notification");
 		NotificationManager nm = (NotificationManager)
 				context.getSystemService(Context.NOTIFICATION_SERVICE);
-		// TODO: use proper icon
-		Notification n = new Notification(R.drawable.icon, "",  System.currentTimeMillis());
 
 		// Prepare notification string
 		String notifyTitle = getNotificationTitle(context, type);
 		String notifyInfo = context.getString(R.string.notification_msg_info);
-		
-		// Prepare notification
-		RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
-		contentView.setImageViewResource(R.id.notification_image, R.drawable.icon);
-		contentView.setTextViewText(R.id.notification_title, notifyTitle);
-		contentView.setTextViewText(R.id.notification_info, notifyInfo);
-		n.contentView = contentView;
+
+		// Intent for tap to cancel reminder
 		Intent intent = new Intent(context, MineMessageReminderReceiver.class);
 		intent.setAction(MineMessageReminderService.ACTION_REMIND_CANCEL);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
 				context, 0, intent, 0);
-		n.contentIntent = pendingIntent;
+		// TODO: use proper icon
+		Notification n = new Notification();
+		n.icon = R.drawable.ic_notification;
+		n.tickerText = notifyTitle;
 		n.deleteIntent = pendingIntent;
 		n.flags |= Notification.FLAG_AUTO_CANCEL;
+		n.setLatestEventInfo(context, notifyTitle, notifyInfo, pendingIntent);
 		nm.notify(NOTIFICATION_ID, n);
 	}
-	
+
 	private static void cancelNotification(Context context) {
 		MineLog.v("cancel Notification");
 		NotificationManager nm = (NotificationManager)
 				context.getSystemService(Context.NOTIFICATION_SERVICE);
 		nm.cancel(NOTIFICATION_ID);
+	}
+	
+	// TODO: This is for debug only, remove me before release!
+	public static void sendNotifyTest(Context context) {
+		sendNotification(context, REMINDER_TYPE_GMAIL);	
 	}
 }
