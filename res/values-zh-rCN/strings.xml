@@ -105,6 +105,12 @@
 <string name="pref_email_title">邮件反馈</string>
 <string name="pref_email_summary">报告问题?提建议?请给我发邮件~</string>
 
+<string name="notification_msg_title_format">%1$s 提醒</string>
+<string name="notification_msg_info">轻按取消</string>
+<string name="notification_msg_sms">新消息</string>
+<string name="notification_msg_gmail">新邮件</string>
+<string name="notification_msg_missedphonecall">未接来电</string>
+
 <!-- First time run help message -->
 <string name="first_run_dialog_title">使用帮助</string>
 <string name="first_run_dialog_message">
@@ -126,9 +132,12 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.15.4： 新功能：自定义提醒间隔\n
+1.16: 状态栏提醒!\n
+ * 获知提醒的内容;\n
+ * 轻松取消提醒.\n
 \n
 历史更新:\n
+1.15.4： 新功能：自定义提醒间隔\n
 1.15.3: 支持Android 2.1和4.0, 以及其它bug修复\n
 1.15.1 &amp; 1.15.2: 也许修正了在Motorola Blur里的崩溃问题.\n
 1.15: 未读GMail提醒功能又回来啦!\n
