@@ -251,7 +251,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		final Editor edit = prefs.edit();
 		edit.putInt("mineReminderType", reminderEnableState);
 		edit.commit();
-		MineLog.v("MINEDBG: add reminder type " + type +", state " + reminderEnableState);
+		MineLog.v("Add reminder type " + type +", state " + reminderEnableState);
 	}
 
 	private static void RemoveReinderType(Context c, int type) {
@@ -260,7 +260,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		final Editor edit = prefs.edit();
 		edit.putInt("mineReminderType", reminderEnableState);
 		edit.commit();
-		MineLog.v("MINEDBG: remove reminder type " + type +", state " + reminderEnableState);
+		MineLog.v("Remove reminder type " + type +", state " + reminderEnableState);
 	}
 
 	private static int GetReminderType(Context c) {
@@ -288,7 +288,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 			break;
 		case REMINDER_TYPE_WHATEVER:
 		default:
-			notifyItem = "MINEDBG: I don't know what type...";
+			MineLog.v("I don't know what type of Reminder...");
+			notifyItem = context.getString(R.string.notification_msg_sms);;
 			break;
 		}
 		return String.format(notifyStrFormat, notifyItem);
@@ -309,7 +310,7 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		intent.setAction(MineMessageReminderService.ACTION_REMIND_CANCEL);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
 				context, 0, intent, 0);
-		// TODO: use proper icon
+		// Prepare notification
 		Notification n = new Notification();
 		n.icon = R.drawable.ic_notification;
 		n.tickerText = notifyTitle;
@@ -326,8 +327,9 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		nm.cancel(NOTIFICATION_ID);
 	}
 	
-	// TODO: This is for debug only, remove me before release!
-	public static void sendNotifyTest(Context context) {
+	// This is for debug only, remove me before release!
+	/*
+	private static void sendNotifyTest(Context context) {
 		sendNotification(context, REMINDER_TYPE_GMAIL);	
-	}
+	}*/
 }
