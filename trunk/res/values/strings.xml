@@ -134,9 +134,12 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
-1.15.4： New Feature: Custom Interval for Reminder\n
+1.16: Status Bar Notification!\n
+ * See what is missing;\n
+ * Cancel reminder by tapping the notification.\n 
 \n
 Histories:\n
+1.15.4: New Feature: Custom Interval for Reminder\n
 1.15.3: Support Android 2.1 and 4.0 plus bug fixes.\n
 1.15.1 &amp; 1.15.2: May fix an issue that app crashes in Motorola Blur.\n
 1.15: GMail Reminder is Back!\n

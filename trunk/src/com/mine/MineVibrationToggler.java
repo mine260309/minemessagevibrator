@@ -269,7 +269,7 @@ public class MineVibrationToggler {
 		} else {
 			MineLog.v("phone is in mode: " + notifyMode);
 		}
-		
+
 		// If user set bed time, and the time is in bedtime, don't notify
 		boolean isInBedTime = false;
 		if (GetReminderBedtimeEnabled(context)) {
