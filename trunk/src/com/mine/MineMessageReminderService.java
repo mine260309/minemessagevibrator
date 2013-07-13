@@ -141,7 +141,7 @@ public class MineMessageReminderService extends Service {
 				processReminder(intent);
 			}
 			else if (ACTION_REMIND_CANCEL.equals(action)) {
-				MineLog.v("MINEDBG: User cancel reminder");
+				MineLog.v("User cancel reminder");
 				MineMessageReminderReceiver.cancelReminder(context,
 						MineMessageReminderReceiver.REMINDER_TYPE_WHATEVER);
 			}

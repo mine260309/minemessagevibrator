@@ -131,8 +131,6 @@ public class MineVibrationSetting extends PreferenceActivity
 		Intent intent = new Intent(Intent.ACTION_MAIN);
 		intent.addCategory(Intent.CATEGORY_HOME);
 		startActivity(intent);
-// TODO: This is for debug only, remove me before release!
-MineMessageReminderReceiver.sendNotifyTest(context);
 		finish();
 	}
 
