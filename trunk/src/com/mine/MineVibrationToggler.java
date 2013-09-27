@@ -726,4 +726,12 @@ public class MineVibrationToggler {
 		return settings.getInt(
 		  context.getString(R.string.pref_reminder_custom_interval), 30);
 	}
+	
+	public static boolean getReminderNoficationEnabled(Context context) {
+		SharedPreferences settings = PreferenceManager
+			.getDefaultSharedPreferences(context);
+		return settings.getBoolean(context.getString(
+				R.string.pref_reminder_notification_enable_key),
+				false);
+	}
 }

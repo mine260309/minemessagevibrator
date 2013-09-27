@@ -32,6 +32,7 @@
 
     <string name="pref_reminder_vibrate_catagory">提醒相关设置</string>
     <string name="pref_reminder_enable_title">启用提醒</string>
+    <string name="pref_reminder_notification_enable_title">状态栏通知</string>
 
     <!-- Reminder Vibration mode preference -->
     <string name="pref_reminder_vibrate_enable_title">启用震动</string>
@@ -132,7 +133,8 @@
 Mine短信震动切换有更新了!\n
 \n
 版本更新:\n
-1.16: 状态栏提醒!\n
+1.16.1: 添加了是否启用状态栏提醒的选项\n
+1.16: 状态栏提醒\n
  * 获知提醒的内容;\n
  * 轻松取消提醒.\n
 \n

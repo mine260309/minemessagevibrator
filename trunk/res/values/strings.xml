@@ -35,6 +35,8 @@
 <string name="pref_reminder_vibrate_catagory">Reminder Preferences</string>
 <string name="pref_reminder_enable_title">Enable Reminder</string>
 
+<string name="pref_reminder_notification_enable_title">StatusBar Notify</string>
+
 <!-- Reminder Vibration mode preference -->
 <string name="pref_reminder_vibrate_enable_title">Enable Vibrate</string>
 <string name="pref_reminder_vibrate_summary">Reminder will vibrate for every interval</string>
@@ -134,7 +136,8 @@ Furthermore\n
 MineMessageVibrator is upgraded!\n
 \n
 Updates:\n
-1.16: Status Bar Notification!\n
+1.16.1: Add Option to enable/disable Status Bar Notification\n
+1.16: Status Bar Notification\n
  * See what is missing;\n
  * Cancel reminder by tapping the notification.\n 
 \n
