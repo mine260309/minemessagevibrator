@@ -74,7 +74,8 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 
 		AlarmManager am = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
-		boolean shouldSendNotification = true;
+		boolean shouldSendNotification =
+				MineVibrationToggler.getReminderNoficationEnabled(context);
 		// create the reminder intent
 		Intent reminderIntent = new Intent(context,
 				MineMessageReminderReceiver.class);
@@ -327,6 +328,22 @@ public class MineMessageReminderReceiver extends BroadcastReceiver {
 		nm.cancel(NOTIFICATION_ID);
 	}
 	
+	public static void onReminderNotificationPreferenceChanged(Context context, boolean set) {
+		if (set) {
+			synchronized (mReminderSync) {
+				if (reminderPendingIntent != null) {
+					AlarmManager am = (AlarmManager) context
+							.getSystemService(Context.ALARM_SERVICE);
+					am.set(AlarmManager.RTC,
+							System.currentTimeMillis(),
+							reminderPendingIntent);
+				}
+			}
+		}
+		else {
+			cancelNotification(context);
+		}
+	}
 	// This is for debug only, remove me before release!
 	/*
 	private static void sendNotifyTest(Context context) {

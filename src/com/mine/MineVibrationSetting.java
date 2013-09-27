@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,6 +57,21 @@ public class MineVibrationSetting extends PreferenceActivity
 			showDialog(FIRST_TIME_RUN_DIALOG_ID);
 		}
 		addPreferencesFromResource(R.xml.preferences);
+		
+		Preference notificationPref = prefContext.findPreference(context
+				.getString(R.string.pref_reminder_notification_enable_key));
+		notificationPref.setOnPreferenceChangeListener(
+				new OnPreferenceChangeListener() {
+				    @Override
+				    public boolean onPreferenceChange(Preference preference,
+				            Object newValue) {
+				    	MineMessageReminderReceiver.
+				    	  onReminderNotificationPreferenceChanged(
+				    	    context,
+				    	    newValue.toString().equals("true"));
+				        return true;
+				    }
+				});
 	}
 
 	@Override

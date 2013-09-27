@@ -33,8 +33,14 @@
 <com.mine.MineReminderEnableCheckBoxPreference  
     android:key="@string/pref_reminder_enable_key"
     android:title="@string/pref_reminder_enable_title"
->
-</com.mine.MineReminderEnableCheckBoxPreference >
+/>
+
+<CheckBoxPreference
+    android:key="@string/pref_reminder_notification_enable_key"
+    android:title="@string/pref_reminder_notification_enable_title"
+    android:enabled="true"
+    android:defaultValue="true"
+/>
 
 <com.mine.CustomVibrateListPreference
     android:key="@string/pref_reminder_vibration_mode_key"
