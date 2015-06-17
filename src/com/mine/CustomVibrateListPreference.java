@@ -18,8 +18,6 @@
  ************************************************************************/
 package com.mine;
 
-import java.lang.reflect.Field;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +29,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
 
 public class CustomVibrateListPreference extends ListPreference {
 
@@ -132,8 +132,8 @@ public class CustomVibrateListPreference extends ListPreference {
 									Field field = dialog.getClass()  
 										.getSuperclass().getDeclaredField(  
 										"mShowing");  
-									field.setAccessible(true);  
-									// 将mShowing变量设为false，表示对话框已关闭  
+									field.setAccessible(true);
+									// set mShowing to false to indicate dialog is closed
 									field.set(dialog, true);  
 									dialog.dismiss();  
 								}  
@@ -166,8 +166,8 @@ public class CustomVibrateListPreference extends ListPreference {
 								Field field = dialog.getClass()  
 									.getSuperclass().getDeclaredField(  
 									"mShowing");  
-								field.setAccessible(true);  
-								// 将mShowing变量设为false，表示对话框已关闭  
+								field.setAccessible(true);
+								// set mShowing to false to indicate dialog is closed
 								field.set(dialog, false);  
 								dialog.dismiss();  
 							}  
