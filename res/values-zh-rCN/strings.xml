@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!-- General Strings -->
+    <!-- General Strings -->
     <string name="app_name">Mine短信震动切换</string>
     <string name="widget_name">Mine短信震动切换</string>
     <string name="toggle_vibration_menu">切换短信震动</string>
@@ -41,79 +41,79 @@
     <string name="pref_reminder_vibrate_enable_summary_off">禁用提醒震动</string>
     <string name="pref_reminder_vibration_mode_title">提醒震动模式</string>
     <string name="pref_reminder_vibration_mode_dialogTitle">设置提醒震动模式</string>
-    
-<!-- Reminder Sound preference -->
-<string name="pref_reminder_sound_enable_title">设置铃声</string>
-<string name="pref_reminder_sound_enable_summary_on">启用提醒铃声</string>
-<string name="pref_reminder_sound_enable_summary_off">禁用提醒铃声</string>
-<string name="pref_reminder_sound_title">提醒铃声</string>
-<string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
 
-<string name="pref_custom_interval_title">自定义间隔</string>
-<string name="pref_custom_interval_helptext">请设置提醒间隔,以分钟为单位</string>
-<string name="pref_custom_interval_bad">无效的间隔,将会保持原有的间隔</string>
-<string name="pref_custom_interval_toolarge">输入的间隔太大，将会保持原有的间隔</string>
-<string name="pref_custom_interval_summary">每过%1$d分钟提醒</string>
+    <!-- Reminder Sound preference -->
+    <string name="pref_reminder_sound_enable_title">设置铃声</string>
+    <string name="pref_reminder_sound_enable_summary_on">启用提醒铃声</string>
+    <string name="pref_reminder_sound_enable_summary_off">禁用提醒铃声</string>
+    <string name="pref_reminder_sound_title">提醒铃声</string>
+    <string name="pref_reminder_sound_summary">每过提醒间隔会播放一次提醒铃声</string>
 
-<!-- Reminder bedtime preference -->
-<string name="pref_reminder_bedtime_title">夜间免打扰</string>
-<string name="pref_reminder_bedtime_summary">在夜间关闭震动和提醒</string>
-<string name="pref_reminder_bedtime_time_title">设置免打扰时间</string>
-<string name="pref_reminder_bedtime_time_summary">从 %1$s:%2$s 到 %3$s%4$s:%5$s关闭震动和提醒%6$s</string>
-<string name="pref_reminder_bedtime_time_summary_tomorrow">"第二天的 "</string>
-<string name="pref_reminder_bedtime_time_summary_areyousure">",你确定吗?!"</string>
-<string name="TextViewBedTimeFrom">从: </string>
-<string name="TextViewBedTimeTo">到: </string>
+    <string name="pref_custom_interval_title">自定义间隔</string>
+    <string name="pref_custom_interval_helptext">请设置提醒间隔,以分钟为单位</string>
+    <string name="pref_custom_interval_bad">无效的间隔,将会保持原有的间隔</string>
+    <string name="pref_custom_interval_toolarge">输入的间隔太大，将会保持原有的间隔</string>
+    <string name="pref_custom_interval_summary">每过%1$d分钟提醒</string>
 
-<!--  WakeLock preference -->
-<string name="pref_reminder_wakelock_enable_title">强制唤醒提醒</string>
-<string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
-<string name="pref_reminder_wakelock_enable_summary_off">取消强制唤醒</string>
+    <!-- Reminder bedtime preference -->
+    <string name="pref_reminder_bedtime_title">夜间免打扰</string>
+    <string name="pref_reminder_bedtime_summary">在夜间关闭震动和提醒</string>
+    <string name="pref_reminder_bedtime_time_title">设置免打扰时间</string>
+    <string name="pref_reminder_bedtime_time_summary">从 %1$s:%2$s 到 %3$s%4$s:%5$s关闭震动和提醒%6$s</string>
+    <string name="pref_reminder_bedtime_time_summary_tomorrow">"第二天的 "</string>
+    <string name="pref_reminder_bedtime_time_summary_areyousure">",你确定吗?!"</string>
+    <string name="TextViewBedTimeFrom">从: </string>
+    <string name="TextViewBedTimeTo">到: </string>
 
-<!--  Reminder Itmes -->
-<string name="pref_reminder_items_catagory">其它提醒功能</string>
-<string name="pref_reminder_item_missed_call_title">未接来电提醒</string>
-<string name="pref_reminder_item_missed_call_summary">假如有未接来电，每隔一段时间会提醒一下</string>
-<string name="pref_reminder_item_unread_gmail_title">未读GMail</string>
-<string name="pref_reminder_item_unread_gmail_summary">未读GMail提醒</string>
+    <!--  WakeLock preference -->
+    <string name="pref_reminder_wakelock_enable_title">强制唤醒提醒</string>
+    <string name="pref_reminder_wakelock_enable_summary_on">提醒将会强制唤醒(在有未读短信的时候耗电会稍稍多一点)</string>
+    <string name="pref_reminder_wakelock_enable_summary_off">取消强制唤醒</string>
 
-<string name="pref_missed_call_notify_title">未接来电提醒设置</string>
-<string name="pref_missed_call_notify_summary">为未接来电设置单独的提醒</string>
-<string name="pref_missed_call_notify_independent_summary_on">为未接来电设置单独的铃声和震动</string>
+    <!--  Reminder Itmes -->
+    <string name="pref_reminder_items_catagory">其它提醒功能</string>
+    <string name="pref_reminder_item_missed_call_title">未接来电提醒</string>
+    <string name="pref_reminder_item_missed_call_summary">假如有未接来电，每隔一段时间会提醒一下</string>
+    <string name="pref_reminder_item_unread_gmail_title">未读GMail</string>
+    <string name="pref_reminder_item_unread_gmail_summary">未读GMail提醒</string>
 
-<string name="pref_unread_gmail_notify_title">未读Gmail提醒设置</string>
-<string name="pref_unread_gmail_notify_summary">为未读Gmail设置单独的提醒</string>
-<string name="pref_unread_gmail_notify_independent_summary_on">为未读Gmail设置单独的铃声和震动</string>
+    <string name="pref_missed_call_notify_title">未接来电提醒设置</string>
+    <string name="pref_missed_call_notify_summary">为未接来电设置单独的提醒</string>
+    <string name="pref_missed_call_notify_independent_summary_on">为未接来电设置单独的铃声和震动</string>
 
-<string name="pref_notify_independent_summary_off">使用和短信相同的提醒铃声和震动</string>
-<string name="pref_missed_call_notify_vib_title">震动模式</string>
-<string name="pref_notify_independent_title">单独的提醒</string>
+    <string name="pref_unread_gmail_notify_title">未读Gmail提醒设置</string>
+    <string name="pref_unread_gmail_notify_summary">为未读Gmail设置单独的提醒</string>
+    <string name="pref_unread_gmail_notify_independent_summary_on">为未读Gmail设置单独的铃声和震动</string>
 
-<!-- Misc preference -->
-<string name="pref_misc_catagory">其它</string>
-<string name="pref_app_auto_enable_title">自动启用震动和提醒</string>
-<string name="pref_app_auto_enable_summary_on">在手机进入震动时自动启用震动和提醒功能</string>
-<string name="pref_app_auto_enable_summary_off">不自动启用震动和提醒功能</string>
-<string name="app_auto_enable">启用自动震动</string>
-<string name="app_auto_disable">禁用自动震动</string>
+    <string name="pref_notify_independent_summary_off">使用和短信相同的提醒铃声和震动</string>
+    <string name="pref_missed_call_notify_vib_title">震动模式</string>
+    <string name="pref_notify_independent_title">单独的提醒</string>
 
-<string name="pref_donate_dialog_title">捐赠</string>
-<string name="pref_donate_yes_button">是的</string>
-<string name="pref_donate_no_button">不了,谢谢</string>
-<string name="pref_donate_summary">如果你喜欢这个软件，请捐赠开发者~</string>
-<string name="pref_donate_message">您愿意为这个小软件捐赠吗?</string>
+    <!-- Misc preference -->
+    <string name="pref_misc_catagory">其它</string>
+    <string name="pref_app_auto_enable_title">自动启用震动和提醒</string>
+    <string name="pref_app_auto_enable_summary_on">在手机进入震动时自动启用震动和提醒功能</string>
+    <string name="pref_app_auto_enable_summary_off">不自动启用震动和提醒功能</string>
+    <string name="app_auto_enable">启用自动震动</string>
+    <string name="app_auto_disable">禁用自动震动</string>
 
-<string name="pref_email_title">邮件反馈</string>
-<string name="pref_email_summary">报告问题?提建议?请给我发邮件~</string>
+    <string name="pref_donate_dialog_title">捐赠</string>
+    <string name="pref_donate_yes_button">是的</string>
+    <string name="pref_donate_no_button">不了,谢谢</string>
+    <string name="pref_donate_summary">如果你喜欢这个软件，请捐赠开发者~</string>
+    <string name="pref_donate_message">您愿意为这个小软件捐赠吗?</string>
 
-<string name="notification_msg_title_format">%1$s 提醒</string>
-<string name="notification_msg_info">轻按取消</string>
-<string name="notification_msg_sms">新消息</string>
-<string name="notification_msg_gmail">新邮件</string>
-<string name="notification_msg_missedphonecall">未接来电</string>
+    <string name="pref_email_title">邮件反馈</string>
+    <string name="pref_email_summary">报告问题?提建议?请给我发邮件~</string>
 
-<!-- First time run help message -->
-<string name="first_run_dialog_title">使用帮助</string>
+    <string name="notification_msg_title_format">%1$s 提醒</string>
+    <string name="notification_msg_info">轻按取消</string>
+    <string name="notification_msg_sms">新消息</string>
+    <string name="notification_msg_gmail">新邮件</string>
+    <string name="notification_msg_missedphonecall">未接来电</string>
+
+    <!-- First time run help message -->
+    <string name="first_run_dialog_title">使用帮助</string>
 <string name="first_run_dialog_message">
 简单几步设置短信震动:\n
 1) 取消默认短信通知中的震动\n
@@ -128,7 +128,7 @@
 4) 为提醒设置铃声
 </string>
 
-<string name="upgraded_run_dialog_title">看看有哪些更新</string>
+    <string name="upgraded_run_dialog_title">看看有哪些更新</string>
 <string name="upgraded_run_dialog_message">
 Mine短信震动切换有更新了!\n
 \n
@@ -178,22 +178,22 @@ Mine短信震动切换有更新了!\n
 1.02: 手机在静音时不震动
 </string>
 
-<string name="menu_help_string">帮助</string>
-<string name="menu_whatsnew_string">更新列表</string>
+    <string name="menu_help_string">帮助</string>
+    <string name="menu_whatsnew_string">更新列表</string>
 
-<!--  OAuth strings -->
+    <!--  OAuth strings -->
 <string name="oauth_note">将会打开浏览器开始进行Gmail的OAuth认证，请注意网页中的host应该是 mine-vibration.\n
                           请授权对Gmail的访问，本程序只会读取 未读邮件 的feed并计算未读邮件数量，请放心。\n
                           如果不放心，可以取消授权，但是Gmail的提醒功能将会失效.\n
           \n
                           你只需要做一次OAuth认证\n</string>
-<string name="oauth_note_ok">OK, 了解</string>
-<string name="oauth_note_ko">不, 算了</string>
-<string name="oauth_dialog_fail">网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
-<string name="oauth_verify_dialog_text">注意!系统的Gmail帐号与验证的帐号不匹配.\n请使用帐号 %1$s 进行认证</string>
-<string name="token_invalidate_dialog_text">Gmail认证信息失效! Gmail提醒功能将自动禁用.\n可能是您修改了密码或者Token已经过期.\n请重新勾选 \"未读GMail\"进行认证.</string>
-<!--  string name="token_invalidate_dialog_title">Token Invalid</string -->
-<string name="token_invalid_notify_title">Gmail认证信息失效!</string>
-<string name="token_invalid_notify_text">点击进行重新认证</string>
+    <string name="oauth_note_ok">OK, 了解</string>
+    <string name="oauth_note_ko">不, 算了</string>
+    <string name="oauth_dialog_fail">网络错误或者被GFW.\n请检查网络配置，或在心中问候方校长，过会儿再重试.</string>
+    <string name="oauth_verify_dialog_text">注意!系统的Gmail帐号与验证的帐号不匹配.\n请使用帐号 %1$s 进行认证</string>
+    <string name="token_invalidate_dialog_text">Gmail认证信息失效! Gmail提醒功能将自动禁用.\n可能是您修改了密码或者Token已经过期.\n请重新勾选 \"未读GMail\"进行认证.</string>
+    <!--  string name="token_invalidate_dialog_title">Token Invalid</string -->
+    <string name="token_invalid_notify_title">Gmail认证信息失效!</string>
+    <string name="token_invalid_notify_text">点击进行重新认证</string>
 
 </resources>

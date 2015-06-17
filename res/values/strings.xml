@@ -1,122 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!-- Shared Strings with other languages -->
-<string name="OK_string">OK</string>
+    <!-- Shared Strings with other languages -->
+    <string name="OK_string">OK</string>
 
-<!-- General Strings -->
-<string name="app_name">MineVibrationSetting</string>
-<string name="widget_name">MineSMSVibrator</string>
-<string name="toggle_vibration_menu">Toggle Vibration</string>
-<string name="vibration_info">Message Vibration: </string>
-<string name="enable_vibration_info">Enable Message Vibration</string>
-<string name="disable_vibration_info">Disable Message Vibration</string>
-<string name="pref_title">Mine Message Vibration Configuration</string>
-<string name="pref_reminder_interval">Reminder Interval</string>
-<string name="pref_vibrate_enable_title">Enable Vibration</string>
-<string name="pref_vibrate_enable_summary_on">Message Vibration is Enabled</string>
-<string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
-<string name="pref_reminder_interval_title">Reminder Interval</string>
-<string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
-<string name="dialog_preview_vibrate_pattern">Preview Pattern</string>
+    <!-- General Strings -->
+    <string name="app_name">MineVibrationSetting</string>
+    <string name="widget_name">MineSMSVibrator</string>
+    <string name="toggle_vibration_menu">Toggle Vibration</string>
+    <string name="vibration_info">Message Vibration: </string>
+    <string name="enable_vibration_info">Enable Message Vibration</string>
+    <string name="disable_vibration_info">Disable Message Vibration</string>
+    <string name="pref_title">Mine Message Vibration Configuration</string>
+    <string name="pref_reminder_interval">Reminder Interval</string>
+    <string name="pref_vibrate_enable_title">Enable Vibration</string>
+    <string name="pref_vibrate_enable_summary_on">Message Vibration is Enabled</string>
+    <string name="pref_vibrate_enable_summary_off">Message Vibration is Disabled</string>
+    <string name="pref_reminder_interval_title">Reminder Interval</string>
+    <string name="pref_reminder_interval_dialogTitle">Interval (minutes)</string>
+    <string name="dialog_preview_vibrate_pattern">Preview Pattern</string>
 
-<!-- Vibration mode preference -->
-<string name="pref_vibration_mode_title">Vibration Mode</string>
-<string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
+    <!-- Vibration mode preference -->
+    <string name="pref_vibration_mode_title">Vibration Mode</string>
+    <string name="pref_vibration_mode_dialogTitle">Set Vibration Mode</string>
 
-<string name="pref_dim_screen_enable_title">Light up Screen</string>
-<string name="pref_dim_screen_enable_summary">Light Screen up when Message comes</string>
+    <string name="pref_dim_screen_enable_title">Light up Screen</string>
+    <string name="pref_dim_screen_enable_summary">Light Screen up when Message comes</string>
 
-<string name="pref_vibrate_pattern_help">Enter a custom vibrate pattern, in the format:\nOff,On,Off,On,etc, in milliseconds\n\nFor example:\n0,1000,500,1000\n0,500,200,500,200,500</string>
-<string name="pref_vibrate_pattern_title">Vibrate Pattern</string>
-<string name="pref_vibrate_pattern_summary">Set the vibration pattern</string>
-<string name="pref_vibrate_pattern_ok">Set Custom vibrate pattern Successfully</string>
-<string name="pref_vibrate_pattern_bad">Vibrate pattern Invalid!\nPattern unchanged</string>
-   
-<string name="pref_reminder_vibrate_catagory">Reminder Preferences</string>
-<string name="pref_reminder_enable_title">Enable Reminder</string>
+    <string name="pref_vibrate_pattern_help">Enter a custom vibrate pattern, in the format:\nOff,On,Off,On,etc, in milliseconds\n\nFor example:\n0,1000,500,1000\n0,500,200,500,200,500</string>
+    <string name="pref_vibrate_pattern_title">Vibrate Pattern</string>
+    <string name="pref_vibrate_pattern_summary">Set the vibration pattern</string>
+    <string name="pref_vibrate_pattern_ok">Set Custom vibrate pattern Successfully</string>
+    <string name="pref_vibrate_pattern_bad">Vibrate pattern Invalid!\nPattern unchanged</string>
 
-<string name="pref_reminder_notification_enable_title">StatusBar Notify</string>
+    <string name="pref_reminder_vibrate_catagory">Reminder Preferences</string>
+    <string name="pref_reminder_enable_title">Enable Reminder</string>
 
-<!-- Reminder Vibration mode preference -->
-<string name="pref_reminder_vibrate_enable_title">Enable Vibrate</string>
-<string name="pref_reminder_vibrate_summary">Reminder will vibrate for every interval</string>
-<string name="pref_reminder_vibrate_enable_summary_on">Reminder Vibration is Enabled</string>
-<string name="pref_reminder_vibrate_enable_summary_off">Reminder Vibration is Disabled</string>
-<string name="pref_reminder_vibration_mode_title">Vibration Mode</string>
-<string name="pref_reminder_vibration_mode_dialogTitle">Set Reminder Vib Mode</string>
+    <string name="pref_reminder_notification_enable_title">StatusBar Notify</string>
 
-<!-- Reminder Sound preference -->
-<string name="pref_reminder_sound_enable_title">Enable Sound</string>
-<string name="pref_reminder_sound_enable_summary_on">Reminder Sound is Enabled</string>
-<string name="pref_reminder_sound_enable_summary_off">Reminder Sound is Disabled</string>
-<string name="pref_reminder_sound_title">Reminder Sound</string>
-<string name="pref_reminder_sound_summary">Reminder will play this sound for every interval</string>
-<string name="pref_custom_interval_title">Custom Interval</string>
-<string name="pref_custom_interval_helptext">Please set custom interval, in minutes</string>
-<string name="pref_custom_interval_bad">Interval invalid, will not change</string>
-<string name="pref_custom_interval_toolarge">Interval too large, will not change</string>
-<string name="pref_custom_interval_summary">Remind on every %1$d minutes</string>
+    <!-- Reminder Vibration mode preference -->
+    <string name="pref_reminder_vibrate_enable_title">Enable Vibrate</string>
+    <string name="pref_reminder_vibrate_summary">Reminder will vibrate for every interval</string>
+    <string name="pref_reminder_vibrate_enable_summary_on">Reminder Vibration is Enabled</string>
+    <string name="pref_reminder_vibrate_enable_summary_off">Reminder Vibration is Disabled</string>
+    <string name="pref_reminder_vibration_mode_title">Vibration Mode</string>
+    <string name="pref_reminder_vibration_mode_dialogTitle">Set Reminder Vib Mode</string>
 
-<!-- Reminder bedtime preference -->
-<string name="pref_reminder_bedtime_title">Bed Time</string>
-<string name="pref_reminder_bedtime_summary">Disable Reminder during bed time</string>
-<string name="pref_reminder_bedtime_time_title">Set Bed Time</string>
-<string name="pref_reminder_bedtime_time_summary">Disable reminder from %1$s:%2$s to %3$s%4$s:%5$s%6$s</string>
-<string name="pref_reminder_bedtime_time_summary_tomorrow">"Tomorrow\'s "</string>
-<string name="pref_reminder_bedtime_time_summary_areyousure">" Are you sure?!"</string>
-<string name="TextViewBedTimeFrom">After: </string>
-<string name="TextViewBedTimeTo">And Before: </string>
+    <!-- Reminder Sound preference -->
+    <string name="pref_reminder_sound_enable_title">Enable Sound</string>
+    <string name="pref_reminder_sound_enable_summary_on">Reminder Sound is Enabled</string>
+    <string name="pref_reminder_sound_enable_summary_off">Reminder Sound is Disabled</string>
+    <string name="pref_reminder_sound_title">Reminder Sound</string>
+    <string name="pref_reminder_sound_summary">Reminder will play this sound for every interval</string>
+    <string name="pref_custom_interval_title">Custom Interval</string>
+    <string name="pref_custom_interval_helptext">Please set custom interval, in minutes</string>
+    <string name="pref_custom_interval_bad">Interval invalid, will not change</string>
+    <string name="pref_custom_interval_toolarge">Interval too large, will not change</string>
+    <string name="pref_custom_interval_summary">Remind on every %1$d minutes</string>
 
-<!--  WakeLock preference -->
-<string name="pref_reminder_wakelock_enable_title">Force Wake Reminder</string>
-<string name="pref_reminder_wakelock_enable_summary_on">Reminder will be forcely waken up</string>
-<string name="pref_reminder_wakelock_enable_summary_off">Don\'t force wake up reminder</string>
+    <!-- Reminder bedtime preference -->
+    <string name="pref_reminder_bedtime_title">Bed Time</string>
+    <string name="pref_reminder_bedtime_summary">Disable Reminder during bed time</string>
+    <string name="pref_reminder_bedtime_time_title">Set Bed Time</string>
+    <string name="pref_reminder_bedtime_time_summary">Disable reminder from %1$s:%2$s to %3$s%4$s:%5$s%6$s</string>
+    <string name="pref_reminder_bedtime_time_summary_tomorrow">"Tomorrow\'s "</string>
+    <string name="pref_reminder_bedtime_time_summary_areyousure">" Are you sure?!"</string>
+    <string name="TextViewBedTimeFrom">After: </string>
+    <string name="TextViewBedTimeTo">And Before: </string>
 
-<!--  Reminder Itmes -->
-<string name="pref_reminder_items_catagory">Additional Reminders</string>
-<string name="pref_reminder_item_missed_call_title">Missed Incoming Calls</string>
-<string name="pref_reminder_item_missed_call_summary">Reminder for Missed Incoming Phone Calls</string>
-<string name="pref_reminder_item_unread_gmail_title">Unread GMails</string>
-<string name="pref_reminder_item_unread_gmail_summary">Reminder for Unread GMails</string>
+    <!--  WakeLock preference -->
+    <string name="pref_reminder_wakelock_enable_title">Force Wake Reminder</string>
+    <string name="pref_reminder_wakelock_enable_summary_on">Reminder will be forcely waken up</string>
+    <string name="pref_reminder_wakelock_enable_summary_off">Don\'t force wake up reminder</string>
 
-<string name="pref_missed_call_notify_title">Notification of Missed Call</string>
-<string name="pref_missed_call_notify_summary">Set notification of missed call reminder</string>
-<string name="pref_missed_call_notify_independent_summary_on">Use Independent Notification for Missed Call</string>
+    <!--  Reminder Itmes -->
+    <string name="pref_reminder_items_catagory">Additional Reminders</string>
+    <string name="pref_reminder_item_missed_call_title">Missed Incoming Calls</string>
+    <string name="pref_reminder_item_missed_call_summary">Reminder for Missed Incoming Phone Calls</string>
+    <string name="pref_reminder_item_unread_gmail_title">Unread GMails</string>
+    <string name="pref_reminder_item_unread_gmail_summary">Reminder for Unread GMails</string>
 
-<string name="pref_unread_gmail_notify_title">Notification of Unread Gmail</string>
-<string name="pref_unread_gmail_notify_summary">Set notification of unread gmail reminder</string>
-<string name="pref_unread_gmail_notify_independent_summary_on">Use Independent Notification for Unread Gmail</string>
+    <string name="pref_missed_call_notify_title">Notification of Missed Call</string>
+    <string name="pref_missed_call_notify_summary">Set notification of missed call reminder</string>
+    <string name="pref_missed_call_notify_independent_summary_on">Use Independent Notification for Missed Call</string>
 
-<string name="pref_notify_independent_summary_off">Use Same Notification as messages</string>
-<string name="pref_missed_call_notify_vib_title">Vibrate Mode</string>
-<string name="pref_notify_independent_title">Independent Notification</string>
+    <string name="pref_unread_gmail_notify_title">Notification of Unread Gmail</string>
+    <string name="pref_unread_gmail_notify_summary">Set notification of unread gmail reminder</string>
+    <string name="pref_unread_gmail_notify_independent_summary_on">Use Independent Notification for Unread Gmail</string>
 
-<!-- Misc preference -->
-<string name="pref_misc_catagory">Misc</string>
-<string name="pref_app_auto_enable_title">Auto Enable Vibrate &amp; Reminder</string>
-<string name="pref_app_auto_enable_summary_on">Auto Enable Vibrate &amp; Reminder in Vibrate mode</string>
-<string name="pref_app_auto_enable_summary_off">Don\'t auto enable Vibrate &amp; Reminder</string>
-<string name="app_auto_enable">Enable Auto Vibration</string>
-<string name="app_auto_disable">Disable Auto Vibration</string>
+    <string name="pref_notify_independent_summary_off">Use Same Notification as messages</string>
+    <string name="pref_missed_call_notify_vib_title">Vibrate Mode</string>
+    <string name="pref_notify_independent_title">Independent Notification</string>
 
-<string name="pref_donate_title">Donate</string>
-<string name="pref_donate_dialog_title">Donate</string>
-<string name="pref_donate_yes_button">Yes</string>
-<string name="pref_donate_no_button">No,thanks</string>
-<string name="pref_donate_summary">If you like this app, please donate~</string>
-<string name="pref_donate_message">Would you like to donate this app?</string>
+    <!-- Misc preference -->
+    <string name="pref_misc_catagory">Misc</string>
+    <string name="pref_app_auto_enable_title">Auto Enable Vibrate &amp; Reminder</string>
+    <string name="pref_app_auto_enable_summary_on">Auto Enable Vibrate &amp; Reminder in Vibrate mode</string>
+    <string name="pref_app_auto_enable_summary_off">Don\'t auto enable Vibrate &amp; Reminder</string>
+    <string name="app_auto_enable">Enable Auto Vibration</string>
+    <string name="app_auto_disable">Disable Auto Vibration</string>
 
-<string name="pref_email_title">Feedback (email)</string>
-<string name="pref_email_summary">Issues, Suggestions? Send me email~</string>
+    <string name="pref_donate_title">Donate</string>
+    <string name="pref_donate_dialog_title">Donate</string>
+    <string name="pref_donate_yes_button">Yes</string>
+    <string name="pref_donate_no_button">No,thanks</string>
+    <string name="pref_donate_summary">If you like this app, please donate~</string>
+    <string name="pref_donate_message">Would you like to donate this app?</string>
 
-<string name="notification_msg_title_format">%1$s Reminder</string>
-<string name="notification_msg_info">Tap to cancel</string>
-<string name="notification_msg_sms">New Message</string>
-<string name="notification_msg_gmail">New Gmail</string>
-<string name="notification_msg_missedphonecall">Missed Phone Call</string>
+    <string name="pref_email_title">Feedback (email)</string>
+    <string name="pref_email_summary">Issues, Suggestions? Send me email~</string>
 
-<!-- First time run help message -->
-<string name="first_run_dialog_title">First Time Run Help</string>
+    <string name="notification_msg_title_format">%1$s Reminder</string>
+    <string name="notification_msg_info">Tap to cancel</string>
+    <string name="notification_msg_sms">New Message</string>
+    <string name="notification_msg_gmail">New Gmail</string>
+    <string name="notification_msg_missedphonecall">Missed Phone Call</string>
+
+    <!-- First time run help message -->
+    <string name="first_run_dialog_title">First Time Run Help</string>
 <string name="first_run_dialog_message">
 Simple Steps to toggle message vibration:\n
 1) Disable default message application\'s vibrate\n
@@ -131,7 +131,7 @@ Furthermore\n
 4） Set a reminder sound
 </string>
 
-<string name="upgraded_run_dialog_title">What\'s New</string>
+    <string name="upgraded_run_dialog_title">What\'s New</string>
 <string name="upgraded_run_dialog_message">
 MineMessageVibrator is upgraded!\n
 \n
@@ -182,23 +182,23 @@ If you have any problems or suggestions, please email me. Otherwise I\'m not abl
 1.02: Do not vibrate when phone in silent mode
 </string>
 
-<string name="menu_help_string">Help</string>
-<string name="menu_whatsnew_string">What\'s New</string>
+    <string name="menu_help_string">Help</string>
+    <string name="menu_whatsnew_string">What\'s New</string>
 
-<!--  OAuth strings -->
-<string name="auth">GoTo Auth</string>
+    <!--  OAuth strings -->
+    <string name="auth">GoTo Auth</string>
 <string name="oauth_note">You will be re-direct to Gmail to authenticate this app as host: mine-vibration.\n
                           Please grant the access permission to enable Gmail reminder, 
                           this app will only get the unread feed and count the unread number of your emails.\n
                           If you don\'t grant the permission, it\'s OK but you will not get the reminder work.\n
                           \n
                           You need to do this for only once.</string>
-<string name="oauth_note_ok">OK, go ahead</string>
-<string name="oauth_note_ko">No, go back</string>
-<string name="oauth_dialog_fail">Network Unreachable.\nCheck your network settings or wait and retry.</string>
-<string name="oauth_verify_dialog_text">Caution! The System Gmail Account does NOT match the authenticated account!\n You need to authenticate with %1$s</string>
-<string name="token_invalidate_dialog_text">Your Gmail Authentication becomes invalid. So Gmail Reminder is disabled.\nIt is possible if you changed your password or it simply expire.\nPlease click \"Unread Gmail\" to re-authenticate.</string>
-<string name="token_invalidate_dialog_title">Token Invalid</string>
-<string name="token_invalid_notify_title">Gmail token becomes invalid!</string>
-<string name="token_invalid_notify_text">Click to re-authenticate</string>
+    <string name="oauth_note_ok">OK, go ahead</string>
+    <string name="oauth_note_ko">No, go back</string>
+    <string name="oauth_dialog_fail">Network Unreachable.\nCheck your network settings or wait and retry.</string>
+    <string name="oauth_verify_dialog_text">Caution! The System Gmail Account does NOT match the authenticated account!\n You need to authenticate with %1$s</string>
+    <string name="token_invalidate_dialog_text">Your Gmail Authentication becomes invalid. So Gmail Reminder is disabled.\nIt is possible if you changed your password or it simply expire.\nPlease click \"Unread Gmail\" to re-authenticate.</string>
+    <string name="token_invalidate_dialog_title">Token Invalid</string>
+    <string name="token_invalid_notify_title">Gmail token becomes invalid!</string>
+    <string name="token_invalid_notify_text">Click to re-authenticate</string>
 </resources>

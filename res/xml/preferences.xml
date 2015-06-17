@@ -1,220 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-  
-<PreferenceCategory android:title="@string/pref_title">
-<com.mine.MineVibrationEnableCheckBoxPreference
-    android:key="@string/pref_vibrate_enable_key"
-    android:title="@string/pref_vibrate_enable_title" 
-    android:summaryOn="@string/pref_vibrate_enable_summary_on" 
-    android:summaryOff="@string/pref_vibrate_enable_summary_off">
-</com.mine.MineVibrationEnableCheckBoxPreference>
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-<com.mine.CustomVibrateListPreference
-    android:key="@string/pref_vibration_mode_key"
-    android:title="@string/pref_vibration_mode_title"
-    android:entries="@array/pref_vibration_mode_entries"
-    android:entryValues="@array/pref_vibration_mode_entries"
-    android:dialogTitle="@string/pref_vibration_mode_dialogTitle"
-    android:defaultValue="@string/pref_vibration_mode_default"
-    android:dependency="@string/pref_vibrate_enable_key"
->
-</com.mine.CustomVibrateListPreference>
+    <PreferenceCategory android:title="@string/pref_title">
+        <com.mine.MineVibrationEnableCheckBoxPreference
+            android:key="@string/pref_vibrate_enable_key"
+            android:summaryOff="@string/pref_vibrate_enable_summary_off"
+            android:summaryOn="@string/pref_vibrate_enable_summary_on"
+            android:title="@string/pref_vibrate_enable_title">
+        </com.mine.MineVibrationEnableCheckBoxPreference>
 
-<CheckBoxPreference
-    android:key="@string/pref_dim_screen_enable_key"
-    android:title="@string/pref_dim_screen_enable_title" 
-    android:summary="@string/pref_dim_screen_enable_summary">
-</CheckBoxPreference>
+        <com.mine.CustomVibrateListPreference
+            android:defaultValue="@string/pref_vibration_mode_default"
+            android:dependency="@string/pref_vibrate_enable_key"
+            android:dialogTitle="@string/pref_vibration_mode_dialogTitle"
+            android:entries="@array/pref_vibration_mode_entries"
+            android:entryValues="@array/pref_vibration_mode_entries"
+            android:key="@string/pref_vibration_mode_key"
+            android:title="@string/pref_vibration_mode_title"
+            >
+        </com.mine.CustomVibrateListPreference>
 
-</PreferenceCategory>
+        <CheckBoxPreference
+            android:key="@string/pref_dim_screen_enable_key"
+            android:summary="@string/pref_dim_screen_enable_summary"
+            android:title="@string/pref_dim_screen_enable_title">
+        </CheckBoxPreference>
 
-<PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
-<com.mine.MineReminderEnableCheckBoxPreference  
-    android:key="@string/pref_reminder_enable_key"
-    android:title="@string/pref_reminder_enable_title"
-/>
+    </PreferenceCategory>
 
-<CheckBoxPreference
-    android:key="@string/pref_reminder_notification_enable_key"
-    android:title="@string/pref_reminder_notification_enable_title"
-    android:enabled="true"
-    android:defaultValue="true"
-/>
+    <PreferenceCategory android:title="@string/pref_reminder_vibrate_catagory">
+        <com.mine.MineReminderEnableCheckBoxPreference
+            android:key="@string/pref_reminder_enable_key"
+            android:title="@string/pref_reminder_enable_title"
+            />
 
-<com.mine.CustomVibrateListPreference
-    android:key="@string/pref_reminder_vibration_mode_key"
-    android:title="@string/pref_reminder_vibration_mode_title"
-    android:entries="@array/pref_reminder_vibration_mode_entries"
-    android:entryValues="@array/pref_reminder_vibration_mode_entries"
-    android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
-    android:defaultValue="@string/pref_reminder_vibration_mode_default"
-    android:dependency="@string/pref_reminder_enable_key"
-    android:summary="@string/pref_reminder_vibrate_summary"
->
-</com.mine.CustomVibrateListPreference>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="@string/pref_reminder_notification_enable_key"
+            android:title="@string/pref_reminder_notification_enable_title"
+            />
 
-<com.mine.MineReminderSoundCheckBoxPreference
-    android:key="@string/pref_reminder_sound_enable_key"
-    android:title="@string/pref_reminder_sound_enable_title"
-    android:summaryOn="@string/pref_reminder_sound_enable_summary_on" 
-    android:summaryOff="@string/pref_reminder_sound_enable_summary_off"
-    android:dependency="@string/pref_reminder_enable_key"
->
-</com.mine.MineReminderSoundCheckBoxPreference>
+        <com.mine.CustomVibrateListPreference
+            android:defaultValue="@string/pref_reminder_vibration_mode_default"
+            android:dependency="@string/pref_reminder_enable_key"
+            android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
+            android:entries="@array/pref_reminder_vibration_mode_entries"
+            android:entryValues="@array/pref_reminder_vibration_mode_entries"
+            android:key="@string/pref_reminder_vibration_mode_key"
+            android:summary="@string/pref_reminder_vibrate_summary"
+            android:title="@string/pref_reminder_vibration_mode_title"
+            >
+        </com.mine.CustomVibrateListPreference>
 
-<RingtonePreference
-    android:key="@string/pref_reminder_sound_key"
-    android:title="@string/pref_reminder_sound_title"
-    android:summary="@string/pref_reminder_sound_summary"
-    android:ringtoneType="notification"
-    android:showDefault="true"
-    android:showSilent="true"
-    android:dependency="@string/pref_reminder_sound_enable_key"
-    android:defaultValue="content://settings/system/notification_sound" 
-/>
+        <com.mine.MineReminderSoundCheckBoxPreference
+            android:dependency="@string/pref_reminder_enable_key"
+            android:key="@string/pref_reminder_sound_enable_key"
+            android:summaryOff="@string/pref_reminder_sound_enable_summary_off"
+            android:summaryOn="@string/pref_reminder_sound_enable_summary_on"
+            android:title="@string/pref_reminder_sound_enable_title"
+            >
+        </com.mine.MineReminderSoundCheckBoxPreference>
 
-<com.mine.CustomIntervalListPreference
-    android:key="@string/pref_reminder_interval_key"
-    android:title="@string/pref_reminder_interval_title"
-    android:entries="@array/pref_reminder_interval_entries"
-    android:entryValues="@array/pref_reminder_interval_entries"
-    android:dialogTitle="@string/pref_reminder_interval_dialogTitle"
-    android:defaultValue="@string/pref_reminder_interval_default"
-    android:dependency="@string/pref_reminder_enable_key"
->
-</com.mine.CustomIntervalListPreference>
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="@string/pref_reminder_sound_enable_key"
+            android:key="@string/pref_reminder_sound_key"
+            android:ringtoneType="notification"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:summary="@string/pref_reminder_sound_summary"
+            android:title="@string/pref_reminder_sound_title"
+            />
 
-<CheckBoxPreference
-    android:key="@string/pref_reminder_bedtime_enable_key"
-    android:title="@string/pref_reminder_bedtime_title"
-    android:summary="@string/pref_reminder_bedtime_summary"
-    android:dependency="@string/pref_reminder_enable_key"
-/>
+        <com.mine.CustomIntervalListPreference
+            android:defaultValue="@string/pref_reminder_interval_default"
+            android:dependency="@string/pref_reminder_enable_key"
+            android:dialogTitle="@string/pref_reminder_interval_dialogTitle"
+            android:entries="@array/pref_reminder_interval_entries"
+            android:entryValues="@array/pref_reminder_interval_entries"
+            android:key="@string/pref_reminder_interval_key"
+            android:title="@string/pref_reminder_interval_title"
+            >
+        </com.mine.CustomIntervalListPreference>
 
-<com.mine.MineTimePickerPreference
-    android:key="@string/pref_reminder_bedtime_time"
-    android:title="@string/pref_reminder_bedtime_time_title"
-    android:dialogLayout="@layout/bedtimelayout"
-    android:dependency="@string/pref_reminder_bedtime_enable_key"
-/>
+        <CheckBoxPreference
+            android:dependency="@string/pref_reminder_enable_key"
+            android:key="@string/pref_reminder_bedtime_enable_key"
+            android:summary="@string/pref_reminder_bedtime_summary"
+            android:title="@string/pref_reminder_bedtime_title"
+            />
 
-<CheckBoxPreference 
-    android:key="@string/pref_reminder_wakelock_enable_key"
-    android:title="@string/pref_reminder_wakelock_enable_title"
-    android:summaryOn="@string/pref_reminder_wakelock_enable_summary_on" 
-    android:summaryOff="@string/pref_reminder_wakelock_enable_summary_off"
-    android:dependency="@string/pref_reminder_enable_key"
-/>
+        <com.mine.MineTimePickerPreference
+            android:dependency="@string/pref_reminder_bedtime_enable_key"
+            android:dialogLayout="@layout/bedtimelayout"
+            android:key="@string/pref_reminder_bedtime_time"
+            android:title="@string/pref_reminder_bedtime_time_title"
+            />
 
-</PreferenceCategory>
+        <CheckBoxPreference
+            android:dependency="@string/pref_reminder_enable_key"
+            android:key="@string/pref_reminder_wakelock_enable_key"
+            android:summaryOff="@string/pref_reminder_wakelock_enable_summary_off"
+            android:summaryOn="@string/pref_reminder_wakelock_enable_summary_on"
+            android:title="@string/pref_reminder_wakelock_enable_title"
+            />
 
-
-<PreferenceCategory android:title="@string/pref_reminder_items_catagory">
-<com.mine.MineReminderMissedPhoneCallCheckbox
-	android:key="@string/pref_reminder_item_missed_call_key"
-	android:title="@string/pref_reminder_item_missed_call_title"
-	android:summary="@string/pref_reminder_item_missed_call_summary"
-	android:dependency="@string/pref_reminder_enable_key"
-/>
-<PreferenceScreen
-    android:title="@string/pref_missed_call_notify_title"
-    android:key="pref_missed_call_notify"
-    android:summary="@string/pref_missed_call_notify_summary"
-    android:dependency="@string/pref_reminder_item_missed_call_key">
-	
-	<CheckBoxPreference
-        android:key="@string/pref_missed_call_notify_independent_key"
-        android:title="@string/pref_notify_independent_title"
-        android:summaryOn="@string/pref_missed_call_notify_independent_summary_on"
-        android:summaryOff="@string/pref_notify_independent_summary_off"
-	/>
-	
-	<com.mine.CustomVibrateListPreference
-	    android:key="@string/pref_missed_call_notify_vib_key"
-	    android:title="@string/pref_missed_call_notify_vib_title"
-	    android:entries="@array/pref_reminder_vibration_mode_entries"
-	    android:entryValues="@array/pref_reminder_vibration_mode_entries"
-	    android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
-	    android:defaultValue="@string/pref_reminder_vibration_mode_default"
-	    android:dependency="@string/pref_missed_call_notify_independent_key"
-	/>
-
-	<RingtonePreference
-	    android:key="@string/pref_missed_call_notify_sound_key"
-	    android:title="@string/pref_reminder_sound_title"
-	    android:ringtoneType="notification"
-	    android:showDefault="true"
-	    android:showSilent="true"
-	    android:defaultValue="content://settings/system/notification_sound"
-	    android:dependency="@string/pref_missed_call_notify_independent_key"
-	/>
-</PreferenceScreen>
-      
-<com.mine.MineReminderMissedPhoneCallCheckbox
-    android:key="@string/pref_reminder_item_unread_gmail_key"
-    android:title="@string/pref_reminder_item_unread_gmail_title"
-    android:summary="@string/pref_reminder_item_unread_gmail_summary"
-    android:dependency="@string/pref_reminder_enable_key"
-/>
-<PreferenceScreen
-    android:title="@string/pref_unread_gmail_notify_title"
-    android:key="pref_unread_gmail_notify"
-    android:summary="@string/pref_unread_gmail_notify_summary"
-    android:dependency="@string/pref_reminder_item_unread_gmail_key">
-
-    <CheckBoxPreference
-        android:key="@string/pref_unread_gmail_notify_independent_key"
-        android:title="@string/pref_notify_independent_title"
-        android:summaryOn="@string/pref_unread_gmail_notify_independent_summary_on"
-        android:summaryOff="@string/pref_notify_independent_summary_off"
-    />
-
-    <com.mine.CustomVibrateListPreference
-        android:key="@string/pref_unread_gmail_notify_vib_key"
-        android:title="@string/pref_missed_call_notify_vib_title"
-        android:entries="@array/pref_reminder_vibration_mode_entries"
-        android:entryValues="@array/pref_reminder_vibration_mode_entries"
-        android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
-        android:defaultValue="@string/pref_reminder_vibration_mode_default"
-        android:dependency="@string/pref_unread_gmail_notify_independent_key"
-    />
-
-    <RingtonePreference
-        android:key="@string/pref_unread_gmail_notify_sound_key"
-        android:title="@string/pref_reminder_sound_title"
-        android:ringtoneType="notification"
-        android:showDefault="true"
-        android:showSilent="true"
-        android:defaultValue="content://settings/system/notification_sound"
-        android:dependency="@string/pref_unread_gmail_notify_independent_key"
-    />
-</PreferenceScreen>
-</PreferenceCategory>
+    </PreferenceCategory>
 
 
-<PreferenceCategory android:title="@string/pref_misc_catagory">
+    <PreferenceCategory android:title="@string/pref_reminder_items_catagory">
+        <com.mine.MineReminderMissedPhoneCallCheckbox
+            android:dependency="@string/pref_reminder_enable_key"
+            android:key="@string/pref_reminder_item_missed_call_key"
+            android:summary="@string/pref_reminder_item_missed_call_summary"
+            android:title="@string/pref_reminder_item_missed_call_title"
+            />
+        <PreferenceScreen
+            android:dependency="@string/pref_reminder_item_missed_call_key"
+            android:key="pref_missed_call_notify"
+            android:summary="@string/pref_missed_call_notify_summary"
+            android:title="@string/pref_missed_call_notify_title">
 
-<com.mine.MineAppAutoEnableCheckbox 
-    android:key="@string/pref_app_auto_enable_key"
-    android:title="@string/pref_app_auto_enable_title"
-    android:summaryOn="@string/pref_app_auto_enable_summary_on" 
-    android:summaryOff="@string/pref_app_auto_enable_summary_off"
-/>
+            <CheckBoxPreference
+                android:key="@string/pref_missed_call_notify_independent_key"
+                android:summaryOff="@string/pref_notify_independent_summary_off"
+                android:summaryOn="@string/pref_missed_call_notify_independent_summary_on"
+                android:title="@string/pref_notify_independent_title"
+                />
 
-<com.mine.MineDonateDialog
-    android:title="@string/pref_donate_title"
-	android:dialogTitle="@string/pref_donate_dialog_title"
-	android:negativeButtonText="@string/pref_donate_no_button"
-	android:positiveButtonText="@string/pref_donate_yes_button"
-	android:dialogMessage="@string/pref_donate_message"
-	android:summary="@string/pref_donate_summary"
-/>
+            <com.mine.CustomVibrateListPreference
+                android:defaultValue="@string/pref_reminder_vibration_mode_default"
+                android:dependency="@string/pref_missed_call_notify_independent_key"
+                android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
+                android:entries="@array/pref_reminder_vibration_mode_entries"
+                android:entryValues="@array/pref_reminder_vibration_mode_entries"
+                android:key="@string/pref_missed_call_notify_vib_key"
+                android:title="@string/pref_missed_call_notify_vib_title"
+                />
 
-<com.mine.MineFeedbackPreference
-    android:title="@string/pref_email_title"
-    android:summary="@string/pref_email_summary"
-/>
+            <RingtonePreference
+                android:defaultValue="content://settings/system/notification_sound"
+                android:dependency="@string/pref_missed_call_notify_independent_key"
+                android:key="@string/pref_missed_call_notify_sound_key"
+                android:ringtoneType="notification"
+                android:showDefault="true"
+                android:showSilent="true"
+                android:title="@string/pref_reminder_sound_title"
+                />
+        </PreferenceScreen>
 
-</PreferenceCategory>
+        <com.mine.MineReminderMissedPhoneCallCheckbox
+            android:dependency="@string/pref_reminder_enable_key"
+            android:key="@string/pref_reminder_item_unread_gmail_key"
+            android:summary="@string/pref_reminder_item_unread_gmail_summary"
+            android:title="@string/pref_reminder_item_unread_gmail_title"
+            />
+        <PreferenceScreen
+            android:dependency="@string/pref_reminder_item_unread_gmail_key"
+            android:key="pref_unread_gmail_notify"
+            android:summary="@string/pref_unread_gmail_notify_summary"
+            android:title="@string/pref_unread_gmail_notify_title">
+
+            <CheckBoxPreference
+                android:key="@string/pref_unread_gmail_notify_independent_key"
+                android:summaryOff="@string/pref_notify_independent_summary_off"
+                android:summaryOn="@string/pref_unread_gmail_notify_independent_summary_on"
+                android:title="@string/pref_notify_independent_title"
+                />
+
+            <com.mine.CustomVibrateListPreference
+                android:defaultValue="@string/pref_reminder_vibration_mode_default"
+                android:dependency="@string/pref_unread_gmail_notify_independent_key"
+                android:dialogTitle="@string/pref_reminder_vibration_mode_dialogTitle"
+                android:entries="@array/pref_reminder_vibration_mode_entries"
+                android:entryValues="@array/pref_reminder_vibration_mode_entries"
+                android:key="@string/pref_unread_gmail_notify_vib_key"
+                android:title="@string/pref_missed_call_notify_vib_title"
+                />
+
+            <RingtonePreference
+                android:defaultValue="content://settings/system/notification_sound"
+                android:dependency="@string/pref_unread_gmail_notify_independent_key"
+                android:key="@string/pref_unread_gmail_notify_sound_key"
+                android:ringtoneType="notification"
+                android:showDefault="true"
+                android:showSilent="true"
+                android:title="@string/pref_reminder_sound_title"
+                />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/pref_misc_catagory">
+
+        <com.mine.MineAppAutoEnableCheckbox
+            android:key="@string/pref_app_auto_enable_key"
+            android:summaryOff="@string/pref_app_auto_enable_summary_off"
+            android:summaryOn="@string/pref_app_auto_enable_summary_on"
+            android:title="@string/pref_app_auto_enable_title"
+            />
+
+        <com.mine.MineDonateDialog
+            android:dialogMessage="@string/pref_donate_message"
+            android:dialogTitle="@string/pref_donate_dialog_title"
+            android:negativeButtonText="@string/pref_donate_no_button"
+            android:positiveButtonText="@string/pref_donate_yes_button"
+            android:summary="@string/pref_donate_summary"
+            android:title="@string/pref_donate_title"
+            />
+
+        <com.mine.MineFeedbackPreference
+            android:summary="@string/pref_email_summary"
+            android:title="@string/pref_email_title"
+            />
+
+    </PreferenceCategory>
 </PreferenceScreen>

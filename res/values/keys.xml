@@ -22,16 +22,16 @@
     <string name="pref_reminder_item_missed_call_key">reminderItemMissedCall</string>
     <string name="pref_reminder_item_unread_gmail_key">reminderItemUnreadGmail</string>
     <string name="pref_app_auto_enable_key">appAutoEnable</string>
-    
+
     <string name="pref_missed_call_notify_independent_key">missedCallIndependent</string>
     <string name="pref_missed_call_notify_vib_key">missedCallNotifyVib</string>
     <string name="pref_missed_call_notify_sound_key">missedCallNotifySound</string>
     <string name="pref_missed_call_vibrate_pattern_key">missedCallVibratePattern</string>
-    
+
     <string name="pref_unread_gmail_notify_independent_key">unreadGmailIndependent</string>
     <string name="pref_unread_gmail_notify_vib_key">unreadGmailNotifyVib</string>
     <string name="pref_unread_gmail_notify_sound_key">unreadGmailNotifySound</string>
-    <string name="pref_unread_gmail_vibrate_pattern_key">unreadGmailVibratePattern</string>    
+    <string name="pref_unread_gmail_vibrate_pattern_key">unreadGmailVibratePattern</string>
     <string name="pref_unread_gmail_count">unreadGmailCount</string>
 
     <!-- Invisible settings -->

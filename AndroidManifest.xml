@@ -1,118 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.mine"
-      android:versionName="1.16.1" android:versionCode="24">
+<manifest package="com.mine"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="24"
+          android:versionName="1.16.1">
 
-  <uses-permission
-    android:name="android.permission.RECEIVE_SMS" />
-  <uses-permission
-    android:name="android.permission.RECEIVE_MMS" />
-  <uses-permission
-    android:name="android.permission.VIBRATE" />
-  <uses-permission
-    android:name="android.permission.READ_PHONE_STATE" />
-  <uses-permission
-    android:name="android.permission.READ_SMS" />
-  <uses-permission
-    android:name="android.permission.READ_CONTACTS" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission
+        android:name="android.permission.RECEIVE_MMS"/>
+    <uses-permission
+        android:name="android.permission.VIBRATE"/>
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission
+        android:name="android.permission.READ_SMS"/>
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
-  <!-- AdMob SDK requires Internet permission -->
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- AdMob SDK requires Internet permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-  <uses-sdk android:minSdkVersion="5"
-            android:targetSdkVersion="22" />
-  
-    <application android:icon="@drawable/icon"
-                 android:label="@string/app_name"
-                 android:allowBackup="true">
-    
-        <activity android:name=".MineVibrationTabView"
-                  android:label="@string/app_name">
+    <uses-sdk
+        android:minSdkVersion="5"
+        android:targetSdkVersion="22"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name">
+
+        <activity
+            android:name=".MineVibrationTabView"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MineVibrationSetting" 
-                  android:label="@string/app_name" />
-        <activity android:name=".oauth.MineOAuthAccessActivity" android:launchMode="singleTask">
+        <activity
+            android:name=".MineVibrationSetting"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".oauth.MineOAuthAccessActivity"
+            android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="mine-activity" android:host="mine-vibration"/>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="mine-vibration"
+                    android:scheme="mine-activity"/>
             </intent-filter>
         </activity>
-    <receiver
-      android:name=".MineMessageReceiver">
-      <intent-filter>
-        <action
-          android:name="android.provider.Telephony.SMS_RECEIVED" />
-      </intent-filter>
-      <intent-filter>
-        <action
-          android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
-        <data
-          android:mimeType="application/vnd.wap.mms-message" />
-      </intent-filter>
-      <intent-filter>
-        <action
-          android:name="android.intent.action.TRANSACTION_COMPLETED_ACTION" />
-      </intent-filter>
-    </receiver>
-    
-    <receiver android:name="MineUpdateViewReceiver" />
 
-    <receiver android:name=".MineMessageReminderReceiver" />
-    
-    <receiver android:name=".MineRingerModeChangeReceiver">
-      <intent-filter>
-        <action android:name="android.media.RINGER_MODE_CHANGED" />
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="com.mine.GMAIL_TOKEN_CALLBACK" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.PROVIDER_CHANGED" />
-        <data android:scheme="content" android:host="gmail-ls"/>
-      </intent-filter>
-    </receiver>
+        <receiver
+            android:name=".MineMessageReceiver">
+            <intent-filter>
+                <action
+                    android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action
+                    android:name="android.provider.Telephony.WAP_PUSH_RECEIVED"/>
+                <data
+                    android:mimeType="application/vnd.wap.mms-message"/>
+            </intent-filter>
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.TRANSACTION_COMPLETED_ACTION"/>
+            </intent-filter>
+        </receiver>
 
-    <service
-      android:name=".MineMessageReceiverService" />
-    <service
-      android:name=".MineMessageReminderService" />
-    <service
-      android:name=".MineTelephonyListenService"
-      android:exported="false" >
-      <intent-filter>
-        <action android:name="com.mine.START_TELEPHONY_LISTEN" />
-        <action android:name="com.mine.INCOMING_CALL_RECEIVED" />
-        <action android:name="com.mine.STOP_TELEPHONY_LISTEN" />
-        <action android:name="com.mine.UNREAD_GMAIL_RECEIVED" />
-        <action android:name="com.mine.START_GMAIL_WATCHER" />
-        <action android:name="com.mine.STOP_GMAIL_WATCHER" />
-        <action android:name="com.mine.GMAIL_CHANGED" />
-      </intent-filter>
-    </service>
-    
-    <receiver android:name=".MineMessageVibratorWidget" android:label="@string/widget_name">
-        <intent-filter>
-            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            <action android:name="com.mine.MESSAGE_VIBRATION_CHANGED" />
-        </intent-filter>
-        <meta-data android:name="android.appwidget.provider"
-                   android:resource="@xml/widget" />
-    </receiver>
+        <receiver android:name="MineUpdateViewReceiver"/>
 
-    <!-- AdMobActivity definition -->
-    <activity android:name="com.google.ads.AdActivity"
-          android:configChanges="keyboard|keyboardHidden|orientation" />
-</application>
+        <receiver android:name=".MineMessageReminderReceiver"/>
+
+        <receiver android:name=".MineRingerModeChangeReceiver">
+            <intent-filter>
+                <action android:name="android.media.RINGER_MODE_CHANGED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.mine.GMAIL_TOKEN_CALLBACK"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
+                <data
+                    android:host="gmail-ls"
+                    android:scheme="content"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".MineMessageReceiverService"/>
+        <service
+            android:name=".MineMessageReminderService"/>
+        <service
+            android:name=".MineTelephonyListenService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.mine.START_TELEPHONY_LISTEN"/>
+                <action android:name="com.mine.INCOMING_CALL_RECEIVED"/>
+                <action android:name="com.mine.STOP_TELEPHONY_LISTEN"/>
+                <action android:name="com.mine.UNREAD_GMAIL_RECEIVED"/>
+                <action android:name="com.mine.START_GMAIL_WATCHER"/>
+                <action android:name="com.mine.STOP_GMAIL_WATCHER"/>
+                <action android:name="com.mine.GMAIL_CHANGED"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".MineMessageVibratorWidget"
+            android:label="@string/widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.mine.MESSAGE_VIBRATION_CHANGED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget"/>
+        </receiver>
+
+        <!-- AdMobActivity definition -->
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"/>
+    </application>
 
 </manifest> 

@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    android:id="@android:id/tabhost" android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<TabHost android:id="@android:id/tabhost"
+         xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+         xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
 
-    <LinearLayout android:orientation="vertical"
-            android:layout_width="fill_parent" android:layout_height="fill_parent">
-                    
-            <com.google.ads.AdView android:id="@+id/ad"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:visibility="visible"  
-                    ads:adUnitId="a14d214ef2c8a68"
-                    ads:adSize="BANNER"
-                    ads:loadAdOnCreate="true" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-            <TabWidget android:id="@android:id/tabs"
-                    android:layout_width="fill_parent" android:layout_height="1dp"
-                    android:visibility="invisible" />
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible"
+            ads:adSize="BANNER"
+            ads:adUnitId="a14d214ef2c8a68"
+            ads:loadAdOnCreate="true"/>
 
-            <FrameLayout android:id="@android:id/tabcontent"
-                    android:layout_width="fill_parent" android:layout_height="fill_parent"
-                    android:padding="1dp" />
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:visibility="invisible"/>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="1dp"/>
     </LinearLayout>
 </TabHost>
