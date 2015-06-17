@@ -63,7 +63,8 @@ public class MineRingerModeChangeReceiver extends BroadcastReceiver {
 			// any other devices to test...
 			if (android.os.Build.VERSION.SDK_INT >= 11 /* VERSION CODE of HONEYCOMB */
 				  && MineVibrationToggler.GetUnreadGmailReminderEnabled(context)) {
-				Intent intent = new Intent(MineTelephonyListenService.ACTION_GMAIL_CHANGED);
+				Intent intent = new Intent(context, MineTelephonyListenService.class);
+				intent.setAction(MineTelephonyListenService.ACTION_GMAIL_CHANGED);
 				context.startService(intent);
 			}
 		}

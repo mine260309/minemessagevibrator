@@ -288,7 +288,8 @@ public class MineTelephonyListenService extends Service {
     }
 
 	public static void startTelephonyListener(Context context) {
-		Intent intent = new Intent(ACTION_START_TELEPHONY_LISTEN);
+		Intent intent = new Intent(context, MineTelephonyListenService.class);
+		intent.setAction(MineTelephonyListenService.ACTION_START_TELEPHONY_LISTEN);
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
@@ -300,8 +301,9 @@ public class MineTelephonyListenService extends Service {
 	}
 	
 	public static void stopTelephonyListener(Context context) {
-		Intent intent = new Intent(ACTION_STOP_TELEPHONY_LISTEN);
-		
+    Intent intent = new Intent(context, MineTelephonyListenService.class);
+    intent.setAction(MineTelephonyListenService.ACTION_STOP_TELEPHONY_LISTEN);
+
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
@@ -313,7 +315,8 @@ public class MineTelephonyListenService extends Service {
 	}
 
 	public static void startGmailWatcher(Context context) {
-		Intent intent = new Intent(ACTION_START_GMAIL_WATCHER);
+    Intent intent = new Intent(context, MineTelephonyListenService.class);
+    intent.setAction(MineTelephonyListenService.ACTION_START_GMAIL_WATCHER);
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
@@ -325,8 +328,9 @@ public class MineTelephonyListenService extends Service {
 	}
 	
 	public static void stopGmailWatcher(Context context) {
-		Intent intent = new Intent(ACTION_STOP_GMAIL_WATCHER);
-		
+    Intent intent = new Intent(context, MineTelephonyListenService.class);
+    intent.setAction(MineTelephonyListenService.ACTION_STOP_GMAIL_WATCHER);
+
 		Context appContext = MineVibrationTabView.getContext();
 		if (appContext != null) {
 			appContext.startService(intent);
