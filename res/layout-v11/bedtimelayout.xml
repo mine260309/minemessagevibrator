@@ -25,7 +25,8 @@
         <TimePicker
             android:id="@+id/TimePickerBedTimeFrom"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@android:style/Theme.Holo">
         </TimePicker>
 
         <TextView
@@ -40,7 +41,8 @@
         <TimePicker
             android:id="@+id/TimePickerBedTimeTo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@android:style/Theme.Holo">
         </TimePicker>
 
     </LinearLayout>
